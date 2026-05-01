@@ -35,12 +35,13 @@ Thanks for your interest in contributing! This guide covers how to add commands,
    ---
    name: your-agent
    description: What it does
-   model: fast | inherit
+   model: inherit
    is_background: true | false
    ---
    ```
-2. Add to the subagent table in `agent-manual.md` and `sdd-system.mdc`
-3. Document when to delegate to it in the Delegation Guidelines
+2. Use `inherit` by default. If a specific model is required, use an exact Cursor-supported model ID rather than an alias.
+3. Add to the subagent table in `agent-manual.md` and `sdd-system.mdc`
+4. Document when to delegate to it in the Delegation Guidelines
 
 ## Adding a New Skill
 

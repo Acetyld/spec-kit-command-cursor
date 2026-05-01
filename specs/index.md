@@ -50,4 +50,4 @@ Each command writes to `specs/active/[task-id]/`:
 Project roadmaps go to `specs/todo-roadmap/[project-id]/`.
 
 ---
-**Version:** SDD 5.0
+**Version:** SDD 5.1

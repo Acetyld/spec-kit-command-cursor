@@ -1,7 +1,7 @@
 {
   "name": "sdd-spec-kit",
   "displayName": "SDD Spec Kit",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Spec-Driven Development framework with subagents, skills, and DAG-based parallel execution. Plan-approve-execute workflow for systematic feature development.",
   "author": {
     "name": "spec-kit",

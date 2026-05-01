@@ -1,23 +1,24 @@
-# SDD Cursor Commands v5.0
+# SDD Cursor Commands v5.1
 
 <div align="center">
 
 [![GitHub stars](https://img.shields.io/github/stars/madebyaris/spec-kit-command-cursor?style=social)](https://github.com/madebyaris/spec-kit-command-cursor/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Cursor 2.5+](https://img.shields.io/badge/Cursor-2.5%2B-blue)](https://cursor.com)
+[![Cursor 3.2+](https://img.shields.io/badge/Cursor-3.2%2B-blue)](https://cursor.com)
+[![Cursor 3.2 optimized](https://img.shields.io/badge/Cursor-3.2%20optimized-purple)](https://cursor.com/changelog/04-24-26)
 
 **Spec-Driven Development for Cursor IDE**
 
 Create specifications before code. Plan-approve-execute for all operations.
 
-[Quick Start](#quick-start) • [Commands](#commands) • [Subagents & Skills](#subagents--skills) • [What's New](#whats-new-in-v50) • [Contributing](#contributing)
+[Quick Start](#quick-start) • [Commands](#commands) • [Subagents & Skills](#subagents--skills) • [What's New](#whats-new-in-v51) • [Contributing](#contributing)
 
 </div>
 
 ---
 
-## What's New in v5.0
+## What's New in v5.1
 
 - **Async Subagents** — Background subagents (`is_background: true`) let the parent agent continue working while long tasks run
 - **Subagent Tree** — Subagents spawn their own subagents: orchestrator → implementers → verifiers
@@ -28,6 +29,7 @@ Create specifications before code. Plan-approve-execute for all operations.
 - **Downstream Propagation** — `/evolve` marks stale downstream docs when a spec changes
 - **Deadlock Detection** — Orchestrator detects circular dependency deadlocks and per-task timeouts
 - **Hooks** — Workflow automation via `.cursor/hooks.json` (`subagentStop`, `stop` events)
+- **Cursor 3.2 Agent Runtime** — Guidance for `/multitask`, Agents Window worktrees, and multi-root sessions
 - **Sandbox Controls** — Granular network access via `.cursor/sandbox.json`
 - **Plugin Packaging** — Distributable as a Cursor Marketplace plugin (`.cursor-plugin/`)
 
@@ -55,6 +57,11 @@ cd spec-kit-command-cursor
 ```bash
 /research database-engine Best database for our use case --deep
 ```
+
+**Cursor 3.2 parallel work:**
+- Use Cursor's built-in `/multitask` for quick independent prompts with no SDD roadmap state.
+- Use `/execute-parallel` for roadmap-backed SDD work that needs dependency checks, checkpoints, and verifier handoffs.
+- Use Agents Window worktrees for risky or competing implementations; `.cursor/worktrees.json` prepares the isolated checkout.
 
 ---
 
@@ -100,16 +107,16 @@ Specialized agents with isolated context. Background agents run asynchronously �
 
 | Subagent | Model | Mode | Purpose |
 |----------|-------|------|---------|
-| `sdd-explorer` | fast | foreground, readonly | Codebase discovery |
+| `sdd-explorer` | inherit | foreground, readonly | Codebase discovery |
 | `sdd-planner` | inherit | foreground | Architecture design |
 | `sdd-implementer` | inherit | **background** | Code generation |
-| `sdd-verifier` | fast | foreground | Post-implementation completeness check |
-| `sdd-reviewer` | fast | foreground, readonly | Pre-merge quality review |
+| `sdd-verifier` | inherit | foreground | Post-implementation completeness check |
+| `sdd-reviewer` | inherit | foreground, readonly | Pre-merge quality review |
 | `sdd-orchestrator` | inherit | **background** | Parallel task coordination with DAG |
 
 **Reviewer vs Verifier:** The reviewer is a pre-merge quality gate (security, performance, style). The verifier is a post-implementation completeness check (does the code match the spec?). Verifier answers "is it done?", Reviewer answers "is it good?"
 
-#### Subagent Tree (Cursor 2.5+)
+#### Subagent Tree (Cursor 3.2+)
 
 Subagents can spawn their own subagents, enabling true parallel DAG execution:
 

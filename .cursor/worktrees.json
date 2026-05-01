@@ -1,0 +1,15 @@
+{
+  "setup-worktree-unix": [
+    "mkdir -p .cursor/logs",
+    "mkdir -p specs/active specs/completed specs/todo-roadmap",
+    "chmod +x .cursor/hooks/*.py 2>/dev/null || true",
+    "echo 'SDD worktree ready: no dependency install required for this toolkit repo.'"
+  ],
+  "setup-worktree-windows": [
+    "if not exist .cursor\\logs mkdir .cursor\\logs",
+    "if not exist specs\\active mkdir specs\\active",
+    "if not exist specs\\completed mkdir specs\\completed",
+    "if not exist specs\\todo-roadmap mkdir specs\\todo-roadmap",
+    "echo SDD worktree ready: no dependency install required for this toolkit repo."
+  ]
+}

@@ -64,4 +64,4 @@ specs/
 - [System Rule](../.cursor/rules/sdd-system.mdc)
 
 ---
-**Version:** SDD 5.0 | **Requires:** Cursor 2.5+
+**Version:** SDD 5.1 | **Requires:** Cursor 3.2+

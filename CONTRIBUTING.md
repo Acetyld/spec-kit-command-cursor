@@ -6,12 +6,12 @@ Thanks for your interest in contributing! This guide covers how to add commands,
 
 ```
 .cursor/
-├── agents/       # Subagent definitions (.md)
-├── commands/     # Slash commands (.md)
-├── skills/       # Agent skills (SKILL.md + references/ + scripts/)
-├── rules/        # Always-applied rules (.mdc)
-├── hooks.json    # Workflow automation
-└── sandbox.json  # Network access controls
+├── agents/           # Subagent definitions (.md)
+├── commands/         # Slash commands (.md)
+├── skills/           # Agent skills (SKILL.md + references/ + scripts/)
+├── rules/            # Always-applied rules (.mdc)
+├── environment.json  # Cloud agent environment setup (3.7+)
+└── sandbox.json      # Network access controls
 
 .sdd/
 ├── config.json           # Project configuration
@@ -69,10 +69,10 @@ Thanks for your interest in contributing! This guide covers how to add commands,
 
 ## Guidelines
 
-- Keep agent prompts concise — Cursor 2.5 works best with focused instructions
+- Keep agent prompts concise — focused instructions work best
 - Follow the plan-approve-execute pattern for all commands
 - Use progressive loading for skills (keep SKILL.md small, put details in references/)
-- Update `README.md` when adding user-facing commands
+- Update `README-technical.md` (full command/subagent/skill tables) when adding features; only touch `README.md` if it changes the everyday-use story
 
 ## Reporting Issues
 

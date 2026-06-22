@@ -2,7 +2,7 @@
 
 ## Description
 
-A Spec-Driven Development toolkit for Cursor IDE (v2.5+) that provides structured commands, subagents, and skills for feature specification, planning, and parallel execution.
+A Spec-Driven Development toolkit for Cursor IDE (v3.8+) that provides structured commands, subagents, skills, pluggable memory, and parallel/cloud execution for feature specification, planning, and delivery.
 
 ## Core Philosophy
 
@@ -22,9 +22,10 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
 |-----------|----------|---------|
 | Rules | `.cursor/rules/` | Always-applied system configuration |
 | Subagents | `.cursor/agents/` | 6 specialized agents (foreground + background) |
-| Skills | `.cursor/skills/` | 5 auto-invoked domain knowledge packages |
-| Commands | `.cursor/commands/` | 16 slash commands + shared manual |
-| Hooks | `.cursor/hooks.json` | Workflow automation |
+| Skills | `.cursor/skills/` | 6 auto-invoked domain knowledge packages (incl. `sdd-memory`) |
+| Commands | `.cursor/commands/` | 17 slash commands + shared manual |
+| Memory | `.sdd/config.json` `memory` | Pluggable backend: standard / cursor-native / mem0 |
+| Cloud env | `.cursor/environment.json` | Cloud agent environment setup (3.7+) |
 | Sandbox | `.cursor/sandbox.json` | Network access controls |
 
 ## Workflows
@@ -64,4 +65,4 @@ specs/
 - [System Rule](../.cursor/rules/sdd-system.mdc)
 
 ---
-**Version:** SDD 5.1 | **Requires:** Cursor 3.2+
+**Version:** SDD 6.0 | **Requires:** Cursor 3.8+

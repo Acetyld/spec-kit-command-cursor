@@ -135,7 +135,7 @@ specs/todo-roadmap/{{PROJECT_ID}}/
 ## 🛠️ Integration
 
 This roadmap integrates with:
-- ✅ SDD Commands (`/brief`, `/research`, `/specify`, `/plan`, `/tasks`, `/implement`)
+- ✅ SDD Commands (`/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`)
 - ✅ VSCode Kanban Extensions (Taskr Kanban compatible)
 - ✅ Specs in `specs/active/` for implementation details
 - ✅ PLAN Mode for all command executions

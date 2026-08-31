@@ -136,7 +136,7 @@ Search in this order and copy the `templates/` tree into `.sdd/templates/` (do n
 
 1. `plugins/spec-kit-command-cursor/sdd/templates/` (this repo)
 2. Any readable `sdd/templates/` next to the installed plugin (under `~/.cursor/plugins/cache/`)
-3. If neither is readable, skip copy — command output formats in `/brief`, `/specify`, `/plan` are enough to proceed
+3. If neither is readable, skip copy — command output formats in `/brief`, `/specify`, `/sdd-plan` are enough to proceed
 
 Also copy `guidelines.md` and `ROADMAP_FORMAT_SPEC.md` into `.sdd/` when found.
 
@@ -156,6 +156,6 @@ List created/skipped paths. Then:
 
 ```
 Ready. Everyday flow: /brief <id> <description>  →  /implement <id>
-Complex: /research → /specify → /plan → /tasks → /implement
+Complex: /research → /specify → /sdd-plan → /tasks → /implement
 Whole app: /sdd-full-plan <id>  →  /execute-parallel <id> --until-finish
 ```

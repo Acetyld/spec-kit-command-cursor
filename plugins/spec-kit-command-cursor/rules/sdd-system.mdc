@@ -25,13 +25,15 @@ Questions the *research or plan will answer* (investigation prompts) stay in the
 
 ## Never use Cursor Plan mode
 
-SDD `/plan` is **not** Cursor Plan mode. Do **not** call SwitchMode / `target_mode_id: plan`. Do **not** create a Cursor Plan (the UI with a **Build** button).
+SDD `/sdd-plan` is **not** Cursor Plan mode. Do **not** call SwitchMode / `target_mode_id: plan`. Do **not** create a Cursor Plan (the UI with a **Build** button).
 
-- `/plan` writes `specs/active/[task-id]/plan.md` in Agent mode, then stops.
+- `/sdd-plan` writes `specs/active/[task-id]/plan.md` in Agent mode, then stops. Cursor's own `/plan` is Plan mode (Build) — never invoke it for SDD.
 - `/implement` (or `/tasks` then `/implement`) is how SDD builds. Never tell the user to press **Build**.
 - `/brief`, `/research`, `/specify`, `/tasks` also stay in Agent mode and write files under `specs/`.
 
 ---
+
+## Architecture
 
 ```
 User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invoked)
@@ -92,7 +94,7 @@ If `.sdd/config.json` is missing in the current project, run `/sdd-init` first.
 `/brief` → `/implement`
 
 ### Complex or high-risk feature
-`/research` → `/specify` → `/plan` → `/tasks` → `/implement`
+`/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement`
 
 ### Whole app or big project
 `/sdd-full-plan` → `/execute-parallel --until-finish`
@@ -186,7 +188,7 @@ specs/
 | `/brief` | Quick 30-min planning | sdd-planning skill |
 | `/research` | Pattern investigation | sdd-explorer subagent |
 | `/specify` | Detailed requirements | sdd-planning skill |
-| `/plan` | Technical architecture | sdd-planner subagent |
+| `/sdd-plan` | Technical architecture | sdd-planner subagent |
 | `/tasks` | Task breakdown | sdd-planner subagent |
 | `/implement` | Execute implementation | sdd-implementer subagent |
 | `/audit` | Spec-driven audit | sdd-reviewer subagent |

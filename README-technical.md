@@ -40,7 +40,7 @@
 | `/brief` | 30-min quick planning | `feature-brief.md` |
 | `/research` | Pattern investigation (supports `--deep`) | `research.md` |
 | `/specify` | Detailed requirements | `spec.md` |
-| `/plan` | Technical architecture | `plan.md` |
+| `/sdd-plan` | Technical architecture | `plan.md` |
 | `/tasks` | Task breakdown | `tasks.md` |
 | `/generate-prd` | PRD via Socratic questions | `full-prd.md` |
 | `/sdd-full-plan` | Complete project roadmap | `roadmap.json` + tasks |
@@ -161,7 +161,7 @@ flowchart LR
         A["/brief"] --> B["/implement"]
     end
     subgraph full [Full Planning]
-        D["/research"] --> E["/specify"] --> F["/plan"] --> G["/tasks"] --> H["/implement"]
+        D["/research"] --> E["/specify"] --> F["/sdd-plan"] --> G["/tasks"] --> H["/implement"]
     end
     subgraph parallel [Parallel Execution]
         I["/sdd-full-plan"] --> J["/execute-parallel"]
@@ -171,8 +171,8 @@ flowchart LR
 | Flow | Commands |
 |------|----------|
 | **Everyday** (most features) | `/sdd-init` (once) → `/brief` → `/implement` |
-| **Full** (complex features) | `/research` → `/specify` → `/plan` → `/tasks` → `/implement` |
-| **Deep Research** (unfamiliar domain) | `/research --deep` → `/specify` → `/plan` → `/tasks` → `/implement` |
+| **Full** (complex features) | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` |
+| **Deep Research** (unfamiliar domain) | `/research --deep` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` |
 | **Parallel** (project roadmap) | `/sdd-full-plan` → `/execute-parallel` |
 | **Heavy App** (20+ tasks) | `/sdd-full-plan` (Option C: Phased for 40+) → `/execute-parallel --until-finish` |
 

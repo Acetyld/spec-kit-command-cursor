@@ -127,8 +127,8 @@ For each SDD command:
    - Team-wide: ✅ Recommended
 
 8. **`plan`** - Technical planning
-   - Source: `.cursor/commands/plan.md`
-   - Usage: `/plan [feature-name]`
+   - Source: `.cursor/commands/sdd-plan.md`
+   - Usage: `/sdd-plan [feature-name]`
    - Team-wide: ✅ Recommended
 
 9. **`tasks`** - Task breakdown

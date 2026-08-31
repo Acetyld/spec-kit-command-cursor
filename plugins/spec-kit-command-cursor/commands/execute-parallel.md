@@ -75,7 +75,7 @@ Group tasks into parallel batches based on:
 | Task Phase | Subagent | Model | Mode |
 |------------|----------|-------|------|
 | research | sdd-explorer | inherit | foreground |
-| brief/specify/plan/tasks | sdd-planner | inherit | foreground |
+| brief/specify/sdd-plan/tasks | sdd-planner | inherit | foreground |
 | implement | sdd-implementer | inherit | **background** |
 | review | sdd-reviewer | inherit | foreground |
 | verify | sdd-verifier | inherit | foreground |

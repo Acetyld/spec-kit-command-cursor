@@ -151,4 +151,4 @@ When user requests fixes:
 - `/implement [task-id]` - Execute implementation
 - `/evolve [task-id]` - Update specs with findings
 - `/specify [task-id]` - Create/update specification
-- `/plan [task-id]` - Update technical plan
+- `/sdd-plan [task-id]` - Update technical plan

@@ -18,7 +18,7 @@ Execute the planned implementation with systematic todo-list execution and conti
 - Document blockers and deviations
 - Write production-quality code
 
-This is SDD `/implement`, not Cursor **Build**. Require `plan.md` (or send them back to `/plan` / `/brief`). Do not SwitchMode to Plan mode.
+This is SDD `/implement`, not Cursor **Build**. Require `plan.md` (or send them back to `/sdd-plan` / `/brief`). Do not SwitchMode to Plan mode.
 
 ---
 
@@ -52,7 +52,7 @@ Read planning documents in order:
 4. `specs/active/[task-id]/research.md` (if exists)
 5. `specs/active/[task-id]/feature-brief.md` (if exists)
 
-**If plan.md doesn't exist:** Suggest running `/plan [task-id]` or `/brief [task-id]` first.
+**If plan.md doesn't exist:** Suggest running `/sdd-plan [task-id]` or `/brief [task-id]` first.
 
 Check for existing `todo-list.md` in the task directory.
 
@@ -142,7 +142,7 @@ Spawn `sdd-verifier` subagent to independently validate:
 
 ## Troubleshooting
 
-**No plan.md found:** Run `/plan [task-id]` or `/brief [task-id]` first
+**No plan.md found:** Run `/sdd-plan [task-id]` or `/brief [task-id]` first
 
 **Todo item too large:** Break into subtasks (e.g., "Implement authentication" → auth service, login endpoint, logout endpoint, JWT generation, middleware)
 
@@ -154,7 +154,7 @@ For long implementations, the main agent delegates to `sdd-implementer` (backgro
 
 ## Related Commands
 
-- `/plan [task-id]` - Create implementation plan
+- `/sdd-plan [task-id]` - Create implementation plan
 - `/tasks [task-id]` - Generate task breakdown
 - `/evolve [task-id]` - Update specs with discoveries
 - `/brief [task-id]` - Quick planning alternative

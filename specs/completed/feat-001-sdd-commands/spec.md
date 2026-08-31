@@ -1,7 +1,7 @@
 # Feature Specification: SDD Commands Implementation
 
 ## Overview
-Implement the three core SDD commands (/specify, /plan, /tasks) as Cursor IDE commands to enable structured software development workflow.
+Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor IDE commands to enable structured software development workflow.
 
 ## Problem Statement
 ### What problem are we solving?
@@ -33,7 +33,7 @@ Implement the three core SDD commands (/specify, /plan, /tasks) as Cursor IDE co
     - Creates organized directory structure for feature
     - Validates input and provides helpful error messages
 
-- **FR-002**: `/plan` command generates technical implementation plans
+- **FR-002**: `/sdd-plan` command generates technical implementation plans
   - **Acceptance Criteria**:
     - Reads existing specification file
     - Creates comprehensive technical plan with architecture
@@ -79,7 +79,7 @@ Implement the three core SDD commands (/specify, /plan, /tasks) as Cursor IDE co
 
 ### US-002: Generate Technical Plan
 **As a** developer  
-**I want** to use `/plan` command on existing specification  
+**I want** to use `/sdd-plan` command on existing specification  
 **So that** I can create detailed technical implementation strategy
 
 **Acceptance Criteria:**

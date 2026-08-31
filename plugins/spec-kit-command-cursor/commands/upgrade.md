@@ -376,5 +376,5 @@ Still want to upgrade? Confirm and I'll proceed.
 - `/evolve [task-id]` - Update brief with discoveries
 - `/research [task-id]` - Deep research (part of SDD 6.0)
 - `/specify [task-id]` - Full specification (part of SDD 6.0)
-- `/plan [task-id]` - Technical plan (part of SDD 6.0)
+- `/sdd-plan [task-id]` - Technical plan (part of SDD 6.0)
 - `/tasks [task-id]` - Task breakdown (part of SDD 6.0)

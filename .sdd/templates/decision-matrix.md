@@ -29,7 +29,7 @@
 ```
 Feature Idea
     ├─ Is it complex/high-risk? ────── YES ──► Full Planning
-    │                                         /research → /specify → /plan → /tasks → /implement
+    │                                         /research → /specify → /sdd-plan → /tasks → /implement
     └─ NO
        │
        ├─ Use /brief (30 min planning)

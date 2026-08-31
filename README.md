@@ -36,7 +36,7 @@ The ones you'll actually use day to day:
 |---------|--------------|
 | `/sdd-init` | First-time: create `.sdd/` + `specs/` in this project |
 | `/brief` | Quick 30-min plan for a feature (start here for most things) |
-| `/plan` | Turn requirements into a technical plan |
+| `/sdd-plan` | Technical architecture (`plan.md`). Not Cursor's `/plan` (Plan mode) |
 | `/implement` | Build it, with progress tracking |
 | `/audit` | Review the code against the spec |
 | `/evolve` | Update the spec when things change mid-build |
@@ -54,8 +54,10 @@ The ones you'll actually use day to day:
 
 **Complex or high-risk feature?**
 ```
-/research  →  /specify  →  /plan  →  /tasks  →  /implement
+/research  →  /specify  →  /sdd-plan  →  /tasks  →  /implement
 ```
+
+Cursor's built-in `/plan` is Plan mode (the **Build** button). SDD technical architecture is **`/sdd-plan`**.
 
 **Whole app or big project?**
 ```

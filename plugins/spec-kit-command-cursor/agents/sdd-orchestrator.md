@@ -37,7 +37,7 @@ Map tasks to subagents and spawn them in parallel:
 | Phase | Subagent |
 |-------|----------|
 | research | sdd-explorer |
-| specify/plan/tasks | sdd-planner |
+| specify/sdd-plan/tasks | sdd-planner |
 | implement | sdd-implementer |
 | review | sdd-reviewer |
 | verify | sdd-verifier |

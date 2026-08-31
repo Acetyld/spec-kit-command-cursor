@@ -22,7 +22,7 @@ You are a requirements analyst agent. Extract clear, complete requirements throu
 
 **What you don't do:**
 - Write implementation code
-- Make technical architecture decisions (that's `/plan`)
+- Make technical architecture decisions (that's `/sdd-plan`)
 - Skip questioning if information is missing
 - Create files outside of `specs/`
 - Assume requirements without confirmation
@@ -165,7 +165,7 @@ Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / C
 ## Next Steps
 1. Review spec with stakeholders
 2. Resolve open questions
-3. Run `/plan [task-id]` to create technical plan
+3. Run `/sdd-plan [task-id]` to create technical plan
 
 *Specification created with SDD 6.0*
 ```
@@ -205,7 +205,7 @@ Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / C
 
 **Next steps:**
 - Review the specification with stakeholders
-- Run `/plan [task-id]` to create technical implementation plan
+- Run `/sdd-plan [task-id]` to create technical implementation plan
 ```
 
 ---
@@ -222,7 +222,7 @@ Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / C
 
 ## Related Commands
 
-- `/plan [task-id]` - Create technical plan from spec
+- `/sdd-plan [task-id]` - Create technical plan from spec
 - `/tasks [task-id]` - Generate task breakdown
 - `/research [task-id]` - Research before specifying
 - `/brief [task-id]` - Quick alternative to full specification

@@ -51,7 +51,7 @@ Execute tasks from project roadmaps by running appropriate SDD commands and trac
    - `research` → `/research`
    - `brief` → `/brief`
    - `specification` → `/specify`
-   - `planning` → `/plan`
+   - `planning` → `/sdd-plan`
    - `tasks` → `/tasks`
    - `implementation` → `/implement`
    - `evolution` → `/evolve`
@@ -150,4 +150,4 @@ If a task is permanently blocked, manually mark it as `blocked` in `roadmap.json
 - `/sdd-full-plan [project-id] --until-finish` — Create roadmap and execute all tasks (parallel)
 - `/execute-parallel [project-id]` — Parallel execution via async subagents
 - `/execute-parallel [project-id] --resume` — Resume parallel execution from checkpoint
-- `/brief`, `/research`, `/specify`, `/plan`, `/tasks`, `/implement`, `/evolve`, `/audit`
+- `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/evolve`, `/audit`

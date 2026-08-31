@@ -76,7 +76,7 @@ Give each question at least two concrete options. Batch them in one AskQuestion 
 | Architecture | Existing patterns | New patterns needed |
 | Dependencies | Few/none | Multiple external |
 
-If complexity suggests Full SDD, call **AskQuestion**: "Planning depth?" → Quick brief / Full SDD (`/research` → `/specify` → `/plan`).
+If complexity suggests Full SDD, call **AskQuestion**: "Planning depth?" → Quick brief / Full SDD (`/research` → `/specify` → `/sdd-plan`).
 
 ### Phase 2: Planning (Create Plan)
 
@@ -217,7 +217,7 @@ Verify file created and contains: problem statement, 3+ requirements, actionable
 ### Issue: Feature is too complex for brief
 **Cause**: Multi-team, high-risk, or architecturally significant feature
 **Solution**: Suggest Full SDD planning:
-- "This looks complex. Would you prefer full planning with `/research` → `/specify` → `/plan`?"
+- "This looks complex. Would you prefer full planning with `/research` → `/specify` → `/sdd-plan`?"
 
 ### Issue: Can't find existing patterns
 **Cause**: New project or greenfield feature

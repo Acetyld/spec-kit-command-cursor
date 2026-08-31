@@ -49,7 +49,7 @@ Common mistakes to detect:
 | SDD Command | Primary Subagent | Mode |
 |-------------|-----------------|------|
 | `/research` | `sdd-explorer` | foreground, readonly |
-| `/brief`, `/specify`, `/plan`, `/tasks` | `sdd-planner` | foreground, readonly |
+| `/brief`, `/specify`, `/sdd-plan`, `/tasks` | `sdd-planner` | foreground, readonly |
 | `/implement`, `/execute-task` | `sdd-implementer` | foreground |
 | `/audit` | `sdd-reviewer` | foreground, readonly |
 | `/execute-parallel` | `sdd-orchestrator` | background |
@@ -113,7 +113,7 @@ User Command → Analysis (Readonly) → Create Plan → User Approval → Execu
 
 ### Full Planning Path (20% of features)
 
-#### `/research` → `/specify` → `/plan` → `/tasks` → `/implement`
+#### `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement`
 
 For complex, high-risk, or multi-team features:
 - Multiple teams involved

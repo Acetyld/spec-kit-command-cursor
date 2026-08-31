@@ -126,4 +126,4 @@ Suggest `/upgrade` when change fundamentally alters approach, multiple related c
 - `/upgrade [task-id]` - Expand to full SDD 6.0
 - `/refine [task-id]` - Interactive refinement session
 - `/specify [task-id]` - Create detailed specification
-- `/plan [task-id]` - Update technical plan
+- `/sdd-plan [task-id]` - Update technical plan

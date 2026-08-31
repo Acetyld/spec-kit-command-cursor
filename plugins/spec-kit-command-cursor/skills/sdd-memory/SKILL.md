@@ -9,7 +9,7 @@ Give SDD agents a configurable, optional long-term memory. The active backend is
 
 ## When to Use
 
-- **Recall** — starting `/brief`, `/research`, `/specify`, `/plan`, or `/implement`: load relevant prior decisions, conventions, and gotchas before acting.
+- **Recall** — starting `/brief`, `/research`, `/specify`, `/sdd-plan`, or `/implement`: load relevant prior decisions, conventions, and gotchas before acting.
 - **Persist** — finishing a task or hitting a durable discovery: save facts worth remembering next time.
 - **Manage** — `/sdd-memory` configures, seeds, or disables the backend.
 

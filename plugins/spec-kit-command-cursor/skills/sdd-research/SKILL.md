@@ -12,7 +12,7 @@ Investigate codebase patterns and external solutions to inform specification and
 - Technical approach is unclear
 - Need to understand existing patterns
 - Evaluating solution options
-- Before `/specify` or `/plan` commands
+- Before `/specify` or `/sdd-plan` commands
 - **Deep research**: New domain, unfamiliar technology, high-stakes architectural decision, or when standard research yields insufficient clarity
 
 ## Research Modes

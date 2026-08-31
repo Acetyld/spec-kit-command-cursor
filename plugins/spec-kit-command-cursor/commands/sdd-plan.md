@@ -1,4 +1,4 @@
-# /plan Command
+# /sdd-plan Command
 
 Generate a detailed technical implementation plan from specifications, including architecture decisions, tech stack, and design patterns.
 
@@ -36,14 +36,14 @@ Generate a detailed technical implementation plan from specifications, including
 ## Usage
 
 ```
-/plan [task-id]
+/sdd-plan [task-id]
 ```
 
 **Examples:**
 ```
-/plan user-auth-system
-/plan checkout-flow
-/plan notification-system
+/sdd-plan user-auth-system
+/sdd-plan checkout-flow
+/sdd-plan notification-system
 ```
 
 ---

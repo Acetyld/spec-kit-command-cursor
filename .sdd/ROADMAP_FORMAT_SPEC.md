@@ -330,7 +330,7 @@ Cross-statuses:
 | research | `/research` | research.md | specs/active/[task-id]/ |
 | brief | `/brief` | feature-brief.md | specs/active/[task-id]/ |
 | specification | `/specify` | spec.md | specs/active/[task-id]/ |
-| planning | `/plan` | plan.md | specs/active/[task-id]/ |
+| planning | `/sdd-plan` | plan.md | specs/active/[task-id]/ |
 | tasks | `/tasks` | tasks.md | specs/active/[task-id]/ |
 | implementation | `/implement` | todo-list.md + code | specs/active/[task-id]/ |
 | evolution | `/evolve` | updated docs | specs/active/[task-id]/ |

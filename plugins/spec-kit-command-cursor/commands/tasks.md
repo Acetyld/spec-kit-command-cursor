@@ -57,7 +57,7 @@ Read in order:
 **If plan.md doesn't exist:**
 ```
 I can't find a plan for [task-id]. Would you like me to:
-1. Run `/plan [task-id]` to create one first
+1. Run `/sdd-plan [task-id]` to create one first
 2. Run `/brief [task-id]` for quick planning
 ```
 
@@ -184,6 +184,6 @@ Before final output, verify:
 ## Related Commands
 
 - `/implement [task-id]` - Start executing tasks
-- `/plan [task-id]` - Create technical plan (prerequisite)
+- `/sdd-plan [task-id]` - Create technical plan (prerequisite)
 - `/specify [task-id]` - Define requirements
 - `/sdd-full-plan [project-id]` - Full project roadmap

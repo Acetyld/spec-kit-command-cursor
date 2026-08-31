@@ -32,7 +32,7 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
 | Flow | Commands | Use When |
 |------|----------|----------|
 | **Everyday feature** | `/brief` → `/implement` | Most work |
-| **Complex / high-risk** | `/research` → `/specify` → `/plan` → `/tasks` → `/implement` | New architecture, auth, payments |
+| **Complex / high-risk** | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` | New architecture, auth, payments |
 | **Whole app** | `/sdd-full-plan` → `/execute-parallel --until-finish` | New project or 20+ tasks |
 
 ## Spec Directory Structure
@@ -45,7 +45,7 @@ specs/
 │   ├── feature-brief.md        # Quick Planning output
 │   ├── research.md             # /research output
 │   ├── spec.md                 # /specify output
-│   ├── plan.md                 # /plan output
+│   ├── plan.md                 # /sdd-plan output
 │   ├── tasks.md                # /tasks output
 │   ├── todo-list.md            # /implement creates this
 │   └── progress.md             # Development tracking

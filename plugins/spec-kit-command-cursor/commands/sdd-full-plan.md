@@ -173,7 +173,7 @@ Follow Phase 5 execution workflow with progress updates and completion summary.
 | Research | `/research` | research.md |
 | Brief | `/brief` | feature-brief.md |
 | Specification | `/specify` | spec.md |
-| Planning | `/plan` | plan.md |
+| Planning | `/sdd-plan` | plan.md |
 | Tasks | `/tasks` | tasks.md |
 | Implementation | `/implement` | Code + todo-list.md |
 
@@ -190,5 +190,5 @@ Follow Phase 5 execution workflow with progress updates and completion summary.
 
 - `/execute-task [task-id] --until-finish` — Execute task/epic until complete
 - `/execute-parallel [project-id]` — Parallel execution via async subagents
-- `/brief`, `/research`, `/specify`, `/plan`, `/tasks`, `/implement`, `/audit`
+- `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/audit`
 - `docs/agent-manual.md` — Full agent protocol

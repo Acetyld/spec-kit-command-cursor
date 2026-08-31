@@ -41,7 +41,7 @@ Each command writes to `specs/active/[task-id]/`:
 | `/brief` | `feature-brief.md` |
 | `/research` | `research.md` |
 | `/specify` | `spec.md` |
-| `/plan` | `plan.md` |
+| `/sdd-plan` | `plan.md` |
 | `/tasks` | `tasks.md` |
 | `/implement` | `todo-list.md` + code |
 | `/evolve` | Updates existing spec files |

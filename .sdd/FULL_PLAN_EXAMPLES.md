@@ -346,7 +346,7 @@ Approve this plan?
       "subtasks": ["task-001-1", "task-001-2", "task-001-3", "task-001-4"],
       "sdd": {
         "phase": "research",
-        "commands": ["/research", "/specify", "/plan"],
+        "commands": ["/research", "/specify", "/sdd-plan"],
         "executeCommand": "/execute-task epic-001"
       },
       "dependencies": []
@@ -606,7 +606,7 @@ Approve this plan?
       "dependencies": ["epic-006"],
       "sdd": {
         "phase": "specification",
-        "commands": ["/specify", "/plan", "/tasks", "/implement"],
+        "commands": ["/specify", "/sdd-plan", "/tasks", "/implement"],
         "executeCommand": "/execute-task epic-007"
       },
       "tags": ["phase-3", "critical", "payment", "pci-compliance"],

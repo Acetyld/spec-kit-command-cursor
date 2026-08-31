@@ -105,6 +105,6 @@ Assess clarity, completeness, and actionability (0-100% each). Overall status: R
 
 - `/refine [task-id]` - Iterate on PRD
 - `/brief [task-id]` - Quick 30-min planning alternative
-- `/plan [task-id]` - Technical plan from PRD
+- `/sdd-plan [task-id]` - Technical plan from PRD
 - `/tasks [task-id]` - Task breakdown from PRD
 - `/implement [task-id]` - Start building

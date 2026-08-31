@@ -331,7 +331,7 @@ Before final output, verify:
 - Review the research document
 - Discuss recommendations with team if needed
 - Run `/specify [task-id]` to define requirements
-- Or run `/plan [task-id]` if requirements are clear
+- Or run `/sdd-plan [task-id]` if requirements are clear
 
 **Open questions:** [Count] items need input before proceeding
 ```
@@ -361,6 +361,6 @@ Before final output, verify:
 ## Related Commands
 
 - `/specify [task-id]` - Define requirements based on research
-- `/plan [task-id]` - Create technical plan (if requirements clear)
+- `/sdd-plan [task-id]` - Create technical plan (if requirements clear)
 - `/brief [task-id]` - Quick planning (skip deep research)
 - `/sdd-full-plan [project-id]` - Full project roadmap

@@ -4,7 +4,7 @@ Update existing specifications with new discoveries, changes, or refinements mad
 
 **Skill:** Uses `sdd-evolve` skill for structured spec updates.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

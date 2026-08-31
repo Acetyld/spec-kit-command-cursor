@@ -2,7 +2,7 @@
 
 Automatically generate comprehensive Cursor coding rules based on technology stack detection and codebase analysis.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 
@@ -81,7 +81,7 @@ Automatically generate comprehensive Cursor coding rules based on technology sta
 - `.cursor/rules/performance-rules.mdc` - Performance optimization
 - `.cursor/rules/project-specific.mdc` - Project conventions
 
-**Preserved:** `.cursor/rules/sdd-system.mdc` - SDD system rules
+**Preserved:** plugin rule `sdd-system.mdc` (ships with the SDD plugin — do not recreate it under the project's `.cursor/rules/`)
 
 **Total:** [N] rule files. Rules are now active for all AI interactions.
 

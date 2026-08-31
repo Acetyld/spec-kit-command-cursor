@@ -4,7 +4,7 @@ Perform a spec-driven technical audit, comparing implementation against specific
 
 **Subagent:** Delegates to `sdd-reviewer` (fast, readonly, foreground) for code review and `sdd-verifier` for automated validation. Uses `sdd-audit` skill for structured compliance checks.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

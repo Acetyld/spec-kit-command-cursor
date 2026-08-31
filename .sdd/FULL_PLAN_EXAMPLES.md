@@ -1028,7 +1028,7 @@ syncRoadmapChanges();
 ---
 
 **Questions?**
-- See [sdd-full-plan.md](../.cursor/commands/sdd-full-plan.md) for command details
+- See [sdd-full-plan.md](../plugins/spec-kit-command-cursor/commands/sdd-full-plan.md) for command details
 - Check [ROADMAP_FORMAT_SPEC.md](./ROADMAP_FORMAT_SPEC.md) for JSON schema
 - Review [guidelines.md](./guidelines.md) for SDD methodology
 

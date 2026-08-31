@@ -2,7 +2,7 @@
 
 Escalate from lightweight SDD Quick Planning (Brief) to comprehensive SDD Full Planning when complexity is discovered during development.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

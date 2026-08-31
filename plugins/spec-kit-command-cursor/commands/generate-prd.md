@@ -2,7 +2,7 @@
 
 Generate a Product Requirements Document through guided Socratic questioning, creating both comprehensive and AI-optimized versions.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

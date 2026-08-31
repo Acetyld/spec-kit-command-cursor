@@ -4,7 +4,7 @@ Transform vague feature ideas into detailed, testable requirements with user sto
 
 **Subagent:** Uses `sdd-planner` (foreground) for complex specifications. Uses `sdd-planning` skill.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 
@@ -43,6 +43,8 @@ You are a requirements analyst agent. Extract clear, complete requirements throu
 ---
 
 ## Instructions
+
+If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 
 ### Phase 1: Analysis
 

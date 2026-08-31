@@ -8,7 +8,7 @@ Create a comprehensive project roadmap from A to Z with kanban-style task organi
 
 **Subagent:** Uses `sdd-orchestrator` (background) for parallel execution. Spawns `sdd-implementer` and `sdd-verifier` as child subagents.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 
@@ -54,6 +54,8 @@ When provided, automatically executes all tasks after roadmap creation:
 ---
 
 ## Instructions
+
+If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 
 ### Phase 1: Analysis
 
@@ -190,4 +192,4 @@ Follow Phase 5 execution workflow with progress updates and completion summary.
 - `/execute-task [task-id] --until-finish` — Execute task/epic until complete
 - `/execute-parallel [project-id]` — Parallel execution via async subagents
 - `/brief`, `/research`, `/specify`, `/plan`, `/tasks`, `/implement`, `/audit`
-- `.cursor/commands/_shared/agent-manual.md` — Full agent protocol
+- `docs/agent-manual.md` — Full agent protocol

@@ -2,7 +2,7 @@
 
 Refine existing prompts, briefs, or specifications through continued discussion and iteration.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

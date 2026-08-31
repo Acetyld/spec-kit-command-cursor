@@ -4,7 +4,7 @@ Execute the planned implementation with systematic todo-list execution and conti
 
 **Subagent:** Delegates to `sdd-implementer` (background) for long implementations. After completion, `sdd-verifier` is spawned as a child subagent to validate work.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

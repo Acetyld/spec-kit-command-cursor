@@ -16,4 +16,4 @@ Alias for `/sdd-full-plan`. All functionality is identical.
 
 **Full documentation:** See `/sdd-full-plan` command.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.

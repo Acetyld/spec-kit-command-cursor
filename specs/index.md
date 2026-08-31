@@ -3,7 +3,7 @@
 ## Navigation
 
 - [Project Overview](00-overview.md)
-- [Agent Manual](../.cursor/commands/_shared/agent-manual.md)
+- [Agent Manual](../plugins/spec-kit-command-cursor/docs/agent-manual.md)
 
 ## Feature Status Dashboard
 

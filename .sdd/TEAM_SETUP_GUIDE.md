@@ -1,8 +1,10 @@
 # Team Commands Setup Guide
 
+> **2026-08 update:** Prefer installing this repo as a Cursor marketplace plugin (git link). Slash commands then load from `plugins/spec-kit-command-cursor/commands/` — you no longer copy files into each teammate's `.cursor/commands/`. First run in an app repo: `/sdd-init`.
+
 **Feature:** Cursor Team Commands Integration  
 **Date:** 2026-06-22  
-**Status:** ✅ Ready
+**Status:** ✅ Ready (plugin install supersedes manual copies)
 
 ---
 

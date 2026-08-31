@@ -4,7 +4,7 @@ Execute multiple tasks in parallel using async background subagents for coordina
 
 **Leverages:** Async subagents, Cursor 3.8 worktrees/multitask awareness, subagent tree pattern, and optional cloud subagents (`/in-cloud`, `/babysit`) for isolated long-running work.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full subagent protocol.
+**See also:** `docs/agent-manual.md` for full subagent protocol.
 
 ---
 
@@ -219,4 +219,4 @@ Checkpoint is written after each batch during `--until-finish` runs.
 - `/sdd-full-plan` — Create roadmap with DAG
 - `/execute-task` — Execute single task sequentially
 - `sdd-orchestrator` subagent — Detailed orchestration logic
-- `.cursor/commands/_shared/agent-manual.md` — Full agent protocol
+- `docs/agent-manual.md` — Full agent protocol

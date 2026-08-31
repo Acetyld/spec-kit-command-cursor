@@ -4,7 +4,7 @@ Create a lightweight feature brief in ~30 minutes, then start coding.
 
 **Skill:** Uses `sdd-planning` skill. Delegates to `sdd-explorer` (fast, readonly) for codebase pattern discovery.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 
@@ -38,6 +38,10 @@ Create focused feature briefs through analysis and strategic questioning.
 ---
 
 ## Instructions
+
+### Phase 0: Project bootstrap
+
+If `.sdd/config.json` is missing, run `/sdd-init` inline first (create `.sdd/` + `specs/` in this project). Do not write specs into the plugin cache.
 
 ### Phase 1: Analysis (Readonly)
 

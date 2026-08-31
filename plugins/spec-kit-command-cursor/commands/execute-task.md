@@ -6,7 +6,7 @@ Execute a specific task from a project roadmap, automatically determining the ap
 
 **Subagent:** Delegates to the appropriate SDD subagent based on task phase. Implementation tasks use `sdd-implementer` (background), which spawns `sdd-verifier` as a child subagent.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

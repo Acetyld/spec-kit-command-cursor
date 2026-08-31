@@ -20,21 +20,20 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| Rules | `.cursor/rules/` | Always-applied system configuration |
-| Subagents | `.cursor/agents/` | 6 specialized agents (foreground + background) |
-| Skills | `.cursor/skills/` | 6 auto-invoked domain knowledge packages (incl. `sdd-memory`) |
-| Commands | `.cursor/commands/` | 17 slash commands + shared manual |
+| Plugin (commands, agents, skills, SDD rule) | `plugins/spec-kit-command-cursor/` | Loaded by Cursor from the marketplace plugin |
+| Project templates + config | `.sdd/` | Created in the app repo by `/sdd-init` |
+| Specs | `specs/` | Feature briefs, plans, roadmaps |
+| Project rules | `.cursor/rules/` | App conventions from `/generate-rules` |
+| Cloud / worktrees | `.cursor/environment.json`, `.cursor/worktrees.json` | Optional project-level Cursor files |
 | Memory | `.sdd/config.json` `memory` | Pluggable backend: standard / cursor-native / mem0 |
-| Cloud env | `.cursor/environment.json` | Cloud agent environment setup (3.7+) |
-| Sandbox | `.cursor/sandbox.json` | Network access controls |
 
 ## Workflows
 
 | Flow | Commands | Use When |
 |------|----------|----------|
-| **Quick Planning** | `/brief` → `/evolve` → `/refine` | 80% of features |
-| **Full Planning** | `/research` → `/specify` → `/plan` → `/tasks` → `/implement` | Complex features |
-| **Parallel Execution** | `/sdd-full-plan` → `/execute-parallel` | Project roadmaps |
+| **Everyday feature** | `/brief` → `/implement` | Most work |
+| **Complex / high-risk** | `/research` → `/specify` → `/plan` → `/tasks` → `/implement` | New architecture, auth, payments |
+| **Whole app** | `/sdd-full-plan` → `/execute-parallel --until-finish` | New project or 20+ tasks |
 
 ## Spec Directory Structure
 
@@ -61,8 +60,8 @@ specs/
 ## Links
 
 - [Feature Index](index.md)
-- [Agent Manual](../.cursor/commands/_shared/agent-manual.md)
-- [System Rule](../.cursor/rules/sdd-system.mdc)
+- [Agent Manual](../plugins/spec-kit-command-cursor/docs/agent-manual.md)
+- [System Rule](../plugins/spec-kit-command-cursor/rules/sdd-system.mdc)
 
 ---
 **Version:** SDD 6.0 | **Requires:** Cursor 3.8+

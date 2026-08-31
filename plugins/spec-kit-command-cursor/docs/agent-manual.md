@@ -16,36 +16,46 @@ Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+** for asyn
 
 ## File System Structure
 
+Two layers:
+
+**Plugin** (Cursor loads these; they are not in the app repo):
+
+```
+plugins/spec-kit-command-cursor/
+├── agents/ commands/ skills/ rules/
+├── docs/agent-manual.md
+└── sdd/                       # Bundled templates; /sdd-init copies into the project
+```
+
+**Project** (created by `/sdd-init` in the app you are working on):
+
 ```
 specs/
-├── 00-overview.md              # Project-wide specifications
-├── index.md                    # Navigation and status
-├── active/                     # Features in development
-│   └── [task-id]/
-│       ├── feature-brief.md    # Lightweight brief (Quick Planning)
-│       ├── research.md         # Research findings (Full Planning)
-│       ├── spec.md             # Requirements (Full Planning)
-│       ├── plan.md             # Technical plan (Full Planning)
-│       ├── tasks.md            # Task breakdown (Full Planning)
-│       ├── todo-list.md        # Implementation checklist
-│       └── progress.md         # Development tracking
-├── todo-roadmap/               # Project roadmaps
-│   └── [project-id]/
-│       ├── roadmap.json        # Kanban board data with DAG
-│       ├── roadmap.md          # Human-readable view
-│       └── tasks/              # Individual task files
-├── completed/                  # Delivered features
-└── backlog/                    # Future features
+├── 00-overview.md
+├── index.md
+├── active/[task-id]/
+│   ├── feature-brief.md
+│   ├── research.md
+│   ├── spec.md
+│   ├── plan.md
+│   ├── tasks.md
+│   ├── todo-list.md
+│   └── progress.md
+├── todo-roadmap/[project-id]/
+├── completed/
+└── backlog/
+
+.sdd/
+├── config.json
+└── templates/
 
 .cursor/
-├── agents/                     # Subagents (foreground + background)
-├── skills/                     # Domain knowledge packages (incl. sdd-memory)
-├── commands/                   # Slash commands
-├── environment.json            # Cloud agent environment setup (3.7+)
-├── worktrees.json              # Cursor worktree setup
-├── sandbox.json                # Network access controls
-└── rules/                      # Always-applied rules
+├── rules/                     # App conventions from /generate-rules
+├── environment.json           # Optional cloud agent setup
+└── worktrees.json             # Optional worktree setup
 ```
+
+If `.sdd/config.json` is missing, run `/sdd-init` (or let `/brief` do it) before writing specs.
 
 ---
 
@@ -165,7 +175,7 @@ Skills are auto-invoked based on context or manually via `/skill-name`.
 Skills use progressive loading — keep main `SKILL.md` focused:
 
 ```
-.cursor/skills/[skill-name]/
+plugins/spec-kit-command-cursor/skills/[skill-name]/
 ├── SKILL.md          # Core instructions (~50 lines)
 ├── references/       # Loaded on demand
 ├── scripts/          # Executable helpers

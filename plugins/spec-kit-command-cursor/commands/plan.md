@@ -4,7 +4,7 @@ Generate a detailed technical implementation plan from specifications, including
 
 **Subagent:** Delegates to `sdd-planner` (foreground) for architecture design. Uses `sdd-planning` skill.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

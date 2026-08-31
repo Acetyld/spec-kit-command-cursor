@@ -1,16 +1,12 @@
 {
-  "name": "sdd-spec-kit",
-  "displayName": "SDD Spec Kit",
-  "version": "6.0.0",
+  "name": "spec-kit-command-cursor",
+  "version": "6.0.1",
   "description": "Spec-Driven Development framework for Cursor 3.8 — subagents, skills, DAG-based parallel + cloud execution, native review integration, and a pluggable memory layer (standard / Cursor-native / mem0). Plan-approve-execute workflow for systematic feature development.",
-  "owner": {
+  "author": {
     "name": "Aris Setiawan",
     "email": "arissetia.m@gmail.com"
   },
   "license": "MIT",
-  "engines": {
-    "cursor": ">=3.8.0"
-  },
   "keywords": [
     "sdd",
     "spec-driven-development",

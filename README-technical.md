@@ -36,6 +36,7 @@
 
 | Command | Purpose | Output |
 |---------|---------|--------|
+| `/sdd-init` | Scaffold `.sdd/` + `specs/` in the current project | `.sdd/config.json` |
 | `/brief` | 30-min quick planning | `feature-brief.md` |
 | `/research` | Pattern investigation (supports `--deep`) | `research.md` |
 | `/specify` | Detailed requirements | `spec.md` |
@@ -96,13 +97,13 @@ SDD ships an **optional, pluggable memory layer** so agents can recall prior dec
 /sdd-memory off              # back to standard
 ```
 
-Adding another free/local backend is just a new entry under `memory.providers` plus a recipe in `.cursor/skills/sdd-memory/references/providers.md` — no agent changes required.
+Adding another free/local backend is just a new entry under `memory.providers` plus a recipe in `plugins/spec-kit-command-cursor/skills/sdd-memory/references/providers.md` — no agent changes required.
 
 ---
 
 ## Subagents & Skills
 
-### Subagents (`.cursor/agents/`)
+### Subagents (plugin `agents/`)
 
 Specialized agents with isolated context. Background agents run asynchronously — the parent continues working.
 
@@ -128,7 +129,7 @@ sdd-orchestrator (background)
 └── sdd-implementer (task 3) → sdd-verifier
 ```
 
-### Skills (`.cursor/skills/`)
+### Skills (plugin `skills/`)
 
 Auto-invoked domain knowledge packages with progressive loading:
 
@@ -156,9 +157,8 @@ sdd-[name]/
 
 ```mermaid
 flowchart LR
-    subgraph quick [Quick Planning]
-        A["/brief"] --> B["/evolve"]
-        B --> C["/refine"]
+    subgraph quick [Everyday]
+        A["/brief"] --> B["/implement"]
     end
     subgraph full [Full Planning]
         D["/research"] --> E["/specify"] --> F["/plan"] --> G["/tasks"] --> H["/implement"]
@@ -170,7 +170,7 @@ flowchart LR
 
 | Flow | Commands |
 |------|----------|
-| **Quick** (80% of features) | `/brief` → `/evolve` → `/refine` |
+| **Everyday** (most features) | `/sdd-init` (once) → `/brief` → `/implement` |
 | **Full** (complex features) | `/research` → `/specify` → `/plan` → `/tasks` → `/implement` |
 | **Deep Research** (unfamiliar domain) | `/research --deep` → `/specify` → `/plan` → `/tasks` → `/implement` |
 | **Parallel** (project roadmap) | `/sdd-full-plan` → `/execute-parallel` |
@@ -233,31 +233,31 @@ graph TD
 ## Project Structure
 
 ```
-.cursor/
-├── agents/           # 6 subagents (foreground + background)
-├── skills/           # 6 skills with progressive loading (incl. sdd-memory)
-├── commands/         # Slash commands
-├── rules/            # Always-applied rules
-├── environment.json  # Cloud agent environment setup (3.7+)
-└── sandbox.json      # Network access controls
-
 .cursor-plugin/
-└── plugin.json       # Cursor Marketplace manifest
+└── marketplace.json          # Git-link marketplace (pluginRoot: plugins)
 
-.sdd/
-├── config.json       # Project configuration (incl. memory provider)
-├── guidelines.md     # Methodology guide
-├── ROADMAP_FORMAT_SPEC.md  # Roadmap JSON schema (with DAG)
-├── FULL_PLAN_EXAMPLES.md   # Worked examples at 3 complexity levels
-├── templates/        # Document templates (compact + specialized)
-└── archive/          # Historical implementation docs
+plugins/spec-kit-command-cursor/
+├── .cursor-plugin/plugin.json
+├── agents/                   # 6 subagents
+├── commands/                 # Slash commands (incl. /sdd-init)
+├── skills/                   # 6 skills (incl. sdd-memory)
+├── rules/sdd-system.mdc
+├── docs/agent-manual.md
+├── sdd/                      # Bundled templates copied by /sdd-init
+├── environment.json          # Starter for consuming projects
+├── sandbox.json
+└── worktrees.json
 
-specs/
-├── active/           # Features in development
-├── backlog/          # Future features
-├── todo-roadmap/     # Project roadmaps with DAG
-└── completed/        # Delivered features
+.cursor/                      # This repo's own Cursor project files
+├── environment.json
+├── sandbox.json
+└── worktrees.json
+
+.sdd/                         # This repo's own SDD config + templates
+specs/                        # This repo's own specs
 ```
+
+In an **app repo** that installed the plugin, run `/sdd-init` so the project gets `.sdd/` + `specs/`. Do not expect commands/agents/skills under the app's `.cursor/` folder.
 
 ---
 
@@ -297,7 +297,7 @@ Available in `.sdd/templates/`:
 
 ## Plugin Distribution
 
-SDD is packaged as a Cursor Marketplace plugin. Install via `/add-plugin` or clone the repo directly. See `.cursor-plugin/plugin.json` for the manifest.
+SDD is packaged as a Cursor Marketplace plugin. Add this git repo as a marketplace, then install `spec-kit-command-cursor`. Manifests: `.cursor-plugin/marketplace.json` (repo) and `plugins/spec-kit-command-cursor/.cursor-plugin/plugin.json`. First command in an app repo: `/sdd-init`.
 
 ---
 

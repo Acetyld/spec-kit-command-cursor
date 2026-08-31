@@ -4,7 +4,7 @@ Break down a technical plan into actionable, prioritized development tasks with 
 
 **Subagent:** Delegates to `sdd-planner` (foreground) for task breakdown.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for full agent protocol.
 
 ---
 

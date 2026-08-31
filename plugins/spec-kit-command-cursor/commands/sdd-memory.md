@@ -4,7 +4,7 @@ Configure how SDD remembers project knowledge across sessions. Choose a memory b
 
 **Uses:** `sdd-memory` skill, `.sdd/config.json` `memory` block.
 
-**See also:** `.cursor/commands/_shared/agent-manual.md` for the full agent protocol.
+**See also:** `docs/agent-manual.md` for the full agent protocol.
 
 ---
 

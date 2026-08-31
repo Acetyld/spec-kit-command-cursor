@@ -18,7 +18,7 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
               Verification ←── Subagent Tree (nested spawning)
 ```
 
-## Subagents (`.cursor/agents/`)
+## Subagents (plugin `agents/`)
 
 | Subagent | Model | Mode | Purpose |
 |----------|-------|------|---------|
@@ -50,7 +50,7 @@ sdd-orchestrator (background)
 **Delegate when:** deep exploration, long implementation, parallel tasks, verification.
 **Keep in main context when:** simple operations, user interaction needed, sequential dependent steps.
 
-## Skills (`.cursor/skills/`)
+## Skills (plugin `skills/`)
 
 | Skill | Auto-Invoke When | Purpose |
 |-------|------------------|---------|
@@ -65,18 +65,18 @@ Skills use progressive loading — keep `SKILL.md` focused, put details in `refe
 
 ## Workflows
 
-### Quick Planning (80% of features)
-- `/brief` → `feature-brief.md` (30-minute planning)
-- `/evolve` → Update specs with discoveries
-- `/refine` → Iterate on existing specs
+If `.sdd/config.json` is missing in the current project, run `/sdd-init` first.
 
-### Full Planning (complex features)
+### Everyday feature (most of the time)
+`/brief` → `/implement`
+
+### Complex or high-risk feature
 `/research` → `/specify` → `/plan` → `/tasks` → `/implement`
 
-### Parallel Execution with DAG
-- `/sdd-full-plan` → Create roadmap with DAG structure
-- `/execute-task` → Sequential task execution
-- `/execute-parallel` → Parallel via async subagents
+### Whole app or big project
+`/sdd-full-plan` → `/execute-parallel --until-finish`
+
+`/evolve` and `/refine` update specs after the plan exists. They are not the default happy path.
 
 ### Cursor 3.8 Agent Runtime
 - Use `/multitask` for ad hoc independent work that does not need a roadmap, checkpoint, or dependency graph.
@@ -134,25 +134,34 @@ Network access controls for sandboxed commands. Configure allowed domains for pa
 
 ## File Organization
 
-```
-specs/
-├── active/[task-id]/          # Tasks in development
-├── todo-roadmap/[project]/    # Project roadmaps with DAG
-└── completed/                 # Delivered features
+Plugin (loaded by Cursor — do not look for these under the project's `.cursor/`):
 
+```
+plugins/spec-kit-command-cursor/
+├── agents/ commands/ skills/ rules/
+├── docs/agent-manual.md
+└── sdd/                       # Bundled templates for /sdd-init
+```
+
+Project (created by `/sdd-init` in the app repo):
+
+```
+.sdd/                          # config + templates
+specs/
+├── active/[task-id]/
+├── todo-roadmap/[project]/
+└── completed/
 .cursor/
-├── agents/                    # Subagents (foreground + background)
-├── skills/                    # Agent Skills (progressive loading)
-├── commands/                  # Slash commands
-├── environment.json           # Cloud agent environment setup (3.7+)
-├── worktrees.json             # Worktree setup
-└── sandbox.json               # Network access controls
+├── rules/                     # App conventions from /generate-rules
+├── environment.json           # Optional cloud agent setup
+└── worktrees.json             # Optional worktree setup
 ```
 
 ## Command Reference
 
 | Command | Purpose | Uses |
 |---------|---------|------|
+| `/sdd-init` | Scaffold `.sdd/` + `specs/` in this project | — |
 | `/brief` | Quick 30-min planning | sdd-planning skill |
 | `/research` | Pattern investigation | sdd-explorer subagent |
 | `/specify` | Detailed requirements | sdd-planning skill |
@@ -179,13 +188,13 @@ specs/
 
 ## Plugin Distribution
 
-This system can be packaged as a Cursor Marketplace plugin. See `.cursor-plugin/plugin.json` for manifest.
+Packaged as a Cursor Marketplace plugin. Manifests: repo `.cursor-plugin/marketplace.json` and plugin `.cursor-plugin/plugin.json`. The plugin `name` must match the marketplace entry `name`.
 
 ## References
 
-- **Agent Manual**: `.cursor/commands/_shared/agent-manual.md`
-- **Subagents**: `.cursor/agents/`
-- **Skills**: `.cursor/skills/`
-- **Memory**: `.cursor/skills/sdd-memory/` + `.sdd/config.json` `memory`
-- **Cloud env**: `.cursor/environment.json`
-- **Sandbox**: `.cursor/sandbox.json`
+- **Agent Manual**: plugin `docs/agent-manual.md`
+- **Subagents**: plugin `agents/`
+- **Skills**: plugin `skills/`
+- **Memory**: plugin `skills/sdd-memory/` + project `.sdd/config.json` `memory`
+- **Cloud env**: project `.cursor/environment.json` (optional; seed with `/sdd-init`)
+- **Sandbox**: project `.cursor/sandbox.json` (optional)

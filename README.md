@@ -17,18 +17,14 @@
 
 ## Quick Start
 
-```bash
-git clone https://github.com/madebyaris/spec-kit-command-cursor.git
-cd spec-kit-command-cursor
-```
-
-Then open the folder in Cursor and type a command into chat. Start here:
+Install the plugin from this repo (Cursor → Plugins → add git marketplace), then in **your app repo**:
 
 ```
+/sdd-init
 /brief user-auth JWT authentication with login/logout
 ```
 
-That's it — `/brief` plans the feature in ~30 minutes, then you implement it. For bigger work, see [Pick a Workflow](#pick-a-workflow).
+`/sdd-init` creates `.sdd/` and `specs/` in the current project. `/brief` does that automatically if they are missing. For bigger work, see [Pick a Workflow](#pick-a-workflow).
 
 ---
 
@@ -38,6 +34,7 @@ The ones you'll actually use day to day:
 
 | Command | What it does |
 |---------|--------------|
+| `/sdd-init` | First-time: create `.sdd/` + `specs/` in this project |
 | `/brief` | Quick 30-min plan for a feature (start here for most things) |
 | `/plan` | Turn requirements into a technical plan |
 | `/implement` | Build it, with progress tracking |

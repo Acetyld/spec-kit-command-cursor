@@ -50,22 +50,13 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 
 1. **Parse the feature request** - Extract task-id and feature description
 2. **Check for existing research** - Look for `specs/active/[task-id]/research.md` and incorporate findings
-3. **Strategic questioning** - Ask questions in three categories:
+3. **Strategic questioning** — If anything in these categories is unclear, call **AskQuestion** in this turn (do not print the questions as a chat list):
 
-**Category 1: Problem & Users**
-- What specific problem does this solve?
-- Who are the primary users?
-- What's their current pain point?
+**Category 1: Problem & Users** — problem, primary users, current pain
+**Category 2: Core Requirements** — must-haves, first slice, out of scope
+**Category 3: Constraints & Success** — tech constraints, success metric, timeline
 
-**Category 2: Core Requirements**
-- What are the 3-5 core features this MUST have?
-- Which would you build first if you could only pick one?
-- What's explicitly OUT of scope?
-
-**Category 3: Constraints & Success**
-- Any technical constraints?
-- How will you know this is successful?
-- Any deadline or timeline considerations?
+Give each question at least two options. Batch into one AskQuestion call. Wait for answers before Phase 2.
 
 **Validation:** Problem clearly stated, at least 3 core features, at least 1 exclusion defined.
 
@@ -96,10 +87,10 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 **User stories I'll create:** [count]
 **Edge cases to cover:** [count]
 
-Does this capture what you want? Ready to create the spec?
+Does this capture what you want?
 ```
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / Cancel. Do not only write "Ready to create the spec?" in chat. Wait for the answer before Phase 3.
 
 ### Phase 3: Execution
 

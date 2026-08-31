@@ -54,23 +54,18 @@ Research and document findings without making changes to the codebase.
 
 **Step 2: Clarify research scope**
 
-Ask if any of these are unclear:
-- Should we focus on internal patterns or external solutions?
-- Are there specific technologies to consider or avoid?
-- What constraints exist (performance, cost, team expertise)?
-- What's the primary goal: understand existing code or explore new approaches?
+If any of these are unclear, call **AskQuestion in this turn** (do not print A/B/C in chat):
+- Focus: internal patterns vs external solutions vs both
+- Technologies to consider or avoid
+- Constraints (performance, cost, team expertise)
+- Primary goal: understand existing code vs explore new approaches
 
-**Question format:**
-```
-Before I start researching, a quick question:
+Example AskQuestion items:
+- "Where should research focus?" → Internal patterns / External solutions / Both
+- "Any technologies to avoid?" → None / List in Other / Specific stack already chosen
+- "Main constraint?" → Speed / Cost / Team familiarity / Reliability
 
-Should I focus on:
-A) Internal patterns - How does our codebase already handle similar things?
-B) External solutions - What libraries/approaches are available?
-C) Both - Full analysis of internal and external options
-
-(Default: C - Both)
-```
+Batch every user-facing question into **one** AskQuestion call. Wait for the answers before Phase 2.
 
 **Step 3: Plan research strategy**
 
@@ -109,11 +104,11 @@ Identify:
 - Structure: Executive Summary → Codebase Analysis → External Options → Recommendations
 
 **Estimated time:** 60 minutes
-
-Ready to proceed?
 ```
 
-**Wait for user approval before proceeding.**
+"Research Questions" in that plan are investigation prompts for *you* to answer in `research.md`. Do **not** ask those to the user unless a decision is blocking.
+
+Then call **AskQuestion**: "Proceed with this research plan?" → Proceed / Adjust scope / Cancel. Do not only write "Ready to proceed?" in chat. Wait for the answer before Phase 3.
 
 ### Phase 3: Execution (After Approval)
 

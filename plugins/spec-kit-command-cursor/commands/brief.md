@@ -57,22 +57,14 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first (create `.sdd/` +
 
 **Step 3: Assess information completeness**
 
-Ask clarifying questions if ANY of these are unclear:
+If ANY of these are unclear, call **AskQuestion in this turn** (do not print a numbered list in chat):
 - What problem does this solve?
 - Who are the primary users?
-- What are the must-have vs nice-to-have features?
-- Are there technical constraints or preferences?
+- Must-have vs nice-to-have
+- Technical constraints or preferences
 - What does success look like?
 
-**Question format:**
-```
-Before I create the brief, I have a few questions:
-
-1. [Most important question]
-2. [Second question if needed]
-
-(Feel free to skip any that aren't relevant)
-```
+Give each question at least two concrete options. Batch them in one AskQuestion call. Wait for the answers before Phase 2.
 
 **Step 4: Evaluate complexity**
 
@@ -84,8 +76,7 @@ Before I create the brief, I have a few questions:
 | Architecture | Existing patterns | New patterns needed |
 | Dependencies | Few/none | Multiple external |
 
-If complexity suggests Full SDD, mention:
-> "This looks like it might benefit from full SDD planning. Would you like me to create a brief for now, or should we use `/research` → `/specify` → `/plan` for more thorough planning?"
+If complexity suggests Full SDD, call **AskQuestion**: "Planning depth?" → Quick brief / Full SDD (`/research` → `/specify` → `/plan`).
 
 ### Phase 2: Planning (Create Plan)
 
@@ -113,11 +104,9 @@ If complexity suggests Full SDD, mention:
 - Success criteria
 
 **Estimated time:** 30 minutes total
-
-Ready to proceed? (or let me know if you'd like changes)
 ```
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed with this brief plan?" → Proceed / Adjust scope / Cancel. Do not only write "Ready to proceed?" in chat. Wait for the answer before creating files.
 
 ### Phase 3: Execution (After Approval)
 

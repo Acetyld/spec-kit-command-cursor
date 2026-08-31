@@ -69,7 +69,7 @@ Show the exact `memory` block you will write and any wiring steps:
   2. Confirm env vars from `memory.providers.mem0.config` (`MEM0_API_BASE`, `MEM0_API_KEY`) — for fully local self-host these can point at `http://localhost`.
   3. If the MCP server is missing, output setup guidance (do not silently fail).
 
-Wait for approval before editing config.
+Then call **AskQuestion**: "Apply this memory backend?" → Apply / Change provider / Cancel. Wait for the answer before editing config.
 
 ### Phase 3: Execute (After approval)
 

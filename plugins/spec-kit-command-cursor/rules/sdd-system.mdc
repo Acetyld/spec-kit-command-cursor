@@ -10,6 +10,19 @@ alwaysApply: true
 
 Create specifications **before** code. Plan-approve-execute for all operations.
 
+## Asking the user (REQUIRED)
+
+When you need a decision, clarification, or plan approval, you MUST call the **AskQuestion** tool in that same turn. Do not list A/B/C, numbered questions, or "Ready to proceed?" only in chat.
+
+- One AskQuestion call can include several questions.
+- Each question needs at least two concrete options (the UI always adds Other).
+- Use `allow_multiple` when more than one answer is valid.
+- Chat may have a one- or two-sentence intro. The choices themselves go in AskQuestion.
+- After AskQuestion returns, continue from the answers. Do not re-ask the same items in markdown.
+- Plan approval is also AskQuestion, e.g. "Proceed with this plan?" → Proceed / Adjust scope / Cancel.
+
+Questions the *research or plan will answer* (investigation prompts) stay in the plan document. Questions *for the user* always go through AskQuestion.
+
 ## Architecture
 
 ```

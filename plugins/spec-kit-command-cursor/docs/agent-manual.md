@@ -11,6 +11,9 @@ Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+** for asyn
 3. **Verify file operations** — confirm files were created
 4. **Ask when uncertain** — don't guess, clarify
 5. **Delegate appropriately** — use subagents for context isolation
+6. **Ask via AskQuestion** — never dump A/B/C or numbered questions in chat as a substitute for Cursor's question UI
+
+When you need a decision, clarification, or plan approval, call the **AskQuestion** tool in that same turn. One call can hold several questions; each needs at least two options. Chat may introduce *why* you are asking (1–2 sentences). The choices go in the tool. After it returns, continue — do not re-ask in markdown.
 
 ---
 

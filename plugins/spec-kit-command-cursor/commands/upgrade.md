@@ -132,7 +132,7 @@ Would you like to proceed with the upgrade?
 Ready to begin the upgrade?
 ```
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
 ### Phase 3: Execution (After Approval)
 

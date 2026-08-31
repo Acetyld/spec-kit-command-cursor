@@ -156,7 +156,7 @@ Anything else to refine before I apply changes?
 Ready to apply these changes?
 ```
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
 ### Phase 4: Execution (After Approval)
 

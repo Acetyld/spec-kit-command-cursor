@@ -45,7 +45,7 @@ Present evolution plan with:
 - Proposed changelog entry
 - Recommendation (proceed or suggest upgrade)
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
 ### Phase 3: Execution
 

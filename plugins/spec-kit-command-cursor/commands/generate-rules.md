@@ -50,7 +50,9 @@ Automatically generate comprehensive Cursor coding rules based on technology sta
 
 **Present detection results:** Detected stack (language, framework, runtime, testing, build), codebase analysis (structure, patterns, conventions), and proposed rule files (coding-principles, language-specific, framework-specific, testing, security, performance, project-specific).
 
-**Options:** Generate all new rules, generate only missing, or customize selection. Wait for user approval.
+**Options:** Generate all new rules, generate only missing, or customize selection.
+
+Then call **AskQuestion**: "Which rules should I generate?" → All new / Only missing / Let me pick (Other). Wait for the answer before Phase 3.
 
 ### Phase 3: Execution
 

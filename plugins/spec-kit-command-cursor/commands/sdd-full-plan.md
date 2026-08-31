@@ -60,19 +60,18 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 ### Phase 1: Analysis
 
 1. **Parse project request** - Extract project-id and description
-2. **Gather requirements** - Ask about goal, users, tech stack, timeline, team size, must-haves, nice-to-haves
+2. **Gather requirements** — If goal, users, tech stack, timeline, team size, or must-haves are unclear, call **AskQuestion** (batch into one call; do not print a numbered list in chat).
 3. **Assess complexity** - Determine level (Simple/Medium/Complex/Enterprise) and recommended SDD approach
 
 ### Phase 2: Planning
 
-**Present roadmap preview** with epic structure, complexity, estimated duration, and SDD approach. Wait for approval.
+**Present roadmap preview** with epic structure, complexity, estimated duration, and SDD approach.
 
-**Ask execution mode:**
-- **Option A:** One-by-one processing (interactive, step-by-step)
-- **Option B:** Immediate execution (generate all at once)
-- **Option C:** Phased creation (recommended for enterprise: 8+ epics, 40+ tasks) — create Epic 1 + tasks → approve → optionally execute or pause → Epic 2 + tasks → repeat until all epics created
+Then call **AskQuestion** for:
+- "Proceed with this roadmap?" → Proceed / Adjust / Cancel
+- "How should tasks be created?" → One-by-one / Immediate (all at once) / Phased (enterprise: epic by epic)
 
-Wait for execution mode selection before proceeding.
+Do not list Option A/B/C only in chat. Wait for the answers before Phase 3.
 
 ### Phase 3: Execution
 

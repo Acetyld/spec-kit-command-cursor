@@ -76,7 +76,7 @@ Extract implementation phases, identify dependencies, and present a preview:
 Ready to generate the full task breakdown?
 ```
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
 ### Step 3: Generate tasks.md
 

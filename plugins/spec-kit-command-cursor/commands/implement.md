@@ -65,7 +65,7 @@ Present implementation plan before starting:
 - Patterns to follow
 - Todo-list preview (5-10 key items)
 
-**Wait for user approval before proceeding.**
+Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
 ### Phase 3: Execution
 

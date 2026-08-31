@@ -128,5 +128,5 @@ Perform iterative, multi-pass investigation:
 
 - Findings feed into `/specify` and `sdd-planner` subagent
 - Can be invoked by `sdd-explorer` for deeper analysis
-- Use the ask question tool when research reveals multiple valid approaches
+- Call **AskQuestion** when research reveals multiple valid approaches the user must pick. Do not list those options only in chat.
 - Deep research mode uses `WebSearch` and `WebFetch` tools extensively — ensure sandbox allows outbound access

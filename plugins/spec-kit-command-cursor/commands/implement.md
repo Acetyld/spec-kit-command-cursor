@@ -18,6 +18,8 @@ Execute the planned implementation with systematic todo-list execution and conti
 - Document blockers and deviations
 - Write production-quality code
 
+This is SDD `/implement`, not Cursor **Build**. Require `plan.md` (or send them back to `/plan` / `/brief`). Do not SwitchMode to Plan mode.
+
 ---
 
 ## Prerequisites

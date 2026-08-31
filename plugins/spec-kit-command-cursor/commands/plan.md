@@ -22,6 +22,8 @@ Generate a detailed technical implementation plan from specifications, including
 
 **Boundaries:** Do not write implementation code or create source files. Focus on planning and design only.
 
+**Not Cursor Plan mode.** Stay in Agent mode. Do **not** call SwitchMode / Plan mode. Do **not** create a Cursor Plan (the UI with **Build**). The only deliverable is `specs/active/[task-id]/plan.md`. Next step is `/tasks` or `/implement`, never "press Build".
+
 ---
 
 ## Prerequisites
@@ -69,7 +71,7 @@ Generate a detailed technical implementation plan from specifications, including
 
 ### Phase 2: Plan Preview
 
-**Present plan structure and wait for approval:**
+**Not Cursor Plan mode.** Do not SwitchMode. Present this preview in chat, then call **AskQuestion**: "Write `plan.md`?" → Write plan.md / Adjust architecture / Cancel.
 
 ```
 ## Technical Plan Preview
@@ -80,9 +82,9 @@ Generate a detailed technical implementation plan from specifications, including
 **Components:** [Main components and purposes]
 **Data model:** [Key entities]
 **API design:** [Key endpoints]
-
-Ready to generate the full plan?
 ```
+
+Wait for the AskQuestion answer before Phase 3.
 
 ### Phase 3: Generate Plan
 

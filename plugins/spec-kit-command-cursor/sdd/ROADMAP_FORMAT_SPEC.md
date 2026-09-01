@@ -9,9 +9,9 @@
 This format works seamlessly with Cursor 3.8 features:
 
 - **Async Subagents** - Execute multiple tasks in parallel via `sdd-orchestrator`
-- **Subagent Tree** - Nested subagent spawning to any depth for complex task execution
+- **Subagent Tree** - Two-level nest: parent spawns implementer siblings, then verifier siblings
 - **Skills** - Progressive loading of SDD knowledge via plugin `skills/`
-- **Cloud Subagents** - Offload long-running tasks with `/in-cloud`; `/babysit` drives PRs to merge-ready
+- **Cloud Subagents** - Offload long-running tasks with `/in-cloud`; `/autopilot` drives PRs to merge-ready
 
 ---
 
@@ -73,8 +73,7 @@ interface Roadmap {
   
   // Metadata
   metadata: {
-    sddVersion: string;           // SDD version (e.g., "5.1")
-    planMode: boolean;            // PLAN mode enabled
+    sddVersion: string;           // SDD version (e.g., "6.0")
     estimatedDuration: string;    // e.g., "8 weeks"
     complexity: Complexity;       // "simple" | "medium" | "complex" | "enterprise"
     teamSize: number;             // Number of team members
@@ -546,7 +545,7 @@ See [FULL_PLAN_EXAMPLES.md](./FULL_PLAN_EXAMPLES.md) for complete examples of:
 
 **Version History:**
 - **2.2.0** (2026-06-22): SDD 6.0 / Cursor 3.8 update
-  - Cursor 3.8 alignment: cloud subagents (`/in-cloud`, `/babysit`), native review (`/review`), pluggable memory
+  - Cursor 3.8 alignment: cloud subagents (`/in-cloud`, `/autopilot`), native review (`/review`), pluggable memory
   - Removed session/subagent logging hooks
   - SDD version metadata bumped to 6.0
 - **2.1.0** (2026-05-01): SDD 5.1 / Cursor 3.2 update

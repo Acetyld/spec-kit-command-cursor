@@ -1,3 +1,8 @@
+---
+name: evolve
+description: Update existing specs when implementation discovers new requirements.
+---
+
 # /evolve Command
 
 Update existing specifications with new discoveries, changes, or refinements made during development. Keep documentation aligned with reality.

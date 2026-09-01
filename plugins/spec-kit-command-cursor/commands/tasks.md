@@ -1,3 +1,8 @@
+---
+name: tasks
+description: Break plan.md into tasks.md with estimates and dependencies.
+---
+
 # /tasks Command
 
 Break down a technical plan into actionable, prioritized development tasks with effort estimates and dependencies.

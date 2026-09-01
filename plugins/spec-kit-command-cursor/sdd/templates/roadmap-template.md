@@ -14,8 +14,7 @@
 {{PROJECT_DESCRIPTION}}
 
 ### Metadata
-- **SDD Version:** 5.1
-- **PLAN Mode:** Enabled
+- **SDD Version:** 6.0
 - **Team Size:** {{TEAM_SIZE}}
 - **Assignee:** {{ASSIGNEE}}
 - **Tags:** {{TAGS}}
@@ -138,7 +137,7 @@ This roadmap integrates with:
 - ✅ SDD Commands (`/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`)
 - ✅ VSCode Kanban Extensions (Taskr Kanban compatible)
 - ✅ Specs in `specs/active/` for implementation details
-- ✅ PLAN Mode for all command executions
+- ✅ Plan-approve-execute (AskQuestion) for SDD commands — not Cursor Plan mode
 
 ---
 

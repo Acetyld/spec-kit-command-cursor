@@ -1,10 +1,15 @@
+---
+name: specify
+description: Write detailed spec.md with user stories and acceptance criteria. May fan out sdd-planner siblings; main writes the file.
+---
+
 # /specify Command
 
 Transform vague feature ideas into detailed, testable requirements with user stories and acceptance criteria.
 
-**Subagent:** Uses `sdd-planner` (foreground) for complex specifications. Uses `sdd-planning` skill.
+**Subagent:** For a clean split (e.g. API vs UI), spawn **1–N** `sdd-planner` siblings in one message. They return text only. **Main writes `spec.md`.** Simple specs: stay on main. AskQuestion on main. Uses `sdd-planning` skill.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 

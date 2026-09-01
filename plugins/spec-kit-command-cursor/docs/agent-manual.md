@@ -1,6 +1,8 @@
-# SDD Agent Manual (v6.0)
+# SDD Agent Manual (v6.1)
 
-Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+** for async subagents, nested subagent trees, skills, plugins, cloud subagents (`/in-cloud`, `/babysit`), native review (`/review`), Memories, agent multitasking, worktrees, and multi-root sessions.
+Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+.** Aug 2026 primitives (`/goal`, Custom Modes, Task `environment: "cloud"`, Await) are used when present.
+
+**This file is the spawn/nest/cloud source of truth.** Commands, agents, and `rules/sdd-system.mdc` must not invent a second tree.
 
 ---
 
@@ -13,8 +15,11 @@ Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+** for asyn
 5. **Delegate appropriately** — use subagents for context isolation
 6. **Ask via AskQuestion** — never dump A/B/C or numbered questions in chat as a substitute for Cursor's question UI
 7. **Never Cursor Plan mode** — SDD `/sdd-plan` writes `specs/active/[task-id]/plan.md`. Do not SwitchMode to `plan`, do not create a Cursor Plan, do not ask the user to press **Build**. Implementation is `/implement`.
+8. **Two-level nest only** — main (or orchestrator at depth 1) spawns siblings. Implementer **never** spawns verifier.
+9. **Fan-out in one message** — multiple Task calls together. Cap: `.sdd/config.json` `settings.maxParallelImplementers` (default 4).
+10. **Children return text** — only the main agent writes `research.md` / `feature-brief.md` / `spec.md` / `plan.md`.
 
-When you need a decision, clarification, or plan approval, call the **AskQuestion** tool in that same turn. One call can hold several questions; each needs at least two options. Chat may introduce *why* you are asking (1–2 sentences). The choices go in the tool. After it returns, continue — do not re-ask in markdown.
+When you need a decision, clarification, or plan approval, call the **AskQuestion** tool in that same turn. One call can hold several questions; each needs at least two options. Chat may introduce *why* you are asking (1–2 sentences). The choices go in the tool. After it returns, continue — do not re-ask in markdown. AskQuestion runs only on the **main** agent.
 
 ---
 
@@ -26,7 +31,7 @@ Two layers:
 
 ```
 plugins/spec-kit-command-cursor/
-├── agents/ commands/ skills/ rules/
+├── agents/ commands/ skills/ rules/ hooks/
 ├── docs/agent-manual.md
 └── sdd/                       # Bundled templates; /sdd-init copies into the project
 ```
@@ -61,9 +66,11 @@ specs/
 
 If `.sdd/config.json` is missing, run `/sdd-init` (or let `/brief` do it) before writing specs.
 
+Plugin hooks live in `hooks/` and load with the plugin. `/sdd-init` does **not** copy them into `.cursor/hooks.json`.
+
 ---
 
-## Subagents (Cursor 3.8+)
+## Subagents
 
 Subagents run in **isolated context**. Use them for operations that would bloat the main conversation.
 
@@ -71,191 +78,205 @@ Subagents run in **isolated context**. Use them for operations that would bloat 
 
 | Subagent | Purpose | Model | Mode |
 |----------|---------|-------|------|
-| `sdd-explorer` | Codebase discovery | inherit | foreground, readonly |
-| `sdd-planner` | Architecture design | inherit | foreground |
+| `sdd-explorer` | SDD research report (codebase + specs + memory recall) | inherit | foreground, readonly |
+| `sdd-planner` | Architecture / spec slice (returns text) | inherit | foreground |
 | `sdd-implementer` | Code generation | inherit | **background** |
 | `sdd-verifier` | Validation | inherit | foreground |
 | `sdd-reviewer` | Pre-merge code review | inherit | foreground, readonly |
 | `sdd-orchestrator` | Coordination | inherit | **background** |
 
+Built-in Cursor **Explore** may be used *inside* `sdd-explorer` for raw search. Do not delete `sdd-explorer`.
+
 ### Foreground vs Background
 
-- **Foreground**: Blocks parent until complete. Use when results are needed immediately (exploration, planning, verification).
-- **Background** (`is_background: true`): Returns immediately, parent continues working. Use for long-running implementations and orchestration.
+- **Foreground**: Blocks until complete. Use when the parent needs the result now (exploration, planning, verification).
+- **Background** (`is_background: true` on the agent, or Task `run_in_background: true`): Returns immediately. Use for long implementations and orchestration.
 
-### Subagent Tree
+### Nest limit (Cursor hard rule)
 
-Subagents can spawn their own subagents to any depth, creating a tree of coordinated work:
+The main agent and its **direct** children can spawn. A grandchild **cannot**.
+
+**Illegal:**
 
 ```
-sdd-orchestrator (background)
-├── sdd-implementer (task 1) → spawns sdd-verifier
-├── sdd-implementer (task 2) → spawns sdd-verifier
-└── sdd-implementer (task 3) → spawns sdd-verifier
+main → orchestrator → implementer → verifier
 ```
 
-This enables true parallel DAG execution where each implementer independently verifies its own work.
+**Legal (required):**
+
+```
+main  (or orchestrator at depth 1)
+├── sdd-implementer  (task 1)
+├── sdd-implementer  (task 2)
+├── sdd-verifier     (task 1)   ← sibling, after implementer returns
+└── sdd-verifier     (task 2)
+```
+
+Implementer **never** spawns verifier. The parent that spawned the implementer always spawns the verifier.
+
+### Fan-out
+
+When there are distinct areas (research slices, plan slices, independent todos):
+
+1. Cap at `settings.maxParallelImplementers` (default 4). Same cap for explorers and planners.
+2. Send multiple Task calls in **one message**.
+3. Do not invent fake slices. One area → one explorer/planner.
+4. N parallel subagents ≈ N× tokens.
+
+`/research` and `/brief`: one or more `sdd-explorer` siblings → main writes the file.  
+`/specify` and `/sdd-plan`: one or more `sdd-planner` siblings when the split is obvious → main writes the file.  
+`/implement`: if ≥5 independent todos or the user asks for parallel → implementer siblings, then verifier siblings. Else one implementer (or main), then one sibling verifier.
+
+### Task fields
+
+| Field | Use |
+|-------|-----|
+| `subagent_type` | `sdd-explorer`, `sdd-planner`, `sdd-implementer`, `sdd-verifier`, `sdd-reviewer`, `sdd-orchestrator` |
+| `prompt` | Slice-specific; tell children **not** to write spec files |
+| `model` | omit for inherit |
+| `run_in_background` | Override agent default for this call |
+| `resume` | Resume a prior agent ID from checkpoint `agentIds` |
+| `environment` | `"cloud"` for isolated VM + branch |
+| `cloud_base_branch` | Branch the cloud clone starts from |
+
+Built-in Task types (not SDD agents): `bugbot`, `security-review`, `best-of-n-runner`, `explore`. Prefer Task params over telling the user to type a slash command.
+
+**Await:** After background implementers, use the Await tool (if present) instead of a prose wait loop. If Await is missing, collect Task results as they return.
 
 ### Delegation Guidelines
 
 **Delegate to subagent when:**
-- Deep codebase exploration needed (use `sdd-explorer`)
-- Long implementation that would consume context (use `sdd-implementer`)
-- Independent tasks can run in parallel (use multiple subagents)
-- Verification of completed work (use `sdd-verifier`)
-- Code review before completion (use `sdd-reviewer`)
+- Deep codebase exploration (`sdd-explorer`)
+- Long implementation (`sdd-implementer`)
+- Independent tasks in parallel (multiple Tasks)
+- Verification (`sdd-verifier`, spawned by **parent**)
+- Code review (`sdd-reviewer`)
 
 **Keep in main context when:**
-- Simple, quick operations (few tool calls)
-- User interaction needed mid-task
-- Sequential dependent steps requiring shared context
+- Simple, quick operations
+- AskQuestion / user interaction
+- Synthesizing slice results into a spec file
 
-### Spawning Subagents
+### Native vs plugin commands
 
-Use the Task tool to spawn subagents:
+| Name | Kind |
+|------|------|
+| `/sdd-init`, `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/sdd-complete`, `/audit`, `/evolve`, `/refine`, `/sdd-full-plan`, `/execute-task`, `/execute-parallel`, `/sdd-memory` | **Plugin** |
+| `/multitask`, `/review`, `/review-bugbot`, `/review-security`, `/goal`, `/autopilot`, `/in-cloud`, `/worktree`, `/best-of-n` | **Native Cursor** — do not list as SDD plugin commands |
 
-```markdown
-[Use Task tool with:]
-- subagent_type: "sdd-implementer" (or other agent name)
-- prompt: Detailed instructions with all necessary context
-- model: omit for inherit, or use an exact Cursor-supported model ID when a specific model is required
-```
+`/in-cloud` is the user-facing alias. Orchestrator/implement prompts should set Task `environment: "cloud"` when offloading. `/autopilot` (formerly babysit) drives a PR to merge-ready.
 
-**Parallel execution:** Send multiple Task tool calls in a single message.
+### `/goal` on `/implement`
 
-**Background subagents:** Set `is_background: true` in the agent file. The parent continues working while the subagent runs.
-
-### Cursor 3.8 Multitask, Worktrees, and Cloud
-
-Use Cursor's native `/multitask` for ad hoc independent requests, especially when there is no SDD roadmap to update. Use SDD `/execute-parallel` when work must respect roadmap dependencies, file-conflict batching, checkpoints, or mandatory verifier handoffs.
-
-Use Agents Window worktrees for parallel or risky implementation attempts. `.cursor/worktrees.json` prepares the isolated checkout; keep setup commands lightweight and avoid assuming one package manager unless the target project declares one.
-
-**Cloud subagents (3.7+):** Offload long-running, risky, or environment-heavy tasks with `/in-cloud` — each runs on its own VM and branch so the local workspace stays responsive. Use `/babysit` to have a cloud agent prepare a PR for merge (resolve comments, conflicts, CI). Commit `.cursor/environment.json` so cloud agents start faster.
-
-For multi-root workspaces, always resolve generated files, specs, and roadmap updates from the active project root. Do not write cross-repo state unless the command explicitly targets that root.
-
-### Automatic Verification
-
-After every implementation phase, the implementer spawns `sdd-verifier` as a child subagent:
+When `/goal` exists, `/implement` sets a long-lived objective:
 
 ```
-sdd-implementer completes → spawns sdd-verifier → validates work → reports back
+Complete spec "<title>" in specs/active/<task-id>/ until the sibling sdd-verifier reports complete (or blockers are documented). Do not stop after a single pass.
 ```
+
+Pair with Custom Mode `sdd-implementation` (Option+Enter / Alt+Enter). If `/goal` is missing, still run todos + sibling verifier.
+
+### Custom Modes
+
+Skills `sdd-planning`, `sdd-implementation`, `sdd-audit`, `sdd-research` have `icon` + `color`. Pin from `/` with Option+Enter (Mac) or Alt+Enter (Windows) so the playbook stays in context for the session.
 
 ### Reviewer vs Verifier
 
-These two agents serve distinct purposes — do not confuse them:
-
 | Aspect | `sdd-reviewer` | `sdd-verifier` |
-|--------|---------------|----------------|
-| **When** | Before merging / on demand via `/audit` | Automatically after every implementation |
-| **Perspective** | Code review — quality, security, performance | Completeness — does the code match the spec? |
-| **Scope** | Broad: style, patterns, security, perf | Focused: spec requirements, file existence, tests pass |
-| **Spawned by** | Main agent or user request | `sdd-implementer` (child subagent) |
-| **Mode** | Readonly | Foreground (can report but not edit) |
+|--------|----------------|----------------|
+| **When** | Before merging / `/audit` | After every implementation |
+| **Perspective** | Quality, security, performance | Completeness vs spec |
+| **Spawned by** | Main or user | **Parent** (main or orchestrator), as a sibling of implementer |
+| **Mode** | Readonly | Foreground |
 
-**Rule of thumb:** Verifier answers "is it done?", Reviewer answers "is it good?"
-
----
-
-## Skills (Cursor 3.8+)
-
-Skills are auto-invoked based on context or manually via `/skill-name`.
-
-### Available Skills
-
-| Skill | Auto-Invoke When |
-|-------|------------------|
-| `sdd-research` | Technical approach unclear |
-| `sdd-planning` | Spec exists, need plan |
-| `sdd-implementation` | Plan ready for execution |
-| `sdd-audit` | Code review requested |
-| `sdd-evolve` | Discoveries during dev |
-| `sdd-memory` | Start/finish of planning or implementation (recall + persist) |
-
-### Skill Structure
-
-Skills use progressive loading — keep main `SKILL.md` focused:
-
-```
-plugins/spec-kit-command-cursor/skills/[skill-name]/
-├── SKILL.md          # Core instructions (~50 lines)
-├── references/       # Loaded on demand
-├── scripts/          # Executable helpers
-└── assets/           # Templates, diagrams
-```
+Verifier answers "is it done?", Reviewer answers "is it good?"
 
 ---
 
-## Memory (Cursor 3.8+)
+## Skills
+
+Skills are auto-invoked based on context or manually via `/skill-name`. Pin as a Custom Mode to keep them on.
+
+| Skill | Auto-Invoke When | Custom Mode |
+|-------|------------------|-------------|
+| `sdd-research` | Technical approach unclear | beaker / purple |
+| `sdd-planning` | Spec exists, need plan | book-open / blue |
+| `sdd-implementation` | Plan ready for execution | rocket / green |
+| `sdd-audit` | Code review requested | shield / orange |
+| `sdd-evolve` | Discoveries during dev | — |
+| `sdd-memory` | Start/finish of planning or implementation | — |
+
+---
+
+## Memory
 
 SDD long-term memory is **optional and pluggable**, configured in `.sdd/config.json` → `memory` and managed with `/sdd-memory`:
 
 | Provider | Setup | Notes |
 |----------|-------|-------|
 | `standard` *(default)* | none | Rules-only; relies on `.cursor/rules/` + `specs/`. No persistent store. |
-| `cursor-native` | toggle on | Cursor 3.8 Memories — all plans (Free/Pro/Team), individual level. Needs Privacy Mode off + "Generate Memories" enabled. |
-| `mem0` | mem0 MCP / local API | Free self-host semantic memory across sessions. |
+| `cursor-native` | toggle on | Cursor Memories. Needs Privacy Mode off + "Generate Memories" enabled. |
+| `mem0` | mem0 MCP / local API | Free self-host. Use `CallDynamicTool` (not `CallMcpTool`). Cloud agents do not see local MCP. |
 
-The `sdd-memory` skill **recalls** relevant decisions/conventions/gotchas before planning or implementing, and **persists** durable discoveries afterward. When `standard`, it is a no-op. **Never store secrets in memory.**
+When `standard`, memory is a no-op. **Never store secrets in memory.**
 
 ---
 
-## Native Review (Cursor 3.8+)
+## Native Review
 
 Prefer Cursor's first-party reviewers for mechanical checks, then let SDD agents own spec compliance:
 
-- `/review` lets you pick Bugbot + Security Review; `/review-bugbot` and `/review-security` run them directly. Bugbot (Composer 2.5) reviews in ~90s and syncs with GitHub/GitLab so the same diff isn't re-reviewed on PR.
-- `sdd-reviewer` and `/audit` fold native findings into one consolidated report and add the spec-compliance verdict native reviewers don't provide.
+- `/review`, `/review-bugbot`, `/review-security` — or Task `bugbot` / `security-review`
+- `sdd-reviewer` and `/audit` add the spec-compliance verdict
 
 ---
 
-## Sandbox (Cursor 3.8+)
+## Sandbox
 
-Network access controls for sandboxed commands are configured in `.cursor/sandbox.json`:
-
-- **Per-repo**: `.cursor/sandbox.json` (higher priority)
-- **Per-user**: `~/.cursor/sandbox.json` (lower priority)
-
-Controls: allowed/denied domains, filesystem paths, build cache sharing.
+Network access controls: `.cursor/sandbox.json` (repo) or `~/.cursor/sandbox.json` (user).
 
 ---
 
 ## DAG-Based Execution
 
-Tasks organized as Directed Acyclic Graph with dependencies:
-
-- **EPIC 0**: Prerequisites that must complete before feature work
-- **dependencies**: Array of task IDs that must complete first
-- **canParallelize**: Whether task can run in parallel with siblings
-- **parallelGroups**: Groups of tasks that can execute simultaneously
+- **EPIC 0**: Prerequisites
+- **dependencies**: Task IDs that must complete first
+- **canParallelize** / **parallelGroups**
+- **touchedFiles**: overlapping paths → separate batches (isolated VM swarms are out of scope)
 
 ### Parallel Execution Pattern
 
-1. Load `roadmap.json` (for heavy roadmaps: only `dag`, `statistics`, and current batch tasks — not full `tasks` object)
-2. Spawn background subagent for each ready task (parallel Task tool calls). Pass minimal context: `task-id`, `title`, `linkedSpec path`, `executeCommand` — implementer loads full details on demand
-3. Collect results, update roadmap statuses
-4. Each implementer spawns `sdd-verifier` as child subagent
-5. Identify next ready tasks, repeat
+1. Load `roadmap.json` (heavy: only `dag`, `statistics`, current batch)
+2. Spawn background implementers in one message (disjoint `touchedFiles`)
+3. Await (if available); collect results
+4. Parent spawns `sdd-verifier` **siblings** (one per implementer that claimed done)
+5. Do not mark roadmap `done` if verifier reports gaps
+6. Write `execution-checkpoint.json` including optional `agentIds`
+7. Repeat
 
-### Context Management for Heavy Roadmaps
-
-- **Orchestrator:** Load only `dag.roots`, `dag.parallelGroups`, and `tasks.[id]` for the current batch. Avoid loading 40+ task objects.
-- **Implementer prompts:** Pass task ID and paths; implementer reads `specs/todo-roadmap/[project-id]/tasks/[task-id].json` and spec files itself.
-
-```markdown
-Batch 1 (parallel, background):
-├── sdd-implementer → task-001 → sdd-verifier
-├── sdd-implementer → task-003 → sdd-verifier
-└── sdd-explorer → task-005
-
-[Collect results]
-
-Batch 2 (deps satisfied):
-├── sdd-implementer → task-002 → sdd-verifier
-└── sdd-implementer → task-004 → sdd-verifier
 ```
+Batch 1 (one message):
+├── sdd-implementer (task-001)
+├── sdd-implementer (task-003)
+└── sdd-explorer (task-005)
+
+After implementers return (siblings):
+├── sdd-verifier (task-001)
+└── sdd-verifier (task-003)
+```
+
+Only the orchestrator writes `roadmap.json`.
+
+Checkpoint:
+
+```ts
+{
+  lastCompletedBatch, failedTaskId, nextReadyTasks, timestamp, batchNumber,
+  agentIds?: { [taskId]: { implementer?: string, verifier?: string } }
+}
+```
+
+`--resume` may pass Task `resume` when an ID exists; still skip `done` tasks.
 
 ---
 
@@ -267,57 +288,43 @@ Batch 2 (deps satisfied):
 | Task not found | Show available options |
 | Permission denied | Explain simply, suggest fix |
 | Subagent blocked | Report blocker, continue others |
-| Verification failed | Report gaps, don't mark done |
-| Implementation breaks build | Revert with `git checkout -- [files]`, document blocker, re-attempt with fix |
-| Verification fails critically | Revert task changes, update task status to `blocked`, report to orchestrator |
-| Context window exhaustion | Save progress to spec files, summarize state, hand off to new session |
-| Concurrent file conflict | Only orchestrator writes to `roadmap.json`; implementers report results back |
+| Verification failed | Report gaps, don't mark done; keep `/goal` open |
+| Implementation breaks build | Revert with `git checkout -- [files]`, document blocker |
+| Verification fails critically | Revert, status `blocked`, report to parent |
+| Context window exhaustion | Save progress to spec files, summarize, new session |
+| Concurrent file conflict | Only orchestrator writes `roadmap.json` |
+| Hook failure | Fail-open; agent still writes `progress.md` |
 
-**Golden Rules:** Fix small issues yourself. Ask when uncertain. Never leave user stuck. Always verify implementation completeness. When in doubt, revert and retry rather than building on broken state.
+**Golden Rules:** Fix small issues yourself. Ask when uncertain. Never leave user stuck. Always verify. When in doubt, revert and retry.
 
 ---
 
 ## Command-to-Subagent Mapping
 
-| Command | Primary Subagent | Skill Used |
-|---------|------------------|------------|
-| `/research` | sdd-explorer | sdd-research |
-| `/specify` | sdd-planner | sdd-planning |
-| `/sdd-plan` | sdd-planner | sdd-planning |
-| `/tasks` | sdd-planner | — |
-| `/implement` | sdd-implementer | sdd-implementation |
-| `/sdd-complete` | — | — |
-| `/audit` | sdd-reviewer | sdd-audit |
-| `/evolve` | — | sdd-evolve |
-| `/execute-task` | sdd-implementer | varies |
-| `/execute-parallel` | sdd-orchestrator | varies |
+| Command | Spawns (when needed) | Skill | Who writes the spec file |
+|---------|----------------------|-------|--------------------------|
+| `/research` | 1–N `sdd-explorer` | sdd-research | **main** (`research.md`) |
+| `/brief` | 1–N `sdd-explorer` | sdd-planning | **main** (`feature-brief.md`) |
+| `/specify` | 0–N `sdd-planner` | sdd-planning | **main** (`spec.md`) |
+| `/sdd-plan` | 0–N `sdd-planner` | sdd-planning | **main** (`plan.md`) |
+| `/tasks` | 0–1 `sdd-planner` | — | **main** (`tasks.md`) |
+| `/implement` | implementer(s) then **sibling** verifier(s); `/goal` | sdd-implementation | main (`todo-list.md`) |
+| `/sdd-complete` | — | — | — |
+| `/audit` | `sdd-reviewer` | sdd-audit | — |
+| `/evolve` | — | sdd-evolve | main |
+| `/execute-task` | implementer then sibling verifier | varies | — |
+| `/execute-parallel` | `sdd-orchestrator` or main as orchestrator | varies | checkpoint |
 
 ---
 
 ## Best Practices
 
-### Context Management
-- Use subagents for exploration to avoid context bloat
-- Keep main conversation focused on decisions and user communication
-- Let background subagents handle verbose operations
-
-### Parallel Efficiency
-- Identify independent tasks early
-- Spawn multiple subagents in single message
-- Prefer inherited models for custom agents unless an exact Cursor-supported model ID is required
-- Use background mode for long-running work
-
-### Verification
-- Always verify after implementation
-- Don't trust "done" claims without checking
-- Run tests when available
-- Compare code to spec requirements
-
-### Memory Integration
-- Recall at the start of planning/implementation; persist durable discoveries at the end (via `sdd-memory` skill)
-- Provider is set in `.sdd/config.json`; `standard` keeps the toolkit dependency-free
-- Never persist secrets, tokens, or full file dumps
+- Main conversation: decisions and synthesis. Subagents: search and build.
+- Multiple Tasks in one message. Cap 4 unless config says otherwise.
+- Await background work. Resume by agent ID when checkpoint has it.
+- Don't trust "done" without a sibling verifier.
+- Recall/persist via `sdd-memory` (no-op for `standard`). Never persist secrets.
 
 ---
 
-*SDD Agent Manual v6.0 — Cursor 3.8 optimized (Async + Nested Subagents + Cloud + Native Review + Memory + Worktrees + Multi-root)*
+*SDD Agent Manual v6.1 — two-level nest, fan-out siblings, `/goal`, Custom Modes, Task cloud APIs*

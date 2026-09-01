@@ -1,3 +1,8 @@
+---
+name: sdd-memory
+description: Configure SDD memory backend (standard, cursor-native, mem0).
+---
+
 # /sdd-memory Command
 
 Configure how SDD remembers project knowledge across sessions. Choose a memory backend, wire it up, and (optionally) seed it from existing specs.

@@ -148,6 +148,7 @@ Only if the file does **not** already exist:
 - `.cursor/environment.json` — no-op install stub; tell the user to point `install` at their real app bootstrap
 
 Do **not** write `.cursor/sandbox.json` unless asked (too opinionated for other apps).
+Do **not** write `.cursor/hooks.json` — SDD hooks ship in the plugin (`hooks/`) and load with the plugin.
 Do **not** copy plugin `commands/`, `agents/`, `skills/`, or `rules/` into the project — Cursor already loads those from the plugin.
 
 ### 7. Confirm
@@ -158,4 +159,6 @@ List created/skipped paths. Then:
 Ready. Everyday flow: /brief <id> <description>  →  /implement <id>
 Complex: /research → /specify → /sdd-plan → /tasks → /implement
 Whole app: /sdd-full-plan <id>  →  /execute-parallel <id> --until-finish
+Pin sdd-implementation as a Custom Mode (Option+Enter) and use /goal on /implement when available.
+Plugin hooks (subagentStop, stop) are optional and already in the plugin — not copied here.
 ```

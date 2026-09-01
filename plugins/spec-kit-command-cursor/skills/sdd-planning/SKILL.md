@@ -1,6 +1,8 @@
 ---
 name: sdd-planning
 description: Generate technical plans from specifications. Use when creating architecture documents, designing system components, or preparing for implementation.
+icon: book-open
+color: blue
 ---
 
 # SDD Planning Skill

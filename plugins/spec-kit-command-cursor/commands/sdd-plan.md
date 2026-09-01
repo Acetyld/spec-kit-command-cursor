@@ -1,10 +1,15 @@
+---
+name: sdd-plan
+description: Technical architecture plan (plan.md). Not Cursor Plan mode. May fan out sdd-planner siblings; main writes the file.
+---
+
 # /sdd-plan Command
 
 Generate a detailed technical implementation plan from specifications, including architecture decisions, tech stack, and design patterns.
 
-**Subagent:** Delegates to `sdd-planner` (foreground) for architecture design. Uses `sdd-planning` skill.
+**Subagent:** For a clean split, spawn **1–N** `sdd-planner` siblings in one message (return text only). **Main writes `plan.md`.** Otherwise one planner or main. AskQuestion on main. Uses `sdd-planning` skill.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol. Do **not** SwitchMode to Cursor Plan mode.
 
 ---
 

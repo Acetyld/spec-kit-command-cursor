@@ -56,11 +56,11 @@ Common mistakes to detect:
 
 ### Subagent Tree
 
-Subagents can spawn child subagents to any depth:
-- `sdd-orchestrator` spawns multiple `sdd-implementer` instances
-- `sdd-implementer` spawns `sdd-verifier` after completion
+Two-level nest only. Parent (main or orchestrator) spawns implementers, then **sibling** verifiers. Implementer never spawns verifier. See `docs/agent-manual.md`.
 
-## PLAN Mode Integration
+## Plan-approve-execute (not Cursor Plan mode)
+
+SDD shows a preview and uses AskQuestion. Do **not** SwitchMode to Cursor Plan / Build.
 
 ### Universal Workflow Pattern
 
@@ -148,7 +148,7 @@ Choose how SDD remembers project knowledge across sessions.
 ### Native Review & Cloud (Cursor 3.8)
 
 - **`/review`** (or `/review-bugbot` / `/review-security`) — run Bugbot + Security Review before pushing; `sdd-reviewer` and `/audit` fold the findings in and add the spec-compliance verdict.
-- **`/in-cloud`** — run long-running or risky tasks on an isolated cloud VM + branch; **`/babysit`** drives a PR to merge-ready remotely. `.cursor/environment.json` speeds cloud startup.
+- **`/in-cloud`** — run long-running or risky tasks on an isolated cloud VM + branch; **`/autopilot`** drives a PR to merge-ready remotely. `.cursor/environment.json` speeds cloud startup.
 
 ### Project Planning
 
@@ -185,38 +185,17 @@ specs/
 ├── completed/                  # Delivered features
 └── backlog/                    # Future features
 
-.cursor/
-├── agents/                     # SDD subagent definitions
-│   ├── sdd-explorer.md
-│   ├── sdd-planner.md
-│   ├── sdd-implementer.md
-│   ├── sdd-verifier.md
-│   ├── sdd-reviewer.md
-│   └── sdd-orchestrator.md
-├── commands/                   # SDD slash commands
-│   ├── _shared/
-│   │   └── agent-manual.md    # Universal protocols
-│   ├── brief.md
-│   ├── research.md
-│   ├── specify.md
-│   ├── plan.md
-│   ├── tasks.md
-│   ├── implement.md
-│   ├── evolve.md
-│   ├── upgrade.md
-│   ├── execute-task.md
-│   ├── execute-parallel.md
-│   ├── sdd-full-plan.md
-│   └── ...
-├── skills/                     # SDD skills (progressive loading)
-│   ├── sdd-research/
-│   ├── sdd-planning/
-│   ├── sdd-implementation/
-│   ├── sdd-audit/
-│   ├── sdd-evolve/
-│   └── sdd-memory/             # Pluggable long-term memory
-├── rules/
-│   └── sdd-system.mdc          # Always-applied SDD rules
+Plugin (Cursor loads these — not under the app repo `.cursor/`):
+
+plugins/spec-kit-command-cursor/
+├── agents/                     # sdd-explorer, planner, implementer, verifier, reviewer, orchestrator
+├── commands/                   # slash commands (brief, research, specify, sdd-plan, implement, …)
+├── skills/                     # sdd-research, planning, implementation, audit, evolve, memory
+├── rules/sdd-system.mdc
+├── hooks/                      # optional fail-open subagentStop + stop
+└── docs/agent-manual.md        # spawn protocol (source of truth)
+
+App repo `.cursor/` only has optional worktrees.json, environment.json, and /generate-rules output.
 ├── environment.json            # Cloud agent environment setup (3.7+)
 └── sandbox.json                # Network access controls
 ```

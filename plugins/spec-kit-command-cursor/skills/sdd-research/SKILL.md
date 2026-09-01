@@ -1,6 +1,8 @@
 ---
 name: sdd-research
 description: Pattern investigation and technical research before specification. Use when technical approach is unclear, exploring existing solutions, or analyzing codebase patterns. Supports deep research mode for thorough external investigation.
+icon: beaker
+color: purple
 ---
 
 # SDD Research Skill

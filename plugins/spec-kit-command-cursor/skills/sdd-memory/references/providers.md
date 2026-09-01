@@ -60,7 +60,7 @@ Config lives in `.sdd/config.json` → `memory.providers.mem0`:
 Call the mem0 MCP search/retrieve tool (inspect the server's tool schema first):
 
 ```
-CallMcpTool(server="mem0", toolName="search_memory", arguments={
+CallDynamicTool(server="mem0", toolName="search_memory", arguments={
   "query": "<search intent>",
   "user_id": "sdd"
 })
@@ -72,7 +72,7 @@ Merge the top results into context; cite them.
 Call the mem0 MCP add tool with a single atomic fact:
 
 ```
-CallMcpTool(server="mem0", toolName="add_memory", arguments={
+CallDynamicTool(server="mem0", toolName="add_memory", arguments={
   "messages": "[decision] <fact> — <why> (source: <task-id>)",
   "user_id": "sdd",
   "metadata": { "category": "decisions", "project": "<repo>", "taskId": "<task-id>" }

@@ -1,6 +1,8 @@
 ---
 name: sdd-audit
 description: Compare implementation against specifications, identify gaps and issues. Use for code review, quality assurance, and verifying spec compliance.
+icon: shield
+color: orange
 ---
 
 # SDD Audit Skill

@@ -1,12 +1,17 @@
+---
+name: execute-task
+description: Run one roadmap task (or an epic sequentially). Implementation uses sdd-implementer then a sibling sdd-verifier.
+---
+
 # /execute-task Command
 
 Execute a specific task from a project roadmap, automatically determining the appropriate SDD command and updating roadmap status.
 
 **Supports `--until-finish` flag** for automated sequential execution of all tasks in an epic.
 
-**Subagent:** Delegates to the appropriate SDD subagent based on task phase. Implementation tasks use `sdd-implementer` (background), which spawns `sdd-verifier` as a child subagent.
+**Subagent:** Map phase to SDD command/agent. Implementation: `sdd-implementer` (background), then **this agent** spawns `sdd-verifier` as a sibling. Implementer never spawns verifier.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 

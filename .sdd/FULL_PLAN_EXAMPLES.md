@@ -18,9 +18,9 @@ This document provides comprehensive examples of using `/sdd-full-plan` and `/pe
 This guide leverages Cursor 3.8 capabilities:
 
 - **Async Subagents** - Parallel task execution via `sdd-orchestrator`
-- **Subagent Tree** - Nested spawning (any depth) for complex workflows
+- **Subagent Tree** - Two-level nest: sibling implementers and sibling verifiers
 - **Skills** - Progressive loading of SDD knowledge
-- **Cloud Subagents** - Offload long-running work with `/in-cloud`; `/babysit` for PR prep
+- **Cloud Subagents** - Offload long-running work with `/in-cloud`; `/autopilot` for PR prep
 - **DAG Execution** - Dependency-aware parallel task batches
 
 ---
@@ -153,8 +153,7 @@ I understand the project well, create everything at once.
   "type": "feature",
   "complexity": "simple",
   "metadata": {
-    "sddVersion": "5.1",
-    "planMode": true,
+    "sddVersion": "6.0",
     "estimatedDuration": "2 weeks",
     "complexity": "simple"
   },
@@ -310,7 +309,7 @@ Approve this plan?
   "type": "application",
   "complexity": "medium",
   "metadata": {
-    "sddVersion": "5.1",
+    "sddVersion": "6.0",
     "estimatedDuration": "6 weeks",
     "teamSize": 3
   },
@@ -562,7 +561,7 @@ Approve this plan?
   "type": "platform",
   "complexity": "complex",
   "metadata": {
-    "sddVersion": "5.1",
+    "sddVersion": "6.0",
     "estimatedDuration": "16 weeks",
     "teamSize": 8,
     "tags": ["ecommerce", "marketplace", "payments", "shipping", "pci-compliance"]

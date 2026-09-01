@@ -1,3 +1,8 @@
+---
+name: generate-prd
+description: Guided PRD (product requirements) through questioning.
+---
+
 # /generate-prd Command
 
 Generate a Product Requirements Document through guided Socratic questioning, creating both comprehensive and AI-optimized versions.

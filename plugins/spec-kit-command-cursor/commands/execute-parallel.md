@@ -1,10 +1,15 @@
+---
+name: execute-parallel
+description: Run roadmap tasks as sibling implementers plus sibling verifiers. Await, checkpoints, optional Task cloud.
+---
+
 # /execute-parallel Command
 
 Execute multiple tasks in parallel using async background subagents for coordination.
 
-**Leverages:** Async subagents, Cursor 3.8 worktrees/multitask awareness, subagent tree pattern, and optional cloud subagents (`/in-cloud`, `/babysit`) for isolated long-running work.
+**Leverages:** Fan-out Task calls, Await, sibling `sdd-verifier`, `touchedFiles` batching, checkpoints. Cloud: Task `environment: "cloud"` (user alias `/in-cloud`). PR follow-up: native `/autopilot`. Native `/multitask` is for ad hoc work without a roadmap.
 
-**See also:** `docs/agent-manual.md` for full subagent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 
@@ -63,7 +68,7 @@ Group tasks into parallel batches based on:
 **Step 4: Parallelism limits**
 
 - **Max parallel implementers:** 3–5 (default: 4). Read from `.sdd/config.json` `settings.maxParallelImplementers` if present.
-- When more tasks are ready than the limit, run in waves: batch 1 (first N tasks) → wait for completion → batch 2 (next N tasks) → repeat.
+- When more tasks are ready than the limit, run in waves: batch 1 (first N tasks) → **Await** (if available) → sibling verifiers → batch 2.
 - Do not spawn more than `maxParallelImplementers` in a single batch.
 
 ### Phase 2: Parallel Execution with Async Subagents
@@ -84,17 +89,18 @@ Group tasks into parallel batches based on:
 
 **Worktree guidance:** For risky or competing implementation approaches, launch the agent in an Agents Window worktree. `.cursor/worktrees.json` prepares the checkout before the SDD command runs.
 
-**Cloud guidance (3.7+):** For long-running, risky, or environment-heavy tasks, offload to a cloud subagent with `/in-cloud` (its own VM + branch keeps the local workspace clean). After a task lands, `/babysit` can iterate on its PR remotely until merge-ready. Cloud agents start faster when `.cursor/environment.json` is committed.
+**Cloud:** For long-running, risky, or environment-heavy tasks, set Task `environment: "cloud"` and optional `cloud_base_branch`. User alias `/in-cloud`. After a task lands, `/autopilot` can iterate on its PR. Commit `.cursor/environment.json` so cloud agents start faster.
 
-**Subagent Tree Pattern:**
+**Subagent Tree Pattern (siblings only):**
 
-Each background `sdd-implementer` automatically spawns `sdd-verifier` as a child subagent after completing its work. This means verification happens inside the subagent tree without blocking the orchestrator.
+Parent (orchestrator or main) spawns implementers, **Awaits**, then spawns `sdd-verifier` siblings. Implementer never spawns verifier.
 
 ```
-sdd-orchestrator (background)
-├── sdd-implementer (task 1) → spawns sdd-verifier
-├── sdd-implementer (task 2) → spawns sdd-verifier
-└── sdd-explorer (task 3)
+orchestrator (depth 1)
+├── sdd-implementer (task 1)
+├── sdd-implementer (task 2)
+├── sdd-verifier (task 1)
+└── sdd-verifier (task 2)
 ```
 
 **Spawning subagents (prompt economy):**
@@ -115,15 +121,14 @@ Task 1: {
 
 **After each batch completes:**
 
-1. **Collect results** from subagent responses
-2. **Update roadmap.json** statuses: `todo` → `in-progress` → `review` → `done`
-3. **Write execution-checkpoint.json** in `specs/todo-roadmap/[project-id]/`:
-   - `lastCompletedBatch`: task IDs that completed
-   - `failedTaskId`: task that failed (if any), else null
-   - `nextReadyTasks`: task IDs ready for next batch
-   - `timestamp`: ISO8601
-   - `batchNumber`: incrementing batch index
-4. **Identify next ready tasks** based on completed dependencies
+1. **Await** background implementers if the tool exists; else collect Task results
+2. Spawn `sdd-verifier` **siblings** for each implementer that claimed done
+3. **Update roadmap.json** statuses: `todo` → `in-progress` → `review` → `done` only if verifier is green
+4. **Write execution-checkpoint.json** in `specs/todo-roadmap/[project-id]/`:
+   - `lastCompletedBatch`, `failedTaskId`, `nextReadyTasks`, `timestamp`, `batchNumber`
+   - `agentIds`: `{ [taskId]: { implementer?, verifier? } }` when Task returns IDs
+5. On `--resume`, pass Task `resume` when an ID exists; still skip `done` tasks
+6. **Identify next ready tasks** based on completed dependencies
 
 **Progress Report Format:**
 
@@ -161,7 +166,7 @@ Task 1: {
 | 2 | task-002, task-004 | 2x |
 
 ### Verification Summary
-- All implementations verified via subagent tree: YES
+- All implementations verified via sibling sdd-verifier: YES
 - Spec compliance: 100%
 
 ### Next Steps

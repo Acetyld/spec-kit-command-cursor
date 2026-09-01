@@ -1,3 +1,8 @@
+---
+name: sdd-full-plan
+description: Create a full project roadmap (DAG) and optionally execute it.
+---
+
 # /sdd-full-plan Command
 
 Create a comprehensive project roadmap from A to Z with kanban-style task organization, epic hierarchy, and DAG-based parallel execution.
@@ -6,7 +11,7 @@ Create a comprehensive project roadmap from A to Z with kanban-style task organi
 
 **Supports `--until-finish` flag** for automated execution of the entire project after roadmap creation.
 
-**Subagent:** Uses `sdd-orchestrator` (background) for parallel execution. Spawns `sdd-implementer` and `sdd-verifier` as child subagents.
+**Subagent:** Uses `sdd-orchestrator` (background) for `--until-finish`. Orchestrator spawns implementer **siblings**, then verifier **siblings**. Implementer never spawns verifier.
 
 **See also:** `docs/agent-manual.md` for full agent protocol.
 
@@ -96,7 +101,7 @@ specs/todo-roadmap/[project-id]/
 ```
 
 **Generate roadmap.json** with:
-- Project metadata (id, title, description, sddVersion: "5.1")
+- Project metadata (id, title, description, sddVersion: "6.0")
 - Kanban columns (todo, in-progress, review, done)
 - Tasks/epics with dependencies, SDD command mappings, and DAG structure
 - Statistics (totalTasks, completionPercentage)
@@ -138,8 +143,8 @@ If `--until-finish` flag provided, execution begins immediately after roadmap cr
 1. **Pre-Execution Summary** — Show roadmap summary and execution queue
 2. **Delegate to `sdd-orchestrator`** (background subagent) for parallel DAG execution
 3. **Orchestrator identifies ready tasks** from `dag.roots` and `dag.parallelGroups`
-4. **Orchestrator spawns** `sdd-implementer` subagents for each ready task in parallel
-5. **Each implementer spawns** `sdd-verifier` as child subagent (subagent tree pattern)
+4. **Orchestrator spawns** `sdd-implementer` siblings for each ready task in parallel
+5. **After they return (Await), orchestrator spawns** `sdd-verifier` **siblings** — implementer never spawns verifier
 6. **Batch completion** — collect results, update roadmap, identify next ready tasks
 7. **Repeat** until all tasks complete or a blocker is hit
 8. **Error Handling** — mark failed task as `blocked`, continue independent tasks, report at end

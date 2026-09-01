@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "subagentStop": [
+      {
+        "command": "hooks/scripts/subagent-stop.sh"
+      }
+    ],
+    "stop": [
+      {
+        "command": "hooks/scripts/session-stop.sh"
+      }
+    ]
+  }
+}

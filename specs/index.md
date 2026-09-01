@@ -17,7 +17,7 @@
 
 | Task ID | Feature | Completed |
 |---------|---------|-----------|
-| *none* | — | — |
+| cursor-runtime-2026 | Align spec-kit with current Cursor runtime (plugins, subagents, Aug 2026 features) | 2026-09-01 |
 
 ### Backlog Features
 

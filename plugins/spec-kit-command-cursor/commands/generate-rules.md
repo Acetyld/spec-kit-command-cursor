@@ -1,3 +1,8 @@
+---
+name: generate-rules
+description: Generate .cursor/rules from detected project stack.
+---
+
 # /generate-rules Command
 
 Automatically generate comprehensive Cursor coding rules based on technology stack detection and codebase analysis.

@@ -1,10 +1,17 @@
+---
+name: implement
+description: Execute the plan with todos, optional parallel implementers, /goal, and a sibling sdd-verifier. Not Cursor Build.
+---
+
 # /implement Command
 
 Execute the planned implementation with systematic todo-list execution and continuous progress tracking.
 
-**Subagent:** Delegates to `sdd-implementer` (background) for long implementations. After completion, `sdd-verifier` is spawned as a child subagent to validate work.
+**Subagent:** Long or parallel work → `sdd-implementer` siblings (background). After they return, spawn `sdd-verifier` as **siblings** (parent only). Implementer never spawns verifier.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**`/goal` (native, when available):** set a long-lived objective — `Complete spec "<title>" in specs/active/<task-id>/ until the sibling sdd-verifier reports complete (or blockers are documented). Do not stop after a single pass.` Pin Custom Mode `sdd-implementation` with Option+Enter / Alt+Enter.
+
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 
@@ -69,6 +76,8 @@ Present implementation plan before starting:
 
 Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only write "Ready to proceed?" in chat.
 
+If `/goal` exists, set it now (title + until sibling verifier is green).
+
 ### Phase 3: Execution
 
 **Create directory if it doesn't exist:** `specs/active/[task-id]/`
@@ -80,10 +89,12 @@ Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only
 
 **Execute todos systematically:**
 1. Read entire todo-list before starting
-2. Execute in order, respecting dependencies
-3. Mark completion: `- [ ]` → `- [x]` after each item
-4. Document blockers - never skip silently
-5. Update progress log
+2. If **≥5 independent todos** or the user asks for parallel: spawn up to `maxParallelImplementers` (default 4) `sdd-implementer` siblings in one message (disjoint files). Else stay on main or one implementer.
+3. Execute in order, respecting dependencies
+4. Mark completion: `- [ ]` → `- [x]` after each item
+5. Document blockers - never skip silently
+6. Update progress log
+7. Keep working until the sibling verifier is green or blockers are documented (`/goal`).
 
 **For each todo:**
 - Show what you're working on
@@ -100,14 +111,18 @@ Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only
 
 ### Phase 4: Verification
 
-Spawn `sdd-verifier` subagent to independently validate:
+**Parent** (this agent) spawns `sdd-verifier` as a **sibling** of any implementer — never as a child of implementer. If you implemented on main, still spawn verifier as a Task.
+
+Validate:
 - [ ] All todos complete or blocked
 - [ ] Code follows project patterns
 - [ ] No linter errors
 - [ ] Tests pass (if applicable)
 - [ ] Spec requirements met
 
-**Persist memory:** Use the `sdd-memory` skill to save durable discoveries (new conventions, gotchas, reversed decisions). No-op for the `standard` provider; never store secrets.
+If verifier reports gaps, do **not** claim complete; keep `/goal` open and fix.
+
+**Persist memory:** Use the `sdd-memory` skill to save durable discoveries. No-op for `standard`; never store secrets.
 
 ### Phase 5: Close the spec
 
@@ -157,7 +172,7 @@ If they pick **Archive now**, run `/sdd-complete [task-id]` inline in this turn 
 
 ## Subagent Delegation
 
-For long implementations, the main agent delegates to `sdd-implementer` (background subagent). The implementer spawns `sdd-verifier` as a child subagent after completing work — this is the subagent tree pattern supported by Cursor 3.8+.
+Long work: `sdd-implementer` (background). After it returns, **this agent** spawns `sdd-verifier` as a sibling. Cursor grandchildren cannot spawn — implementer must not start verifier.
 
 ## Related Commands
 

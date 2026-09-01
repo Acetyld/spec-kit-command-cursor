@@ -1,10 +1,15 @@
+---
+name: brief
+description: Quick 30-minute feature brief. May fan out sdd-explorer siblings; main writes feature-brief.md.
+---
+
 # /brief Command
 
 Create a lightweight feature brief in ~30 minutes, then start coding.
 
-**Skill:** Uses `sdd-planning` skill. Delegates to `sdd-explorer` (fast, readonly) for codebase pattern discovery.
+**Skill:** `sdd-planning`. **Subagent:** spawn **1–N** `sdd-explorer` siblings when there are distinct areas (code vs existing specs). Explorers return text. **Main writes `feature-brief.md`.** AskQuestion on main.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 
@@ -50,10 +55,10 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first (create `.sdd/` +
 - Extract feature description
 - Identify key requirements and intent
 
-**Step 2: Check existing patterns**
-- Search codebase for similar features
-- Look in `specs/active/` for related briefs
-- Note reusable patterns and conventions
+**Step 2: Check existing patterns (fan-out)**
+- If code vs `specs/active/` are distinct, spawn two `sdd-explorer` Tasks in one message (return text, do not write files).
+- Otherwise search yourself or spawn one explorer.
+- Note reusable patterns and conventions. Main synthesizes into the brief later.
 
 **Step 3: Assess information completeness**
 

@@ -1,3 +1,8 @@
+---
+name: pecut-all-in-one
+description: Alias for /sdd-full-plan.
+---
+
 # /pecut-all-in-one Command
 
 Alias for `/sdd-full-plan`. All functionality is identical.

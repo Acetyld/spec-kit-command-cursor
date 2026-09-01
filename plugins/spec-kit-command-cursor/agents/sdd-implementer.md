@@ -25,7 +25,7 @@ Execute planned implementations by following the technical plan, implementing to
 
 ### After Completion
 1. **Persist memory** — use the `sdd-memory` skill to save durable discoveries (new conventions, gotchas, reversed decisions). Never store secrets or transient state.
-2. Spawn `sdd-verifier` as a child subagent to validate the implementation before reporting done.
+2. Report done with the summary below. **Do not spawn `sdd-verifier`.** The parent (main or orchestrator) always spawns verifier as a **sibling**. Grandchildren cannot spawn.
 
 ## Blocker Handling
 
@@ -35,7 +35,7 @@ Execute planned implementations by following the technical plan, implementing to
   - Needs: [what's required to unblock]
 ```
 
-Use the ask question tool for ambiguous requirements or missing information.
+If requirements are ambiguous, report a `[BLOCKED]` item and return — AskQuestion stays on the **main** agent.
 
 ## Output Format
 
@@ -64,4 +64,4 @@ Use the ask question tool for ambiguous requirements or missing information.
 - Always update todo checkboxes immediately
 - Preserve existing patterns in the codebase
 - Surface blockers early rather than getting stuck
-- Spawn `sdd-verifier` after completing implementation
+- Never spawn `sdd-verifier` — the parent does that as a sibling

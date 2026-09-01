@@ -1,3 +1,8 @@
+---
+name: audit
+description: Spec-driven audit via sdd-reviewer and sdd-audit skill.
+---
+
 # /audit Command
 
 Perform a spec-driven technical audit, comparing implementation against specifications. Generate actionable review comments with severity levels.

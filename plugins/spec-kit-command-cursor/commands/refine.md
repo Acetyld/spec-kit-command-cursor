@@ -1,3 +1,8 @@
+---
+name: refine
+description: Iterate on an existing brief, spec, or plan through discussion.
+---
+
 # /refine Command
 
 Refine existing prompts, briefs, or specifications through continued discussion and iteration.

@@ -1,10 +1,15 @@
+---
+name: research
+description: Investigate codebase and external patterns before specification. Fans out sdd-explorer siblings; main writes research.md.
+---
+
 # /research Command
 
 Investigate existing patterns and gather context before specification.
 
-**Subagent:** Delegates to `sdd-explorer` (fast, readonly, foreground) for codebase discovery. Uses `sdd-research` skill for structured investigation.
+**Subagent:** Spawn **1–N** `sdd-explorer` siblings in **one message** (cap: `settings.maxParallelImplementers`, default 4). Explorers return text only. **Main writes `research.md`.** AskQuestion stays on main. Uses `sdd-research` skill.
 
-**See also:** `docs/agent-manual.md` for full agent protocol.
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 
@@ -67,13 +72,13 @@ Example AskQuestion items:
 
 Batch every user-facing question into **one** AskQuestion call. Wait for the answers before Phase 2.
 
-**Step 3: Plan research strategy**
+**Step 3: Plan research strategy and fan-out**
 
-Identify:
-- Which directories to search
-- What patterns to look for
-- External resources to consult
-- Time allocation (internal vs external)
+Identify distinct slices (e.g. existing code vs specs/ vs external). One area → one explorer. Do not invent fake slices.
+
+In **one message**, spawn up to N `sdd-explorer` Tasks. Prompt each: assigned slice, return SDD exploration summary, **do not write research.md**. You may tell them to use built-in Explore for raw search.
+
+After they return, **you** (main) synthesize `specs/active/[task-id]/research.md`.
 
 ### Phase 2: Planning (Create Plan)
 

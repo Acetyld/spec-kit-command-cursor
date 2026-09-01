@@ -18,8 +18,10 @@
 - **Cursor 3.8 throughout** — Aligned to the latest runtime (was 3.2). New badges, docs, and command guidance.
 - **Pluggable Memory** — Optional long-term memory with three backends: `standard` (rules-only, default), `cursor-native` (Cursor 3.8 Memories), and `mem0` (free self-host). Configure with `/sdd-memory`; agents recall before planning and persist durable facts after. See [Memory](#memory).
 - **Native Review integration** — `sdd-reviewer` and `/audit` now lean on `/review` (Bugbot + Security Review) for mechanical checks and own the spec-compliance verdict.
-- **Cloud Subagents** — `/execute-parallel` and `sdd-orchestrator` can offload long-running, risky, or environment-heavy tasks via `/in-cloud`, and prep PRs with `/babysit`. Ships `.cursor/environment.json` for fast cloud startup.
-- **Removed session/logging hooks** — Dropped the noisy `stop`/`subagentStop` log hooks (`.cursor/hooks.json`, `.session-log.txt`). Cursor's own UI already surfaces this. Less clutter, fewer moving parts.
+- **Cloud Subagents** — `/execute-parallel` and `sdd-orchestrator` can offload long-running, risky, or environment-heavy tasks via `/in-cloud`, and prep PRs with `/autopilot`. Ships `.cursor/environment.json` for fast cloud startup.
+- **Optional plugin hooks** — Fail-open `subagentStop` / `stop` in plugin `hooks/` (structured notes only). Not copied to `.cursor/hooks.json`.
+- **Two-level nest + fan-out** — Sibling verifiers; `/research` and `/implement` spawn multiple Tasks in one message. `/implement` uses `/goal` when available.
+- **Custom Modes** — Pin `sdd-implementation` (and planning/audit/research) with Option+Enter / Alt+Enter.
 - **Deep Research** — Multi-pass external investigation with web search, documentation deep-dives, and confidence scoring (`/research --deep`).
 - **File Conflict Detection** — Tasks declare `touchedFiles` so the orchestrator prevents parallel edits to the same files.
 - **Progressive Context Loading** — Heavy roadmaps (40+ tasks) load only the current batch.
@@ -71,7 +73,8 @@
 |------|-----------------|
 | `/review`, `/review-bugbot`, `/review-security` | `sdd-reviewer` + `/audit` run these for fast Bugbot/Security checks, then add spec compliance |
 | `/in-cloud` | `sdd-orchestrator` / `/execute-parallel` offload long-running or risky tasks to isolated cloud VMs |
-| `/babysit` | Hand a finished task's PR to a cloud agent to reach merge-ready |
+| `/autopilot` | Hand a finished task's PR to a cloud agent to reach merge-ready |
+| `/goal` | Long-lived `/implement` objective until sibling verifier is green |
 | `/multitask` | Quick ad hoc parallel prompts with no SDD roadmap state |
 | Memories | The `cursor-native` memory provider stores durable facts as Cursor Memories |
 
@@ -121,13 +124,14 @@ Specialized agents with isolated context. Background agents run asynchronously �
 
 #### Subagent Tree
 
-Subagents can spawn their own subagents to any depth, enabling true parallel DAG execution:
+Two-level nest only. Parent spawns implementers, then **sibling** verifiers:
 
 ```
-sdd-orchestrator (background)
-├── sdd-implementer (task 1) → sdd-verifier
-├── sdd-implementer (task 2) → sdd-verifier
-└── sdd-implementer (task 3) → sdd-verifier
+sdd-orchestrator (depth 1)
+├── sdd-implementer (task 1)
+├── sdd-implementer (task 2)
+├── sdd-verifier (task 1)
+└── sdd-verifier (task 2)
 ```
 
 ### Skills (plugin `skills/`)
@@ -223,10 +227,10 @@ graph TD
 
     Orchestrator -->|checkpoint| Checkpoint["execution-checkpoint.json"]
 
-    Implementer -->|spawns| Verifier["sdd-verifier"]
-    Impl1 -->|spawns| V1["verifier"]
-    Impl2 -->|spawns| V2["verifier"]
-    Impl3 -->|spawns| V3["verifier"]
+    Orchestrator -->|sibling| Verifier["sdd-verifier"]
+    Orchestrator -->|sibling| V1["verifier 1"]
+    Orchestrator -->|sibling| V2["verifier 2"]
+    Orchestrator -->|sibling| V3["verifier 3"]
 ```
 
 ---
@@ -266,7 +270,7 @@ In an **app repo** that installed the plugin, run `/sdd-init` so the project get
 
 ### Cloud environment (`.cursor/environment.json`)
 
-Captures how cloud agents (`/in-cloud`, `/babysit`) set up their VM so they start fast. This toolkit is prompt/markdown-only, so the default install step is a no-op — point it at your project's real install/build commands when you adopt SDD in an app repo. See the [Cursor cloud docs](https://cursor.com/docs).
+Captures how cloud agents (`/in-cloud`, `/autopilot`) set up their VM so they start fast. This toolkit is prompt/markdown-only, so the default install step is a no-op — point it at your project's real install/build commands when you adopt SDD in an app repo. See the [Cursor cloud docs](https://cursor.com/docs).
 
 ### Sandbox (`.cursor/sandbox.json`)
 

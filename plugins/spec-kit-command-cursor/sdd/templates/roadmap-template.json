@@ -8,8 +8,7 @@
   "updated": "{{UPDATED_TIMESTAMP}}",
   "status": "planning",
   "metadata": {
-    "sddVersion": "5.1",
-    "planMode": true,
+    "sddVersion": "6.0",
     "estimatedDuration": "{{ESTIMATED_DURATION}}",
     "complexity": "{{COMPLEXITY}}",
     "teamSize": {{TEAM_SIZE}},

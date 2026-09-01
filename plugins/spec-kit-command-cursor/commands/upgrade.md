@@ -1,3 +1,8 @@
+---
+name: upgrade
+description: Escalate a brief to full SDD (research, spec, plan, tasks).
+---
+
 # /upgrade Command
 
 Escalate from lightweight SDD Quick Planning (Brief) to comprehensive SDD Full Planning when complexity is discovered during development.

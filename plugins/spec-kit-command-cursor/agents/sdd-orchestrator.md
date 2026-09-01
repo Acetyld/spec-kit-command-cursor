@@ -42,11 +42,15 @@ Map tasks to subagents and spawn them in parallel:
 | review | sdd-reviewer |
 | verify | sdd-verifier |
 
-Spawn multiple Task tool calls in a single message for parallel execution. Each implementer subagent should spawn `sdd-verifier` as a child to validate its own work.
+Spawn multiple Task tool calls in a single message for parallel execution.
+
+**After implementers return:** spawn `sdd-verifier` as **siblings** (one per implementer that claimed done). Use Await if available. Implementers must not spawn verifiers. Do not mark a task `done` if its verifier reports gaps.
+
+Record Task agent IDs in `execution-checkpoint.json` under `agentIds[taskId].implementer` / `.verifier`. On `--resume`, pass Task `resume` when an ID exists.
 
 ### 4. Track Progress
 
-**Write execution-checkpoint.json** after each batch: `lastCompletedBatch`, `failedTaskId`, `nextReadyTasks`, `timestamp`, `batchNumber`. Enables `--resume`.
+**Write execution-checkpoint.json** after each batch: `lastCompletedBatch`, `failedTaskId`, `nextReadyTasks`, `timestamp`, `batchNumber`, optional `agentIds`. Enables `--resume`.
 
 For each dispatched task:
 1. Track execution status
@@ -84,24 +88,25 @@ while incomplete_tasks exist:
 - **Parallel** (`--parallel`): All ready tasks simultaneously
 - **Until-Finish** (`--until-finish`): Continue until all tasks complete or blocked
 
-## Subagent Tree Pattern
-
-You can spawn subagents that themselves spawn child subagents:
+## Subagent Tree Pattern (siblings only)
 
 ```
-orchestrator (background)
-├── sdd-implementer (task 1) → spawns sdd-verifier
-├── sdd-implementer (task 2) → spawns sdd-verifier
-└── sdd-explorer (task 3)
+orchestrator (depth 1)
+├── sdd-implementer (task 1)
+├── sdd-implementer (task 2)
+├── sdd-verifier (task 1)
+└── sdd-verifier (task 2)
 ```
 
-## Local vs Cloud Execution (Cursor 3.7+)
+Do not nest verifier under implementer. Cursor grandchildren cannot spawn.
+
+## Local vs Cloud Execution
 
 Decide per task whether to run locally or offload to the cloud:
 
-- **Local background subagents** (default): fast, share the workspace. Best for the common case.
-- **Cloud subagents (`/in-cloud`)**: spin up an isolated VM + branch for a task. Prefer for long-running, risky, or environment-heavy work (e.g. full builds, CI fixes, large refactors) so the local workspace stays clean and responsive. Requires a captured environment — see `.cursor/environment.json`.
-- **`/babysit`**: hand a finished task's PR to a cloud agent to iterate on review comments, conflicts, and CI until it is merge-ready, without tying up this orchestration run.
+- **Local background subagents** (default): fast, share the workspace.
+- **Cloud:** set Task `environment: "cloud"` and optional `cloud_base_branch`. User alias: `/in-cloud`. Prefer for long-running, risky, or environment-heavy work. Requires `.cursor/environment.json`.
+- **`/autopilot`:** hand a finished task's PR to a cloud agent for review comments, conflicts, and CI until merge-ready.
 
 Keep `roadmap.json` the single source of truth regardless of where a task ran; collect cloud results back into it like any other subagent.
 

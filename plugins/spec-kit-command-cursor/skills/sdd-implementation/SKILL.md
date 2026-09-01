@@ -1,6 +1,8 @@
 ---
 name: sdd-implementation
 description: Execute planned implementations following todo-lists systematically. Use for code generation, building features, and executing SDD plans.
+icon: rocket
+color: green
 ---
 
 # SDD Implementation Skill
@@ -57,7 +59,7 @@ Use `scripts/progress.sh` to visualize completion status.
 
 ## Integration
 
-- After completion, `sdd-verifier` subagent validates work (spawned as a child subagent)
+- After completion, the **parent** spawns `sdd-verifier` as a sibling (implementer never spawns verifier)
 - Recall/persist project knowledge via the `sdd-memory` skill (no-op when the memory provider is `standard`)
 - Discoveries trigger `sdd-evolve` skill for spec updates
 - Use the ask question tool for ambiguous requirements

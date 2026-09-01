@@ -99,7 +99,7 @@ If `.sdd/config.json` is missing in the current project, run `/sdd-init` first.
 ### Whole app or big project
 `/sdd-full-plan` → `/execute-parallel --until-finish`
 
-`/evolve` and `/refine` update specs after the plan exists. They are not the default happy path.
+`/evolve` and `/refine` update specs after the plan exists. They are not the default happy path. When the work is shipped, run `/sdd-complete [task-id]` so the spec does not stay in `specs/active/`.
 
 ### Cursor 3.8 Agent Runtime
 - Use `/multitask` for ad hoc independent work that does not need a roadmap, checkpoint, or dependency graph.
@@ -191,6 +191,7 @@ specs/
 | `/sdd-plan` | Technical architecture | sdd-planner subagent |
 | `/tasks` | Task breakdown | sdd-planner subagent |
 | `/implement` | Execute implementation | sdd-implementer subagent |
+| `/sdd-complete` | Archive finished spec to `specs/completed/` | — |
 | `/audit` | Spec-driven audit | sdd-reviewer subagent |
 | `/evolve` | Update specs | sdd-evolve skill |
 | `/refine` | Iterate on existing specs | sdd-planning skill |

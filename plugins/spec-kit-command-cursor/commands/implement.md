@@ -109,6 +109,12 @@ Spawn `sdd-verifier` subagent to independently validate:
 
 **Persist memory:** Use the `sdd-memory` skill to save durable discoveries (new conventions, gotchas, reversed decisions). No-op for the `standard` provider; never store secrets.
 
+### Phase 5: Close the spec
+
+If todos are done (or only blocked items remain that the user accepted) and the folder is still under `specs/active/`, call **AskQuestion**: "Archive this spec?" → Archive now (`/sdd-complete`) / Keep in active / Not merged yet.
+
+If they pick **Archive now**, run `/sdd-complete [task-id]` inline in this turn (move to `specs/completed/`, Status Complete). Do not leave a finished feature in `specs/active/`.
+
 ---
 
 ## Output
@@ -135,6 +141,7 @@ Spawn `sdd-verifier` subagent to independently validate:
 - Run tests: `[test command]`
 - Review changes in IDE
 - Update specs: `/evolve [task-id] [discovery]`
+- Close spec: `/sdd-complete [task-id]` (moves `specs/active/` → `specs/completed/`)
 
 **Files:**
 - Todo list: `specs/active/[task-id]/todo-list.md`
@@ -157,4 +164,5 @@ For long implementations, the main agent delegates to `sdd-implementer` (backgro
 - `/sdd-plan [task-id]` - Create implementation plan
 - `/tasks [task-id]` - Generate task breakdown
 - `/evolve [task-id]` - Update specs with discoveries
+- `/sdd-complete [task-id]` - Archive finished spec to `specs/completed/`
 - `/brief [task-id]` - Quick planning alternative

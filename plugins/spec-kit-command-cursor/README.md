@@ -170,8 +170,8 @@ flowchart LR
 
 | Flow | Commands |
 |------|----------|
-| **Everyday** (most features) | `/sdd-init` (once) → `/brief` → `/implement` |
-| **Full** (complex features) | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` |
+| **Everyday** (most features) | `/sdd-init` (once) → `/brief` → `/implement` → `/sdd-complete` |
+| **Full** (complex features) | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` → `/sdd-complete` |
 | **Deep Research** (unfamiliar domain) | `/research --deep` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` |
 | **Parallel** (project roadmap) | `/sdd-full-plan` → `/execute-parallel` |
 | **Heavy App** (20+ tasks) | `/sdd-full-plan` (Option C: Phased for 40+) → `/execute-parallel --until-finish` |

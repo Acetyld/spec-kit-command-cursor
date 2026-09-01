@@ -292,13 +292,15 @@ Todo-lists are NOT suggestions - they are executable checklists that MUST be fol
 
 ## Spec Archival Workflow
 
-When a feature is fully implemented, verified, and merged:
+When a feature is fully implemented, verified, and merged (or already live):
 
-1. **Verify completion** — all todo-list items checked, verifier passed, no open blockers
-2. **Create retrospective** (optional) — use `.sdd/templates/retrospective.md` for lessons learned
-3. **Move to completed** — `mv specs/active/[task-id] specs/completed/[task-id]`
-4. **Update roadmap** — set task status to `done`, update `completedAt` timestamp
-5. **Update index** — remove from active features in `specs/index.md`
+Run **`/sdd-complete [task-id]`**. That command:
+
+1. Marks Status Complete and ticks shipped Next Actions
+2. Moves `specs/active/[task-id]` → `specs/completed/[task-id]`
+3. Updates `specs/index.md` if present
+
+Do not leave a shipped feature in `specs/active/`. `/implement` must AskQuestion to archive when todos are done.
 
 **When to archive:**
 - All acceptance criteria met

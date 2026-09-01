@@ -38,6 +38,7 @@ The ones you'll actually use day to day:
 | `/brief` | Quick 30-min plan for a feature (start here for most things) |
 | `/sdd-plan` | Technical architecture (`plan.md`). Not Cursor's `/plan` (Plan mode) |
 | `/implement` | Build it, with progress tracking |
+| `/sdd-complete` | Close the spec: move `specs/active/` → `specs/completed/` |
 | `/audit` | Review the code against the spec |
 | `/evolve` | Update the spec when things change mid-build |
 
@@ -49,12 +50,12 @@ The ones you'll actually use day to day:
 
 **Just building a feature?** (most of the time)
 ```
-/brief my-feature  →  /implement my-feature
+/brief my-feature  →  /implement my-feature  →  /sdd-complete my-feature
 ```
 
 **Complex or high-risk feature?**
 ```
-/research  →  /specify  →  /sdd-plan  →  /tasks  →  /implement
+/research  →  /specify  →  /sdd-plan  →  /tasks  →  /implement  →  /sdd-complete
 ```
 
 Cursor's built-in `/plan` is Plan mode (the **Build** button). SDD technical architecture is **`/sdd-plan`**.

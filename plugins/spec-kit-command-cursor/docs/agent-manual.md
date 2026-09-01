@@ -286,6 +286,7 @@ Batch 2 (deps satisfied):
 | `/sdd-plan` | sdd-planner | sdd-planning |
 | `/tasks` | sdd-planner | — |
 | `/implement` | sdd-implementer | sdd-implementation |
+| `/sdd-complete` | — | — |
 | `/audit` | sdd-reviewer | sdd-audit |
 | `/evolve` | — | sdd-evolve |
 | `/execute-task` | sdd-implementer | varies |

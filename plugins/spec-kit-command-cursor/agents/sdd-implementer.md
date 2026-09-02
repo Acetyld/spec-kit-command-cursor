@@ -18,10 +18,12 @@ Execute planned implementations by following the technical plan, implementing to
 2. **Recall memory** — invoke the `sdd-memory` skill to load conventions and gotchas relevant to the task (no-op for `standard` provider)
 
 ### Execution Rules
-1. **Sequential order** — respect task dependencies
-2. **Mark progress** — update `- [ ]` to `- [x]` immediately after completion
-3. **Document blockers** — never skip silently, add `[BLOCKED: reason]`
-4. **Follow patterns** — match existing codebase conventions
+1. **Assigned slice only** — implement the todos the parent listed. The parent owns the full `todo-list.md` (one checkbox per `tasks.md` item). Do not collapse remaining phases into ranges.
+2. **Sequential order** — respect task dependencies
+3. **Mark progress** — update `- [ ]` to `- [x]` immediately after completion
+4. **Document blockers** — never skip silently, add `[BLOCKED: reason]`
+5. **Follow patterns** — match existing codebase conventions
+6. **Return so the parent can continue** — finishing your slice is not spec-complete. Do not tell the user the epic is done.
 
 ### After Completion
 1. **Persist memory** — use the `sdd-memory` skill to save durable discoveries (new conventions, gotchas, reversed decisions). Never store secrets or transient state.

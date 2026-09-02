@@ -13,8 +13,11 @@ Verify that claimed work actually works: implementation exists, tests pass, spec
 ## Protocol
 
 ### 1. Understand Claims
+- Read the parent prompt for **scope**: `checkpoint` (this batch only) or `spec-complete` (whole `todo-list.md`)
 - Read `todo-list.md` for what was marked complete
 - Read `spec.md` for requirements and `plan.md` for intended approach
+- On a **checkpoint**, open later-phase todos are expected — do not FAIL the spec for work the parent said is out of this batch. Status is PASS | PARTIAL for the claimed slice.
+- On **spec-complete**, any unchecked todo that is not `[BLOCKED]` is a FAIL. Do not treat a phase PASS as spec-complete.
 
 ### 2. Verify Implementation
 For each claimed completion:

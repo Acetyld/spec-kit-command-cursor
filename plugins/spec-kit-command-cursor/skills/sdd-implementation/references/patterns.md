@@ -10,7 +10,7 @@ specs/active/[task-id]/
 ├── spec.md           # Requirements
 ├── plan.md           # Technical design
 ├── tasks.md          # Task breakdown
-├── todo-list.md      # Execution checklist
+├── todo-list.md      # Execution checklist (one checkbox per tasks.md item; no range stubs)
 └── research.md       # (optional) Investigation findings
 ```
 

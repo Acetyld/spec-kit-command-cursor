@@ -109,7 +109,7 @@ If `.sdd/config.json` is missing in the current project, run `/sdd-init` first.
 - Use `/execute-parallel` for SDD roadmap execution because it handles dependencies, file-conflict batching, checkpoints, and verifier handoffs.
 - Use Agents Window worktrees for risky, parallel, or best-of-N implementation work. `.cursor/worktrees.json` prepares the isolated checkout.
 - Offload long-running, risky, or environment-heavy tasks with Task `environment: "cloud"` (user alias `/in-cloud`). Use `/autopilot` to drive a PR to merge-ready. `.cursor/environment.json` makes cloud agents start faster.
-- `/implement` sets `/goal` (when available) until the sibling verifier is green. Pin `sdd-implementation` as a Custom Mode with Option+Enter / Alt+Enter.
+- `/implement` finishes the spec: expand every `tasks.md` item into `todo-list.md`, set `/goal` (when available), keep going after each phase. Sibling verifier on a slice is a checkpoint — then continue. Pin `sdd-implementation` as a Custom Mode with Option+Enter / Alt+Enter.
 - In multi-root workspaces, resolve paths from the active project root and avoid assuming a single repository owns every file.
 
 ## Memory (`.sdd/config.json` → `memory`)
@@ -194,7 +194,7 @@ specs/
 | `/specify` | Detailed requirements | sdd-planning skill |
 | `/sdd-plan` | Technical architecture | sdd-planner subagent |
 | `/tasks` | Task breakdown | sdd-planner subagent |
-| `/implement` | Execute implementation | sdd-implementer subagent |
+| `/implement` | Finish the spec (all todos) | sdd-implementer subagent |
 | `/sdd-complete` | Archive finished spec to `specs/completed/` | — |
 | `/audit` | Spec-driven audit | sdd-reviewer subagent |
 | `/evolve` | Update specs | sdd-evolve skill |
@@ -210,11 +210,12 @@ specs/
 
 ## Todo Execution Rules
 
-1. **Read entire list** before starting
-2. **Execute in order** — respect dependencies
+1. **Read entire list** before starting — one checkbox per `tasks.md` task; no range stubs
+2. **Execute in dependency order** — ready later-phase todos may start as soon as deps are done
 3. **Mark completion**: `- [ ]` → `- [x]`
 4. **Document blockers** — never skip silently
-5. **Verify after implementation** — use sdd-verifier
+5. **Do not stop after a phase** — checkpoint verifier, then continue; “complete” only when the whole list is closed
+6. **Forced pause** — last line is `Reply continue` or `/implement [task-id]`
 
 ## Plugin Distribution
 

@@ -1,6 +1,6 @@
 ---
 name: tasks
-description: Break plan.md into tasks.md with estimates and dependencies.
+description: Break plan.md into tasks.md and a full todo-list.md (one checkbox per task).
 ---
 
 # /tasks Command
@@ -23,6 +23,7 @@ You are a project planning agent that transforms technical plans into actionable
 - Estimate effort and identify dependencies
 - Organize tasks into logical phases
 - Define clear acceptance criteria
+- Write `todo-list.md` with **one checkbox per task** (no range stubs) so `/implement` can finish the spec
 
 **Boundaries:** Do not write implementation code or execute tasks. Focus on planning only.
 
@@ -134,17 +135,50 @@ Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only
 ## Next Steps
 
 1. Review task breakdown
-2. Run `/implement [task-id]` to start execution
+2. Run `/implement [task-id]` — that command finishes **all** todos, not Phase 1 only
 
 ---
 
 *Tasks created with SDD 6.0*
 ```
 
+### Step 4: Write todo-list.md
+
+**Same turn**, write `specs/active/[task-id]/todo-list.md` with every task from `tasks.md`:
+
+```markdown
+# [task-id] Todo
+
+**Status:** Ready
+**Source:** tasks.md
+
+## Phase 1 — [Phase Name]
+- [ ] 1.1 [Title]
+- [ ] 1.2 [Title]
+
+## Phase 2 — [Phase Name]
+- [ ] 2.1 [Title]
+
+## Progress log
+
+| When | What |
+|------|------|
+| [date] | Checklist created from tasks.md ([N] items) |
+
+## Blockers
+- None
+```
+
+**Forbidden:** `3.2–3.10 (see tasks.md)`, phase headings with no items, “remaining work in tasks.md”.
+
+If `todo-list.md` already exists, rewrite it so the checkbox count matches `tasks.md`. Preserve `[x]` on ids that are already done.
+
 ### Verification
 
 Before final output, verify:
 - [ ] File created at `specs/active/[task-id]/tasks.md`
+- [ ] File created at `specs/active/[task-id]/todo-list.md`
+- [ ] Checkbox count in todo-list.md equals task count in tasks.md
 - [ ] All tasks have acceptance criteria and effort estimates
 - [ ] Dependencies are clearly marked
 - [ ] No task exceeds 2 days
@@ -157,6 +191,7 @@ Before final output, verify:
 
 ```
 ✅ Tasks created: `specs/active/[task-id]/tasks.md`
+✅ Checklist: `specs/active/[task-id]/todo-list.md` ([N] items)
 
 **Summary:**
 - Total tasks: [Count]
@@ -164,7 +199,7 @@ Before final output, verify:
 - Estimated effort: [Total]
 
 **Ready to implement:**
-- Run `/implement [task-id]` to start execution
+- Run `/implement [task-id]` — implements every todo, not only Phase 1
 ```
 
 ---
@@ -188,7 +223,7 @@ Before final output, verify:
 
 ## Related Commands
 
-- `/implement [task-id]` - Start executing tasks
+- `/implement [task-id]` - Finish every todo in the checklist
 - `/sdd-plan [task-id]` - Create technical plan (prerequisite)
 - `/specify [task-id]` - Define requirements
 - `/sdd-full-plan [project-id]` - Full project roadmap

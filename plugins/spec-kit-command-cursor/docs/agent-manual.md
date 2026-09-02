@@ -17,7 +17,8 @@ Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+.** Aug 202
 7. **Never Cursor Plan mode** — SDD `/sdd-plan` writes `specs/active/[task-id]/plan.md`. Do not SwitchMode to `plan`, do not create a Cursor Plan, do not ask the user to press **Build**. Implementation is `/implement`.
 8. **Two-level nest only** — main (or orchestrator at depth 1) spawns siblings. Implementer **never** spawns verifier.
 9. **Fan-out in one message** — multiple Task calls together. Cap: `.sdd/config.json` `settings.maxParallelImplementers` (default 4).
-10. **Children return text** — only the main agent writes `research.md` / `feature-brief.md` / `spec.md` / `plan.md`.
+10. **Children return text** — only the main agent writes `research.md` / `feature-brief.md` / `spec.md` / `plan.md` / `tasks.md` / `todo-list.md`.
+11. **`/implement` finishes the spec** — one checkbox per `tasks.md` task; keep going after each phase; “complete” only when the whole list is closed or blocked.
 
 When you need a decision, clarification, or plan approval, call the **AskQuestion** tool in that same turn. One call can hold several questions; each needs at least two options. Chat may introduce *why* you are asking (1–2 sentences). The choices go in the tool. After it returns, continue — do not re-ask in markdown. AskQuestion runs only on the **main** agent.
 
@@ -171,10 +172,10 @@ Built-in Task types (not SDD agents): `bugbot`, `security-review`, `best-of-n-ru
 When `/goal` exists, `/implement` sets a long-lived objective:
 
 ```
-Complete spec "<title>" in specs/active/<task-id>/ until the sibling sdd-verifier reports complete (or blockers are documented). Do not stop after a single pass.
+Complete spec "<title>" in specs/active/<task-id>/ until every todo is [x] or [BLOCKED] and the sibling sdd-verifier reports the whole list complete. Do not stop after a single phase.
 ```
 
-Pair with Custom Mode `sdd-implementation` (Option+Enter / Alt+Enter). If `/goal` is missing, still run todos + sibling verifier.
+`/tasks` writes that full `todo-list.md` in the same turn. `/implement` expands any range stubs before coding. A phase-scoped verifier is a **checkpoint** — the parent continues immediately. Pair with Custom Mode `sdd-implementation` (Option+Enter / Alt+Enter). If `/goal` is missing, still finish the list + sibling verifier.
 
 ### Custom Modes
 
@@ -307,8 +308,8 @@ Checkpoint:
 | `/brief` | 1–N `sdd-explorer` | sdd-planning | **main** (`feature-brief.md`) |
 | `/specify` | 0–N `sdd-planner` | sdd-planning | **main** (`spec.md`) |
 | `/sdd-plan` | 0–N `sdd-planner` | sdd-planning | **main** (`plan.md`) |
-| `/tasks` | 0–1 `sdd-planner` | — | **main** (`tasks.md`) |
-| `/implement` | implementer(s) then **sibling** verifier(s); `/goal` | sdd-implementation | main (`todo-list.md`) |
+| `/tasks` | 0–1 `sdd-planner` | — | **main** (`tasks.md` + full `todo-list.md`) |
+| `/implement` | implementer(s); checkpoint then **continue**; sibling verifier on whole list; `/goal` | sdd-implementation | main (`todo-list.md`) |
 | `/sdd-complete` | — | — | — |
 | `/audit` | `sdd-reviewer` | sdd-audit | — |
 | `/evolve` | — | sdd-evolve | main |
@@ -327,4 +328,4 @@ Checkpoint:
 
 ---
 
-*SDD Agent Manual v6.1 — two-level nest, fan-out siblings, `/goal`, Custom Modes, Task cloud APIs*
+*SDD Agent Manual v6.1 — two-level nest, fan-out siblings, `/implement` finishes the spec, `/goal`, Custom Modes, Task cloud APIs*

@@ -43,7 +43,7 @@
 | `/research` | Pattern investigation (supports `--deep`) | `research.md` |
 | `/specify` | Detailed requirements | `spec.md` |
 | `/sdd-plan` | Technical architecture | `plan.md` |
-| `/tasks` | Task breakdown | `tasks.md` |
+| `/tasks` | Task breakdown + full checklist | `tasks.md` + `todo-list.md` |
 | `/generate-prd` | PRD via Socratic questions | `full-prd.md` |
 | `/sdd-full-plan` | Complete project roadmap | `roadmap.json` + tasks |
 
@@ -51,7 +51,7 @@
 
 | Command | Purpose |
 |---------|---------|
-| `/implement` | Execute implementation with todo tracking |
+| `/implement` | Finish the spec — all todos, not only Phase 1 |
 | `/execute-task` | Run single task from roadmap (`--until-finish` supported) |
 | `/execute-parallel` | Parallel DAG execution via async subagents (`--resume`, `--dry-run`) |
 
@@ -73,7 +73,7 @@
 | `/review`, `/review-bugbot`, `/review-security` | `sdd-reviewer` + `/audit` run these for fast Bugbot/Security checks, then add spec compliance |
 | `/in-cloud` | User alias; orchestrator prefers Task `environment: "cloud"` |
 | `/autopilot` | Hand a finished task's PR to a cloud agent to reach merge-ready |
-| `/goal` | Long-lived `/implement` objective until sibling verifier is green |
+| `/goal` | Long-lived `/implement` objective until the whole todo-list is closed |
 | `/multitask` | Quick ad hoc parallel prompts with no SDD roadmap state |
 | Memories | The `cursor-native` memory provider stores durable facts as Cursor Memories |
 

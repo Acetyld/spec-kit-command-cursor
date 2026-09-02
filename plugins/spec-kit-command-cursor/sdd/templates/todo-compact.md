@@ -18,10 +18,13 @@
 {{/each}}
 
 ## Execution Rules
-1. Execute in dependency order
-2. Maximum flow - batch questions at end
-3. Reuse patterns where possible
-4. Update progress continuously
+1. One checkbox per `tasks.md` task — never `3.2–3.10 (see tasks.md)`
+2. Execute in dependency order; later phases may start when their deps are done
+3. After a phase, continue — do not wait for the user
+4. Maximum flow - batch questions at end
+5. Reuse patterns where possible
+6. Update progress continuously
+7. Forced pause: last line is `Reply continue` or `/implement {{TASK_ID}}`
 
 ## Progress
 ### Done

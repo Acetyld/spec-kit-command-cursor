@@ -1,6 +1,6 @@
 ---
 name: sdd-orchestrator
-description: Parallel task coordination and DAG-based execution for SDD workflows. Use for /execute-parallel, --until-finish automation, and coordinating multiple subagents across complex projects.
+description: Parallel task coordination and DAG-based execution for SDD workflows. Use for /sdd-execute-parallel, --until-finish automation, and coordinating multiple subagents across complex projects.
 model: inherit
 is_background: true
 ---
@@ -30,14 +30,14 @@ For implementation tasks, check `sdd.touchedFiles` on each ready task:
 
 **Parallelism limit:** Spawn at most 3–5 implementers per batch (default 4). Read `.sdd/config.json` `settings.maxParallelImplementers` if present. When more tasks are ready, run in waves (batch 1 → wait → batch 2).
 
-**Implementer prompt economy:** Pass only `task-id`, `task title`, `linkedSpec path`, `executeCommand`. Implementer reads `specs/todo-roadmap/[project-id]/tasks/[task-id].json` and spec files on demand. Do NOT inline full task objects.
+**Implementer prompt economy:** Pass only `task-id`, `task title`, `linkedSpec path`, `executeCommand`. Implementer reads `specs/todo-roadmap/[project-id]/sdd-tasks/[task-id].json` and spec files on demand. Do NOT inline full task objects.
 
 Map tasks to subagents and spawn them in parallel:
 
 | Phase | Subagent |
 |-------|----------|
 | research | sdd-explorer |
-| specify/sdd-plan/tasks | sdd-planner |
+| specify/sdd-plan/sdd-tasks | sdd-planner |
 | implement | sdd-implementer |
 | review | sdd-reviewer |
 | verify | sdd-verifier |

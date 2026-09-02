@@ -1,9 +1,9 @@
 ---
-name: research
+name: sdd-research
 description: Investigate codebase and external patterns before specification. Fans out sdd-explorer siblings; main writes research.md.
 ---
 
-# /research Command
+# /sdd-research Command
 
 Investigate existing patterns and gather context before specification.
 
@@ -23,15 +23,15 @@ Research and document findings without making changes to the codebase.
 - Research external solutions with pros/cons
 - Present options without making final decisions
 
-**Output:** `specs/active/[task-id]/research.md`
+**Output:** `specs/active/[task-id]/sdd-research.md`
 
 ---
 
 ## Usage
 
 ```
-/research [task-id] [research-topic]
-/research [task-id] [research-topic] --deep
+/sdd-research [task-id] [research-topic]
+/sdd-research [task-id] [research-topic] --deep
 ```
 
 **Flags:**
@@ -39,11 +39,11 @@ Research and document findings without making changes to the codebase.
 
 **Examples:**
 ```
-/research user-auth JWT vs session-based authentication patterns
-/research payment-system Stripe integration patterns in existing codebase
-/research caching Redis vs in-memory caching for our use case
-/research database-engine Best database for our use case --deep
-/research auth-provider Compare Auth0 vs Clerk vs Supabase Auth --deep
+/sdd-research user-auth JWT vs session-based authentication patterns
+/sdd-research payment-system Stripe integration patterns in existing codebase
+/sdd-research caching Redis vs in-memory caching for our use case
+/sdd-research database-engine Best database for our use case --deep
+/sdd-research auth-provider Compare Auth0 vs Clerk vs Supabase Auth --deep
 ```
 
 ---
@@ -78,7 +78,7 @@ Identify distinct slices (e.g. existing code vs specs/ vs external). One area �
 
 In **one message**, spawn up to N `sdd-explorer` Tasks. Prompt each: assigned slice, return SDD exploration summary, **do not write research.md**. You may tell them to use built-in Explore for raw search.
 
-After they return, **you** (main) synthesize `specs/active/[task-id]/research.md`.
+After they return, **you** (main) synthesize `specs/active/[task-id]/sdd-research.md`.
 
 ### Phase 2: Planning (Create Plan)
 
@@ -105,7 +105,7 @@ After they return, **you** (main) synthesize `specs/active/[task-id]/research.md
 - Best practices to document: [list]
 
 **Output:**
-- File: `specs/active/[task-id]/research.md`
+- File: `specs/active/[task-id]/sdd-research.md`
 - Structure: Executive Summary → Codebase Analysis → External Options → Recommendations
 
 **Estimated time:** 60 minutes
@@ -288,7 +288,7 @@ Use this structure:
 ## Next Steps
 
 1. Review findings with team
-2. Proceed to `/specify` to define requirements
+2. Proceed to `/sdd-specify` to define requirements
 3. Address open questions before planning
 
 ---
@@ -301,7 +301,7 @@ Use this structure:
 **CHECKPOINT: Research Complete (REQUIRED)**
 
 Before final output, verify:
-- [ ] File created at `specs/active/[task-id]/research.md`
+- [ ] File created at `specs/active/[task-id]/sdd-research.md`
 - [ ] Codebase patterns documented with examples
 - [ ] Multiple options presented with pros/cons
 - [ ] Comparison matrix included
@@ -317,7 +317,7 @@ Before final output, verify:
 **Your response MUST end with:**
 
 ```
-✅ Research complete: `specs/active/[task-id]/research.md`
+✅ Research complete: `specs/active/[task-id]/sdd-research.md`
 
 **Mode:** Standard | Deep
 **Key Findings:**
@@ -335,7 +335,7 @@ Before final output, verify:
 **Next steps:**
 - Review the research document
 - Discuss recommendations with team if needed
-- Run `/specify [task-id]` to define requirements
+- Run `/sdd-specify [task-id]` to define requirements
 - Or run `/sdd-plan [task-id]` if requirements are clear
 
 **Open questions:** [Count] items need input before proceeding
@@ -365,7 +365,7 @@ Before final output, verify:
 
 ## Related Commands
 
-- `/specify [task-id]` - Define requirements based on research
+- `/sdd-specify [task-id]` - Define requirements based on research
 - `/sdd-plan [task-id]` - Create technical plan (if requirements clear)
-- `/brief [task-id]` - Quick planning (skip deep research)
+- `/sdd-brief [task-id]` - Quick planning (skip deep research)
 - `/sdd-full-plan [project-id]` - Full project roadmap

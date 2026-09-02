@@ -18,25 +18,25 @@ Successfully integrated Cursor's PLAN mode workflow into all 8 SDD commands, tra
 All command definitions now follow the 4-phase PLAN mode workflow:
 
 #### ✅ Primary Workflow (SDD 2.5)
-- **`.cursor/commands/brief.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-brief.md`** - Updated with PLAN mode workflow
   - Analysis phase with pattern checking
   - Plan presentation showing brief structure
   - Execution after approval
   - Documentation tracking
 
-- **`.cursor/commands/evolve.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-evolve.md`** - Updated with PLAN mode workflow
   - Before/after change analysis
   - Plan showing proposed updates
   - Changelog generation
   - Complexity assessment
 
 #### ✅ Advanced Workflow (SDD 2.0)
-- **`.cursor/commands/research.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-research.md`** - Updated with PLAN mode workflow
   - Research strategy planning
   - Codebase and external analysis
   - Comprehensive findings documentation
 
-- **`.cursor/commands/specify.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-specify.md`** - Updated with PLAN mode workflow
   - Requirements gathering with questions
   - Specification structure planning
   - Comprehensive requirements generation
@@ -46,18 +46,18 @@ All command definitions now follow the 4-phase PLAN mode workflow:
   - Architecture and design decisions
   - Technology justifications
 
-- **`.cursor/commands/tasks.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-tasks.md`** - Updated with PLAN mode workflow
   - Task breakdown strategy
   - Effort estimation and dependencies
   - Comprehensive task generation
 
-- **`.cursor/commands/implement.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-implement.md`** - Updated with PLAN mode workflow
   - Implementation strategy planning
   - Todo-list preview before creation
   - Systematic execution tracking
 
 #### ✅ Escalation
-- **`.cursor/commands/upgrade.md`** - Updated with PLAN mode workflow
+- **`.cursor/commands/sdd-upgrade.md`** - Updated with PLAN mode workflow
   - Upgrade strategy and content mapping
   - Brief expansion to full SDD
   - Preservation of existing work
@@ -89,7 +89,7 @@ All command definitions now follow the 4-phase PLAN mode workflow:
   - 5 detailed scenario walkthroughs
   - Shows complete plan-approve-execute flow
   - Demonstrates all phases with realistic dialogue
-  - Covers: `/brief`, `/evolve`, `/research`, `/implement`, `/upgrade`
+  - Covers: `/sdd-brief`, `/sdd-evolve`, `/sdd-research`, `/sdd-implement`, `/sdd-upgrade`
   - Includes tips and key takeaways
 
 ## Architecture Changes
@@ -178,14 +178,14 @@ Each command file now includes:
 ## Technical Implementation
 
 ### Files Modified: 12
-1. `.cursor/commands/brief.md` - 127 lines → Enhanced with PLAN workflow
-2. `.cursor/commands/evolve.md` - 140 lines → Enhanced with PLAN workflow
-3. `.cursor/commands/research.md` - 147 lines → Enhanced with PLAN workflow
-4. `.cursor/commands/specify.md` - 153 lines → Enhanced with PLAN workflow
+1. `.cursor/commands/sdd-brief.md` - 127 lines → Enhanced with PLAN workflow
+2. `.cursor/commands/sdd-evolve.md` - 140 lines → Enhanced with PLAN workflow
+3. `.cursor/commands/sdd-research.md` - 147 lines → Enhanced with PLAN workflow
+4. `.cursor/commands/sdd-specify.md` - 153 lines → Enhanced with PLAN workflow
 5. `.cursor/commands/plan.md` - 187 lines → Enhanced with PLAN workflow (meta!)
-6. `.cursor/commands/tasks.md` - 200 lines → Enhanced with PLAN workflow
-7. `.cursor/commands/implement.md` - 215 lines → Enhanced with PLAN workflow
-8. `.cursor/commands/upgrade.md` - 210 lines → Enhanced with PLAN workflow
+6. `.cursor/commands/sdd-tasks.md` - 200 lines → Enhanced with PLAN workflow
+7. `.cursor/commands/sdd-implement.md` - 215 lines → Enhanced with PLAN workflow
+8. `.cursor/commands/sdd-upgrade.md` - 210 lines → Enhanced with PLAN workflow
 9. `.cursor/rules/sdd-system.mdc` - Enhanced with PLAN mode section
 10. `.sdd/guidelines.md` - Comprehensive PLAN mode methodology
 11. `README.md` - Added 130+ lines of PLAN mode documentation
@@ -208,15 +208,15 @@ Each command file now includes:
 All commands ready for testing with PLAN mode:
 
 ### Recommended Test Sequence
-1. ✅ `/brief` - Test with minimal info (should ask questions)
-2. ✅ `/brief` - Test with complete info (should show plan)
-3. ✅ `/evolve` - Test updating existing brief
-4. ✅ `/research` - Test research strategy planning
-5. ✅ `/specify` - Test specification planning
+1. ✅ `/sdd-brief` - Test with minimal info (should ask questions)
+2. ✅ `/sdd-brief` - Test with complete info (should show plan)
+3. ✅ `/sdd-evolve` - Test updating existing brief
+4. ✅ `/sdd-research` - Test research strategy planning
+5. ✅ `/sdd-specify` - Test specification planning
 6. ✅ `/plan` - Test technical planning (meta!)
-7. ✅ `/tasks` - Test task breakdown planning
-8. ✅ `/implement` - Test implementation planning
-9. ✅ `/upgrade` - Test brief-to-full-SDD escalation
+7. ✅ `/sdd-tasks` - Test task breakdown planning
+8. ✅ `/sdd-implement` - Test implementation planning
+9. ✅ `/sdd-upgrade` - Test brief-to-full-SDD escalation
 
 ### Test Scenarios Covered in Examples
 - Feature brief creation with questions
@@ -234,21 +234,21 @@ All commands ready for testing with PLAN mode:
 - [x] Documentation reflects PLAN mode integration
 - [x] Examples demonstrate the enhanced workflow
 - [x] No breaking changes to existing command interface
-- [x] Backward compatible with existing specs/plans/tasks
+- [x] Backward compatible with existing specs/plans/sdd-tasks
 
 ## Next Steps for Users
 
 ### Immediate Actions
-1. **Try it out**: Run `/brief test-feature Quick test of PLAN mode`
+1. **Try it out**: Run `/sdd-brief test-feature Quick test of PLAN mode`
 2. **Review the plan**: See the 4-phase workflow in action
 3. **Approve and execute**: Watch the systematic execution
 4. **Read examples**: Study `.sdd/PLAN_MODE_EXAMPLES.md`
 
 ### Learning Path
-1. Start with `/brief` for simple features
-2. Try `/evolve` to update existing work
+1. Start with `/sdd-brief` for simple features
+2. Try `/sdd-evolve` to update existing work
 3. Experiment with full SDD 2.0 workflow
-4. Use `/upgrade` when complexity emerges
+4. Use `/sdd-upgrade` when complexity emerges
 
 ### Best Practices
 1. Review plans thoroughly before approval

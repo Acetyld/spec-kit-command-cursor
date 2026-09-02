@@ -34,14 +34,14 @@ These examples show what you can expect when using each command with PLAN mode e
 
 ---
 
-## Example 1: `/brief` - Feature Brief Creation
+## Example 1: `/sdd-brief` - Feature Brief Creation
 
 ### Scenario
 Creating a quick feature brief for user profile customization.
 
 ### User Command
 ```
-/brief user-profile-custom Allow users to customize profile with avatar and bio
+/sdd-brief user-profile-custom Allow users to customize profile with avatar and bio
 ```
 
 ### AI Analysis Phase
@@ -66,7 +66,7 @@ Questions for you:
 
 ### AI Plan Presentation
 ```
-Plan for /brief user-profile-custom
+Plan for /sdd-brief user-profile-custom
 
 **What will be created:**
 - File: specs/active/user-profile-custom/feature-brief.md
@@ -120,14 +120,14 @@ Result: Feature brief ready for development!
 
 ---
 
-## Example 2: `/evolve` - Living Documentation Update
+## Example 2: `/sdd-evolve` - Living Documentation Update
 
 ### Scenario
 Updating existing brief based on discovery during implementation.
 
 ### User Command
 ```
-/evolve checkout-flow Discovered we need to handle international addresses with different formats
+/sdd-evolve checkout-flow Discovered we need to handle international addresses with different formats
 ```
 
 ### AI Analysis Phase
@@ -152,7 +152,7 @@ Start with US, UK, Canada, Australia, Germany
 
 ### AI Plan Presentation
 ```
-Plan for /evolve checkout-flow
+Plan for /sdd-evolve checkout-flow
 
 **What will be updated:**
 - File: specs/active/checkout-flow/feature-brief.md
@@ -209,14 +209,14 @@ Result: Feature brief updated and aligned with implementation!
 
 ---
 
-## Example 3: `/research` - Pattern Investigation
+## Example 3: `/sdd-research` - Pattern Investigation
 
 ### Scenario
 Researching authentication patterns before specification.
 
 ### User Command
 ```
-/research auth-system JWT authentication with session management
+/sdd-research auth-system JWT authentication with session management
 ```
 
 ### AI Analysis Phase
@@ -241,10 +241,10 @@ Questions:
 
 ### AI Plan Presentation
 ```
-Plan for /research auth-system
+Plan for /sdd-research auth-system
 
 **What will be created:**
-- File: specs/active/auth-system/research.md
+- File: specs/active/auth-system/sdd-research.md
 
 **Research Strategy:**
 
@@ -306,19 +306,19 @@ Key Findings:
 - Redis recommended for session store (already available)
 - Found excellent middleware pattern to follow
 
-Result: Research complete! Ready for /specify phase.
+Result: Research complete! Ready for /sdd-specify phase.
 ```
 
 ---
 
-## Example 4: `/implement` - Systematic Implementation
+## Example 4: `/sdd-implement` - Systematic Implementation
 
 ### Scenario
 Executing implementation based on existing plan.
 
 ### User Command
 ```
-/implement user-notifications
+/sdd-implement user-notifications
 ```
 
 ### AI Analysis Phase
@@ -347,7 +347,7 @@ Questions:
 
 ### AI Plan Presentation
 ```
-Plan for /implement user-notifications
+Plan for /sdd-implement user-notifications
 
 **What will be created:**
 1. File: specs/active/user-notifications/todo-list.md
@@ -433,14 +433,14 @@ Progress: 5/15 todos complete, Phase 2 next.
 
 ---
 
-## Example 5: `/upgrade` - Escalating Complexity
+## Example 5: `/sdd-upgrade` - Escalating Complexity
 
 ### Scenario
 Converting a brief to full SDD when complexity is discovered.
 
 ### User Command
 ```
-/upgrade payment-integration Discovered PCI compliance requirements and need for multiple payment providers
+/sdd-upgrade payment-integration Discovered PCI compliance requirements and need for multiple payment providers
 ```
 
 ### AI Analysis Phase
@@ -479,7 +479,7 @@ Questions:
 
 ### AI Plan Presentation
 ```
-Plan for /upgrade payment-integration
+Plan for /sdd-upgrade payment-integration
 
 **What will be created:**
 - Keep: feature-brief.md (renamed to feature-brief-v1.md)
@@ -617,9 +617,9 @@ The AI will revise and re-present until you're satisfied.
 
 Want to see more examples?
 - Try commands in your own project
-- Start with `/brief` for quick features
-- Use `/research` for exploring patterns
-- Experiment with `/evolve` for updates
+- Start with `/sdd-brief` for quick features
+- Use `/sdd-research` for exploring patterns
+- Experiment with `/sdd-evolve` for updates
 
 Questions? Check:
 - [Guidelines](.sdd/guidelines.md) - Methodology details

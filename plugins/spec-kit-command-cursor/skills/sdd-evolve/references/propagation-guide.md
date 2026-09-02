@@ -52,7 +52,7 @@ Remove the marker after the document has been reviewed and updated.
 3. **Assess impact** — use the matrix above
 4. **Add staleness markers** — to affected downstream files
 5. **Report to user** — list affected files in the evolution summary
-6. **Suggest next steps** — `/sdd-plan` to update plan, `/tasks` to update tasks, etc.
+6. **Suggest next steps** — `/sdd-plan` to update plan, `/sdd-tasks` to update tasks, etc.
 
 ## When NOT to Propagate
 

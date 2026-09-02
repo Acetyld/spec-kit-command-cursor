@@ -1,7 +1,7 @@
 {
   "name": "spec-kit-command-cursor",
-  "version": "6.0.6",
-  "description": "Spec-Driven Development framework for Cursor 3.8 — subagents, skills, DAG-based parallel + cloud execution, native review integration, and a pluggable memory layer (standard / Cursor-native / mem0). Plan-approve-execute workflow for systematic feature development.",
+  "version": "6.1.0",
+  "description": "Spec-Driven Development for Cursor 3.8 — official Spec Kit command flow as /sdd-* (constitution, specify, clarify, plan, checklist, tasks, analyze, implement, converge). Cursor packaging: AskQuestion, /goal, sibling verifier, specs/active/. Marketplace plugin; no specify-cli.",
   "author": {
     "name": "Aris Setiawan",
     "email": "arissetia.m@gmail.com"

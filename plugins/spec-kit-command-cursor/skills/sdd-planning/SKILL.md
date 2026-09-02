@@ -63,5 +63,5 @@ Generate `plan.md` with:
 ## Integration
 
 - Input from: `sdd-research` skill, `sdd-explorer` subagent
-- Output to: `/tasks` command, `sdd-implementer` subagent
+- Output to: `/sdd-tasks` command, `sdd-implementer` subagent
 - Use the ask question tool for architectural decisions with significant tradeoffs

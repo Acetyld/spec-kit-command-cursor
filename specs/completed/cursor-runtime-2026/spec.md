@@ -2,25 +2,25 @@
 
 ## Overview
 
-Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays a spec + DAG + memory workflow. Cursor owns isolation, parallel `Task` spawn, review, cloud handoff, worktrees, and long-lived goals. This release makes advertised subagent behavior real (fan-out siblings), respects the two-level nest limit, fixes stale Cursor names/APIs, adds Custom Modes and `/goal` on `/implement`, and ships a tiny optional hook pack.
+Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays a spec + DAG + memory workflow. Cursor owns isolation, parallel `Task` spawn, review, cloud handoff, worktrees, and long-lived goals. This release makes advertised subagent behavior real (fan-out siblings), respects the two-level nest limit, fixes stale Cursor names/APIs, adds Custom Modes and `/goal` on `/sdd-implement`, and ships a tiny optional hook pack.
 
-**Depends on:** [research.md](./research.md) (deep research, 2026-09-01).
+**Depends on:** [research.md](./sdd-research.md) (deep research, 2026-09-01).
 
 ## Problem Statement
 
 ### What problem are we solving?
 
 - Commands and docs claim a three-level tree (`orchestrator → implementer → verifier`) that Cursor **cannot** run. Grandchildren cannot spawn.
-- `/research`, `/brief`, `/specify`, `/sdd-plan` say they spawn explorer/planner; the main agent writes the files. Parallel work that Cursor already supports is unused.
+- `/sdd-research`, `/sdd-brief`, `/sdd-specify`, `/sdd-plan` say they spawn explorer/planner; the main agent writes the files. Parallel work that Cursor already supports is unused.
 - Docs still say `/babysit`, `CallMcpTool`, `sddVersion: "5.1"`, and "type `/in-cloud`" instead of Task `environment: "cloud"`.
-- Skills cannot be pinned as Custom Modes (no `icon`/`color`). `/implement` is a single pass; users already wrap it with `/goal` themselves.
+- Skills cannot be pinned as Custom Modes (no `icon`/`color`). `/sdd-implement` is a single pass; users already wrap it with `/goal` themselves.
 - Hooks were removed, so there is no reliable structured write on `subagentStop` / session `stop`.
 
 ### Who are the affected users?
 
 - Developers using the marketplace plugin in Cursor 3.8+ (especially 3.x / Aug 2026 runtimes).
 - Plugin authors and contributors who copy `docs/agent-manual.md` and agent frontmatter.
-- Teams running `/execute-parallel` who expect verify-after-implement to actually fire.
+- Teams running `/sdd-execute-parallel` who expect verify-after-implement to actually fire.
 
 ### Why is this important?
 
@@ -34,28 +34,28 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 - **FR-001**: Two-level nest only
   - **Acceptance Criteria**:
-    - Agent manual, `sdd-system.mdc`, `sdd-implementer`, `sdd-orchestrator`, `/execute-parallel`, `/implement` describe at most: main (or orchestrator at depth 1) → siblings.
+    - Agent manual, `sdd-system.mdc`, `sdd-implementer`, `sdd-orchestrator`, `/sdd-execute-parallel`, `/sdd-implement` describe at most: main (or orchestrator at depth 1) → siblings.
     - Implementer **must not** be instructed to spawn `sdd-verifier` when it is already a child of orchestrator.
     - Verifier is spawned by **main or orchestrator** as a sibling after the matching implementer returns.
     - Any diagram that shows `implementer → verifier` as a grandchild is removed or rewritten.
 
 - **FR-002**: Fan-out spawn for explore / research / plan
   - **Acceptance Criteria**:
-    - `/research` and `/brief` spawn **one or more** `sdd-explorer` Tasks in a **single message** when there are distinct areas (codebase slices, existing specs, optional deep/external).
-    - `/specify` and `/sdd-plan` spawn **one or more** `sdd-planner` Tasks in a single message when the work splits cleanly (e.g. API vs UI); otherwise one planner is enough.
+    - `/sdd-research` and `/sdd-brief` spawn **one or more** `sdd-explorer` Tasks in a **single message** when there are distinct areas (codebase slices, existing specs, optional deep/external).
+    - `/sdd-specify` and `/sdd-plan` spawn **one or more** `sdd-planner` Tasks in a single message when the work splits cleanly (e.g. API vs UI); otherwise one planner is enough.
     - Main agent synthesizes `research.md` / `feature-brief.md` / `spec.md` / `plan.md`.
     - AskQuestion runs only on the **main** agent, never inside a background child.
     - `sdd-explorer` is kept. Built-in Explore may be used *inside* explorer for raw search; explorer is not deleted.
 
 - **FR-003**: Fan-out spawn for build
   - **Acceptance Criteria**:
-    - `/implement` on a large todo-list (default: 5+ independent todos, or user says "in parallel") spawns multiple `sdd-implementer` siblings in one message, then sibling `sdd-verifier`s after each returns (or after the batch).
-    - `/execute-parallel` already fans out; it must use the sibling-verifier rule and **Await** for background implementers instead of prose "wait loops."
+    - `/sdd-implement` on a large todo-list (default: 5+ independent todos, or user says "in parallel") spawns multiple `sdd-implementer` siblings in one message, then sibling `sdd-verifier`s after each returns (or after the batch).
+    - `/sdd-execute-parallel` already fans out; it must use the sibling-verifier rule and **Await** for background implementers instead of prose "wait loops."
     - Small / sequential work may stay on main or a single implementer.
 
-- **FR-004**: `/goal` on `/implement`
+- **FR-004**: `/goal` on `/sdd-implement`
   - **Acceptance Criteria**:
-    - `/implement` instructs the agent to set a long-lived `/goal` whose success is: todos done, sibling verifier green, blockers documented — not "one pass then stop."
+    - `/sdd-implement` instructs the agent to set a long-lived `/goal` whose success is: todos done, sibling verifier green, blockers documented — not "one pass then stop."
     - Goal text is derived from the active spec title + "until verifier reports complete."
     - Document pairing `/goal` with Custom Mode `sdd-implementation` in README-technical and agent-manual.
 
@@ -63,7 +63,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
   - **Acceptance Criteria**:
     - Every `/babysit` occurrence in plugin commands, agents, rules, docs, README becomes `/autopilot` (one-line "formerly babysit" note allowed in changelog only).
     - Agent-manual documents Task fields: `environment: "cloud"`, `cloud_base_branch`, `run_in_background`, `resume`, and types `bugbot`, `security-review`, `best-of-n-runner`.
-    - Cloud guidance prefers Task `environment: "cloud"` in orchestrator/implement prompts; `/in-cloud` remains as the user-facing slash alias.
+    - Cloud guidance prefers Task `environment: "cloud"` in orchestrator/sdd-implement prompts; `/in-cloud` remains as the user-facing slash alias.
 
 - **FR-006**: Custom Modes on SDD skills
   - **Acceptance Criteria**:
@@ -96,7 +96,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 - **Compatibility**: Prompt/markdown-only plugin. No new MCP server. Works on Cursor 3.8+; documents Aug 2026 primitives as available-when-present.
 - **Least surprise**: AskQuestion and user-visible decisions stay on the main conversation.
-- **Cost**: Fan-out is capped (default max 4 parallel explorers/planners/implementers; same `settings.maxParallelImplementers` if present). Docs state N subagents ≈ N× tokens.
+- **Cost**: Fan-out is capped (default max 4 parallel explorers/planners/sdd-implementers; same `settings.maxParallelImplementers` if present). Docs state N subagents ≈ N× tokens.
 - **Fail-open hooks**: Hook failure must not block implement/verify.
 - **Maintainability**: One nest/spawn protocol in `docs/agent-manual.md`; commands link to it instead of restating a conflicting tree.
 
@@ -104,7 +104,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 ### US-001: Parallel research without blocking chat
 **As a** developer  
-**I want** `/research` to run several `sdd-explorer` agents at once  
+**I want** `/sdd-research` to run several `sdd-explorer` agents at once  
 **So that** I get an SDD research report without the main chat doing all the grep itself
 
 **Acceptance Criteria:**
@@ -117,11 +117,11 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 ### US-002: Implement until it is actually done
 **As a** developer  
-**I want** `/implement` to use `/goal` and keep going until verifier is green  
+**I want** `/sdd-implement` to use `/goal` and keep going until verifier is green  
 **So that** I do not have to remember to wrap implement with `/goal` myself
 
 **Acceptance Criteria:**
-- `/implement` sets or instructs `/goal` with a verifier-complete success condition
+- `/sdd-implement` sets or instructs `/goal` with a verifier-complete success condition
 - Large independent todos run as parallel implementer siblings
 - Verifier is not a child of implementer when orchestrator already used a nest slot
 
@@ -130,7 +130,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 ### US-003: Parallel roadmap execution that can verify
 **As a** developer  
-**I want** `/execute-parallel` to verify each task  
+**I want** `/sdd-execute-parallel` to verify each task  
 **So that** "done" means a sibling verifier ran, not a grandchild that never started
 
 **Acceptance Criteria:**
@@ -143,7 +143,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 
 ### US-004: Pin SDD as a Custom Mode
 **As a** developer  
-**I want** to pin `sdd-implementation` (or planning/audit) as a Custom Mode  
+**I want** to pin `sdd-implementation` (or planning/sdd-audit) as a Custom Mode  
 **So that** the playbook stays in context for the whole session
 
 **Acceptance Criteria:**
@@ -180,7 +180,7 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 ## Success Metrics
 
 - Zero documented three-level spawn paths in plugin agents/commands/rules/docs.
-- `/research` and `/implement` command bodies contain explicit multi-`Task` + sibling-verifier instructions.
+- `/sdd-research` and `/sdd-implement` command bodies contain explicit multi-`Task` + sibling-verifier instructions.
 - `/babysit` count in `plugins/spec-kit-command-cursor/**` is 0 (except optional changelog "formerly").
 - All `commands/*.md` have `name` + `description` frontmatter.
 - Four skills listed in FR-006 have `icon` and `color`.
@@ -215,10 +215,10 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 ## Out of Scope
 
 - Isolated per-subagent worktree/cloud VM swarms (`each in its own environment`) as the default parallel strategy.
-- `/automate` recipes (PR comment → `/audit`, CI fail → fix).
+- `/automate` recipes (PR comment → `/sdd-audit`, CI fail → fix).
 - Generating real app-stack `environment.json` / `worktrees.json` (detect npm vs pnpm, etc.).
 - Plugin marketplace canvas.
-- Wiring `/audit` to Task `bugbot` + `security-review` (listed as later in research; not this slice).
+- Wiring `/sdd-audit` to Task `bugbot` + `security-review` (listed as later in research; not this slice).
 - Adding or removing subagents beyond protocol changes to the existing six.
 - Agent Plugins (`plugin.json` at root) dual-format.
 - MCP server for specs.
@@ -239,4 +239,4 @@ Align spec-kit with the current Cursor plugin and agent runtime. Spec-kit stays 
 **Status:** Complete  
 **Completed:** 2026-09-01  
 **Task ID:** cursor-runtime-2026  
-**Source:** [research.md](./research.md)
+**Source:** [research.md](./sdd-research.md)

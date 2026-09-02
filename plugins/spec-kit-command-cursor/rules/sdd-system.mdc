@@ -28,8 +28,8 @@ Questions the *research or plan will answer* (investigation prompts) stay in the
 SDD `/sdd-plan` is **not** Cursor Plan mode. Do **not** call SwitchMode / `target_mode_id: plan`. Do **not** create a Cursor Plan (the UI with a **Build** button).
 
 - `/sdd-plan` writes `specs/active/[task-id]/plan.md` in Agent mode, then stops. Cursor's own `/plan` is Plan mode (Build) — never invoke it for SDD.
-- `/implement` (or `/tasks` then `/implement`) is how SDD builds. Never tell the user to press **Build**.
-- `/brief`, `/research`, `/specify`, `/tasks` also stay in Agent mode and write files under `specs/`.
+- `/sdd-implement` (or `/sdd-tasks` then `/sdd-implement`) is how SDD builds. Never tell the user to press **Build**.
+- `/sdd-brief`, `/sdd-research`, `/sdd-specify`, `/sdd-clarify`, `/sdd-checklist`, `/sdd-tasks`, `/sdd-analyze`, `/sdd-converge` also stay in Agent mode and write files under `specs/` (constitution writes `.sdd/memory/constitution.md`).
 
 ---
 
@@ -93,23 +93,28 @@ Skills use progressive loading — keep `SKILL.md` focused, put details in `refe
 
 If `.sdd/config.json` is missing in the current project, run `/sdd-init` first.
 
-### Everyday feature (most of the time)
-`/brief` → `/implement`
+### Official Spec Kit sequence
+`/sdd-constitution` → `/sdd-specify` → `/sdd-clarify` → `/sdd-plan` → `/sdd-checklist` → `/sdd-tasks` → `/sdd-analyze` → `/sdd-implement` → `/sdd-converge` → `/sdd-complete`
 
-### Complex or high-risk feature
-`/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement`
+Shorter: `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` → `/sdd-converge`.
+
+### Everyday feature (most of the time)
+`/sdd-brief` → `/sdd-implement`
+
+### Complex or high-risk feature (pre-spec research extra)
+`/sdd-research` → official sequence from `/sdd-specify`
 
 ### Whole app or big project
-`/sdd-full-plan` → `/execute-parallel --until-finish`
+`/sdd-full-plan` → `/sdd-execute-parallel --until-finish`
 
-`/evolve` and `/refine` update specs after the plan exists. They are not the default happy path. When the work is shipped, run `/sdd-complete [task-id]` so the spec does not stay in `specs/active/`.
+`/sdd-evolve` and `/sdd-refine` update specs after the plan exists. They are not the default happy path. After implement, run `/sdd-converge`. When the work is shipped **and** converge is clean (or the user overrides), run `/sdd-complete [task-id]` so the spec does not stay in `specs/active/`.
 
 ### Cursor 3.8 Agent Runtime
 - Use `/multitask` for ad hoc independent work that does not need a roadmap, checkpoint, or dependency graph.
-- Use `/execute-parallel` for SDD roadmap execution because it handles dependencies, file-conflict batching, checkpoints, and verifier handoffs.
+- Use `/sdd-execute-parallel` for SDD roadmap execution because it handles dependencies, file-conflict batching, checkpoints, and verifier handoffs.
 - Use Agents Window worktrees for risky, parallel, or best-of-N implementation work. `.cursor/worktrees.json` prepares the isolated checkout.
 - Offload long-running, risky, or environment-heavy tasks with Task `environment: "cloud"` (user alias `/in-cloud`). Use `/autopilot` to drive a PR to merge-ready. `.cursor/environment.json` makes cloud agents start faster.
-- `/implement` finishes the spec: expand every `tasks.md` item into `todo-list.md`, set `/goal` (when available), keep going after each phase. Sibling verifier on a slice is a checkpoint — then continue. Pin `sdd-implementation` as a Custom Mode with Option+Enter / Alt+Enter.
+- `/sdd-implement` finishes the spec: expand every `tasks.md` item into `todo-list.md`, set `/goal` (when available), keep going after each phase. Sibling verifier on a slice is a checkpoint — then continue. Pin `sdd-implementation` as a Custom Mode with Option+Enter / Alt+Enter.
 - In multi-root workspaces, resolve paths from the active project root and avoid assuming a single repository owns every file.
 
 ## Memory (`.sdd/config.json` → `memory`)
@@ -122,13 +127,13 @@ SDD long-term memory is **optional and pluggable**. The active backend is set in
 | `cursor-native` | toggle on | Cursor 3.8 Memories — all plans (Free/Pro/Team), individual level. Needs Privacy Mode off + Settings → Rules → "Generate Memories". |
 | `mem0` | mem0 MCP / local API | Free self-host semantic memory across sessions. |
 
-The `sdd-memory` skill performs **recall before planning/implementation** and **persist after discoveries**. Configure with `/sdd-memory`. Never store secrets in memory. When `standard`, memory is a no-op.
+The `sdd-memory` skill performs **recall before planning/sdd-implementation** and **persist after discoveries**. Configure with `/sdd-memory`. Never store secrets in memory. When `standard`, memory is a no-op.
 
 ## Native Review (Cursor 3.8+)
 
 Prefer Cursor's first-party reviewers for mechanical checks, then let SDD agents own spec compliance:
 - `/review` (choose Bugbot + Security Review), or `/review-bugbot` / `/review-security` directly. Bugbot runs in ~90s and syncs with GitHub/GitLab to avoid duplicate PR reviews.
-- `/audit` and `sdd-reviewer` fold native findings into a single consolidated report.
+- `/sdd-audit` and `sdd-reviewer` fold native findings into a single consolidated report.
 
 ## DAG-Based Execution
 
@@ -173,13 +178,13 @@ plugins/spec-kit-command-cursor/
 Project (created by `/sdd-init` in the app repo):
 
 ```
-.sdd/                          # config + templates
+.sdd/                          # config + templates + memory/constitution.md
 specs/
 ├── active/[task-id]/
 ├── todo-roadmap/[project]/
 └── completed/
 .cursor/
-├── rules/                     # App conventions from /generate-rules
+├── rules/                     # App conventions from /sdd-generate-rules
 ├── environment.json           # Optional cloud agent setup
 └── worktrees.json             # Optional worktree setup
 ```
@@ -189,19 +194,24 @@ specs/
 | Command | Purpose | Uses |
 |---------|---------|------|
 | `/sdd-init` | Scaffold `.sdd/` + `specs/` in this project | — |
-| `/brief` | Quick 30-min planning | sdd-planning skill |
-| `/research` | Pattern investigation | sdd-explorer subagent |
-| `/specify` | Detailed requirements | sdd-planning skill |
-| `/sdd-plan` | Technical architecture | sdd-planner subagent |
-| `/tasks` | Task breakdown | sdd-planner subagent |
-| `/implement` | Finish the spec (all todos) | sdd-implementer subagent |
-| `/sdd-complete` | Archive finished spec to `specs/completed/` | — |
-| `/audit` | Spec-driven audit | sdd-reviewer subagent |
-| `/evolve` | Update specs | sdd-evolve skill |
-| `/refine` | Iterate on existing specs | sdd-planning skill |
+| `/sdd-constitution` | Project principles in `.sdd/memory/constitution.md` | — |
+| `/sdd-specify` | WHAT/WHY spec + `checklists/requirements.md` | sdd-planning skill |
+| `/sdd-clarify` | Up to 5 AskQuestion clarifications into spec.md | — |
+| `/sdd-plan` | Phase 0 research.md + Phase 1 data-model/contracts/quickstart | sdd-planner subagent |
+| `/sdd-checklist` | Extra reviewer-owned quality lists | — |
+| `/sdd-tasks` | Official `T001 [P] [US1]` tasks + 1:1 todo-list.md | sdd-planner subagent |
+| `/sdd-analyze` | Read-only consistency report (passes A–F) | — |
+| `/sdd-implement` | Finish remaining `T0xx` (`[X]`); `/goal` + sibling verifier | sdd-implementer subagent |
+| `/sdd-converge` | Append-only gap tasks or report converged | — |
+| `/sdd-complete` | Archive finished spec (warn if converge not clean) | — |
+| `/sdd-brief` | Quick 30-min planning (everyday extra) | sdd-planning skill |
+| `/sdd-research` | Pre-spec pattern investigation | sdd-explorer subagent |
+| `/sdd-audit` | Spec-driven audit | sdd-reviewer subagent |
+| `/sdd-evolve` | Update specs | sdd-evolve skill |
+| `/sdd-refine` | Iterate on existing specs | sdd-planning skill |
 | `/sdd-full-plan` | Full project roadmap | sdd-orchestrator |
-| `/execute-task` | Execute roadmap task | sdd-implementer |
-| `/execute-parallel` | Parallel DAG execution | sdd-orchestrator |
+| `/sdd-execute-task` | Execute roadmap task | sdd-implementer |
+| `/sdd-execute-parallel` | Parallel DAG execution | sdd-orchestrator |
 | `/sdd-memory` | Configure memory backend | sdd-memory skill |
 | `/multitask` | Ad hoc parallel work | **Native Cursor** |
 | `/review` | Bugbot + Security review | **Native Cursor** |
@@ -215,7 +225,7 @@ specs/
 3. **Mark completion**: `- [ ]` → `- [x]`
 4. **Document blockers** — never skip silently
 5. **Do not stop after a phase** — checkpoint verifier, then continue; “complete” only when the whole list is closed
-6. **Forced pause** — last line is `Reply continue` or `/implement [task-id]`
+6. **Forced pause** — last line is `Reply continue` or `/sdd-implement [task-id]`
 
 ## Plugin Distribution
 

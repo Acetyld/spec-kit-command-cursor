@@ -1,9 +1,9 @@
 ---
-name: execute-task
+name: sdd-execute-task
 description: Run one roadmap task (or an epic sequentially). Implementation uses sdd-implementer then a sibling sdd-verifier.
 ---
 
-# /execute-task Command
+# /sdd-execute-task Command
 
 Execute a specific task from a project roadmap, automatically determining the appropriate SDD command and updating roadmap status.
 
@@ -29,19 +29,19 @@ Execute tasks from project roadmaps by running appropriate SDD commands and trac
 ## Usage
 
 ```
-/execute-task [task-id] [--until-finish]
+/sdd-execute-task [task-id] [--until-finish]
 ```
 
 **Examples:**
 ```
-/execute-task task-001-1                # Execute a single task
-/execute-task epic-001                  # Execute first ready subtask in epic
-/execute-task epic-001 --until-finish   # Execute ALL subtasks in epic sequentially
+/sdd-execute-task task-001-1                # Execute a single task
+/sdd-execute-task epic-001                  # Execute first ready subtask in epic
+/sdd-execute-task epic-001 --until-finish   # Execute ALL subtasks in epic sequentially
 ```
 
 **Epic execution:** When given an epic ID, executes its subtasks in dependency order. A single task ID executes just that task.
 
-**`--until-finish` flag:** Continues executing subtasks sequentially until the epic is complete. Stops on error and reports for fixing. For parallel execution, use `/execute-parallel` instead.
+**`--until-finish` flag:** Continues executing subtasks sequentially until the epic is complete. Stops on error and reports for fixing. For parallel execution, use `/sdd-execute-parallel` instead.
 
 ---
 
@@ -53,13 +53,13 @@ Execute tasks from project roadmaps by running appropriate SDD commands and trac
 2. **Find task:** Locate task by ID in roadmap
 3. **Validate dependencies:** Ensure all dependencies have status "done"
 4. **Determine SDD command:** Map task phase to command:
-   - `research` → `/research`
-   - `brief` → `/brief`
-   - `specification` → `/specify`
+   - `research` → `/sdd-research`
+   - `brief` → `/sdd-brief`
+   - `specification` → `/sdd-specify`
    - `planning` → `/sdd-plan`
-   - `tasks` → `/tasks`
-   - `implementation` → `/implement`
-   - `evolution` → `/evolve`
+   - `tasks` → `/sdd-tasks`
+   - `implementation` → `/sdd-implement`
+   - `evolution` → `/sdd-evolve`
 
 ### Phase 2: Planning
 
@@ -89,7 +89,7 @@ Present execution plan and wait for approval (unless `--until-finish`).
 - Status: review
 - Unblocked: [count] tasks ready
 
-**Next:** Review output or continue with `/execute-task [next-task]`
+**Next:** Review output or continue with `/sdd-execute-task [next-task]`
 ```
 
 ### `--until-finish` Output
@@ -104,7 +104,7 @@ Present execution plan and wait for approval (unless `--until-finish`).
 
 ## `--until-finish` Workflow
 
-Executes tasks **sequentially** in dependency order (one at a time). For parallel execution, use `/execute-parallel` instead.
+Executes tasks **sequentially** in dependency order (one at a time). For parallel execution, use `/sdd-execute-parallel` instead.
 
 1. **Identify tasks:** Build execution queue sorted by dependencies
 2. **Pre-flight:** Show execution plan with estimated times
@@ -117,7 +117,7 @@ Executes tasks **sequentially** in dependency order (one at a time). For paralle
 When execution stops due to an error:
 
 1. Fix the reported issue
-2. Resume with: `/execute-task [failed-task-id] --until-finish`
+2. Resume with: `/sdd-execute-task [failed-task-id] --until-finish`
 3. Execution continues from the failed task onward
 
 If a task is permanently blocked, manually mark it as `blocked` in `roadmap.json` and re-run — blocked tasks are skipped and their dependents remain blocked.
@@ -144,8 +144,8 @@ If a task is permanently blocked, manually mark it as `blocked` in `roadmap.json
 
 | Command | Execution | Best For |
 |---------|-----------|----------|
-| `/execute-task --until-finish` | **Sequential** (one at a time) | Simple projects, debugging, careful review |
-| `/execute-parallel` | **Parallel** (batched via subagents) | Large projects, independent tasks |
+| `/sdd-execute-task --until-finish` | **Sequential** (one at a time) | Simple projects, debugging, careful review |
+| `/sdd-execute-parallel` | **Parallel** (batched via subagents) | Large projects, independent tasks |
 | `/sdd-full-plan --until-finish` | **Parallel** (creates roadmap + orchestrator) | Full project from scratch |
 
 ---
@@ -153,6 +153,6 @@ If a task is permanently blocked, manually mark it as `blocked` in `roadmap.json
 ## Related Commands
 
 - `/sdd-full-plan [project-id] --until-finish` — Create roadmap and execute all tasks (parallel)
-- `/execute-parallel [project-id]` — Parallel execution via async subagents
-- `/execute-parallel [project-id] --resume` — Resume parallel execution from checkpoint
-- `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/evolve`, `/audit`
+- `/sdd-execute-parallel [project-id]` — Parallel execution via async subagents
+- `/sdd-execute-parallel [project-id] --resume` — Resume parallel execution from checkpoint
+- `/sdd-constitution`, `/sdd-specify`, `/sdd-clarify`, `/sdd-plan`, `/sdd-tasks`, `/sdd-analyze`, `/sdd-implement`, `/sdd-converge`, `/sdd-brief`, `/sdd-research`, `/sdd-evolve`, `/sdd-audit`

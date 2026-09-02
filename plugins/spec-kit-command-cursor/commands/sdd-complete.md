@@ -45,9 +45,11 @@ Look in this order:
 
 If nothing is found, stop.
 
-### 2. Check leftover work
+### 2. Converge + leftover work
 
 Read `feature-brief.md`, `spec.md`, `todo-list.md`, `tasks.md` if they exist.
+
+**Converge gate:** if `tasks.md` has a `## Phase N: Convergence` with unchecked `T0xx`, or there is no evidence the last `/sdd-converge` reported `✅ Converged`, warn and call **AskQuestion** — “Last converge was not clean (or not run). Archive anyway?” → Archive / Run `/sdd-converge` first / Keep in active.
 
 - Unchecked Next Actions / todos that **are** done in the repo or were shipped: mark `[x]` and note why.
 - Real unfinished work: call **AskQuestion** — "Archive anyway?" → Archive / Keep in active / Split leftover into a new brief.

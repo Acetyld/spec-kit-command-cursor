@@ -1,83 +1,70 @@
-# Feature Specification: {{FEATURE_NAME}}
+# Feature Specification: [FEATURE NAME]
 
-## Overview
-{{FEATURE_DESCRIPTION}}
+**Task ID**: `[task-id]`
+**Created**: [DATE]
+**Status**: Draft
+**Input**: User description: "$ARGUMENTS"
 
-## Problem Statement
-### What problem are we solving?
-- {{PROBLEM_DESCRIPTION}}
+## User Scenarios & Testing *(mandatory)*
 
-### Who are the affected users?
-- {{TARGET_USERS}}
+<!--
+  User stories are PRIORITIZED (P1, P2, P3…). Each story is independently testable.
+-->
 
-### Why is this important?
-- {{BUSINESS_JUSTIFICATION}}
+### User Story 1 - [Brief Title] (Priority: P1)
 
-## Requirements
+[Describe this user journey in plain language]
 
-### Functional Requirements
-{{#each FUNCTIONAL_REQUIREMENTS}}
-- **{{this.id}}**: {{this.description}}
-  - **Acceptance Criteria**: {{this.criteria}}
-{{/each}}
+**Why this priority**: [Explain the value]
 
-### Non-Functional Requirements
-{{#each NON_FUNCTIONAL_REQUIREMENTS}}
-- **{{this.type}}**: {{this.description}}
-{{/each}}
+**Independent Test**: [How to verify this story alone]
 
-## User Stories
+**Acceptance Scenarios**:
 
-{{#each USER_STORIES}}
-### {{this.id}}: {{this.title}}
-**As a** {{this.actor}}  
-**I want** {{this.action}}  
-**So that** {{this.outcome}}
-
-**Acceptance Criteria:**
-{{#each this.criteria}}
-- {{this}}
-{{/each}}
-
-**Priority:** {{this.priority}}  
-**Effort:** {{this.effort}}
-{{/each}}
-
-## Success Metrics
-- {{SUCCESS_METRICS}}
-
-## Edge Cases & Error Scenarios
-{{#each EDGE_CASES}}
-- **{{this.scenario}}**: {{this.handling}}
-{{/each}}
-
-## Dependencies
-{{#each DEPENDENCIES}}
-- {{this.name}}: {{this.description}}
-{{/each}}
-
-## Assumptions
-{{#each ASSUMPTIONS}}
-- {{this}}
-{{/each}}
-
-## Out of Scope
-{{#each OUT_OF_SCOPE}}
-- {{this}}
-{{/each}}
-
-## Review Checklist
-- [ ] Requirements are clear and testable
-- [ ] User stories follow INVEST criteria
-- [ ] Acceptance criteria are specific and measurable
-- [ ] Edge cases are identified and addressed
-- [ ] Dependencies are documented
-- [ ] Success metrics are defined
-- [ ] Stakeholder review completed
+1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+2. **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ---
-**Created:** {{CREATED_DATE}}  
-**Last Updated:** {{UPDATED_DATE}}  
-**Status:** {{STATUS}}  
-**Assignee:** {{ASSIGNEE}}  
-**Reviewer:** {{REVIEWER}}
+
+### User Story 2 - [Brief Title] (Priority: P2)
+
+[Describe this user journey]
+
+**Why this priority**: [Explain]
+
+**Independent Test**: [How to verify]
+
+**Acceptance Scenarios**:
+
+1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+
+---
+
+### Edge Cases
+
+- What happens when [boundary condition]?
+- How does system handle [error scenario]?
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: System MUST [specific capability]
+- **FR-002**: System MUST [specific capability]
+
+*Unclear items use:* `[NEEDS CLARIFICATION: question]` — max 3 in a spec.
+
+### Key Entities *(include if feature involves data)*
+
+- **[Entity 1]**: [What it represents, key attributes without implementation]
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: [Measurable, technology-agnostic outcome]
+- **SC-002**: [Measurable outcome]
+
+## Assumptions
+
+- [Reasonable default chosen when the description omitted a detail]

@@ -48,11 +48,11 @@ Common mistakes to detect:
 
 | SDD Command | Primary Subagent | Mode |
 |-------------|-----------------|------|
-| `/research` | `sdd-explorer` | foreground, readonly |
-| `/brief`, `/specify`, `/sdd-plan`, `/tasks` | `sdd-planner` | foreground, readonly |
-| `/implement`, `/execute-task` | `sdd-implementer` | foreground |
-| `/audit` | `sdd-reviewer` | foreground, readonly |
-| `/execute-parallel` | `sdd-orchestrator` | background |
+| `/sdd-research` | `sdd-explorer` | foreground, readonly |
+| `/sdd-brief`, `/sdd-specify`, `/sdd-plan`, `/sdd-tasks` | `sdd-planner` | foreground, readonly |
+| `/sdd-implement`, `/sdd-execute-task` | `sdd-implementer` | foreground |
+| `/sdd-audit` | `sdd-reviewer` | foreground, readonly |
+| `/sdd-execute-parallel` | `sdd-orchestrator` | background |
 
 ### Subagent Tree
 
@@ -96,24 +96,24 @@ User Command → Analysis (Readonly) → Create Plan → User Approval → Execu
 
 ### Lightweight Path (80% of features)
 
-#### `/brief` - 30-Minute Planning
+#### `/sdd-brief` - 30-Minute Planning
 - **Purpose**: Quick planning for rapid development
 - **Output**: `feature-brief.md`
 - **Use for**: Standard features, clear requirements
 
-#### `/evolve` - Living Documentation
+#### `/sdd-evolve` - Living Documentation
 - **Purpose**: Update specs during development
 - **Output**: Updated brief with changelog
 - **Use for**: Discoveries, refinements
 
-#### `/refine` - Interactive Refinement
+#### `/sdd-refine` - Interactive Refinement
 - **Purpose**: Iterate on specs through discussion
 - **Output**: Refined documentation
 - **Use for**: Improving existing specs
 
 ### Full Planning Path (20% of features)
 
-#### `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement`
+#### `/sdd-research` → `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement`
 
 For complex, high-risk, or multi-team features:
 - Multiple teams involved
@@ -123,17 +123,17 @@ For complex, high-risk, or multi-team features:
 
 ### New Commands
 
-#### `/generate-prd` - PRD Generation
+#### `/sdd-generate-prd` - PRD Generation
 Create Product Requirements Documents through Socratic questioning.
 - **Output**: `full-prd.md` + `quick-prd.md`
 - **Use for**: New products, major features
 
-#### `/audit` - Spec-Driven Audit
+#### `/sdd-audit` - Spec-Driven Audit
 Investigate issues by comparing code against specs.
 - **Output**: Audit report with severity ratings
 - **Use for**: Bug investigation, code review, spec compliance
 
-#### `/generate-rules` - Coding Rules
+#### `/sdd-generate-rules` - Coding Rules
 Auto-generate Cursor rules based on tech stack detection.
 - **Output**: `.cursor/rules/*.mdc` files
 - **Use for**: New projects, establishing conventions
@@ -143,21 +143,21 @@ Choose how SDD remembers project knowledge across sessions.
 - **Providers**: `standard` (rules-only, default), `cursor-native` (Cursor 3.8 Memories), `mem0` (free self-host semantic memory)
 - **Output**: updated `.sdd/config.json` `memory` block
 - **Use for**: Enabling long-term recall of decisions, conventions, and gotchas
-- **Skill**: `sdd-memory` recalls before planning/implementing and persists durable discoveries after. Never stores secrets. No-op for `standard`.
+- **Skill**: `sdd-memory` recalls before planning/sdd-implementing and persists durable discoveries after. Never stores secrets. No-op for `standard`.
 
 ### Native Review & Cloud (Cursor 3.8)
 
-- **`/review`** (or `/review-bugbot` / `/review-security`) — run Bugbot + Security Review before pushing; `sdd-reviewer` and `/audit` fold the findings in and add the spec-compliance verdict.
+- **`/review`** (or `/review-bugbot` / `/review-security`) — run Bugbot + Security Review before pushing; `sdd-reviewer` and `/sdd-audit` fold the findings in and add the spec-compliance verdict.
 - **`/in-cloud`** — run long-running or risky tasks on an isolated cloud VM + branch; **`/autopilot`** drives a PR to merge-ready remotely. `.cursor/environment.json` speeds cloud startup.
 
 ### Project Planning
 
-#### `/sdd-full-plan` (or `/pecut-all-in-one`)
+#### `/sdd-full-plan` (or `/sdd-full-plan`)
 Create comprehensive A-to-Z project roadmap.
 - **Output**: Kanban board in `specs/todo-roadmap/`
 - **Use for**: Full applications, major systems
 
-#### `/execute-task`
+#### `/sdd-execute-task`
 Execute specific task from roadmap.
 - **Output**: Varies by task type
 - **Use for**: Roadmap task execution
@@ -195,7 +195,7 @@ plugins/spec-kit-command-cursor/
 ├── hooks/                      # optional fail-open subagentStop + stop
 └── docs/agent-manual.md        # spawn protocol (source of truth)
 
-App repo `.cursor/` only has optional worktrees.json, environment.json, and /generate-rules output.
+App repo `.cursor/` only has optional worktrees.json, environment.json, and /sdd-generate-rules output.
 ├── environment.json            # Cloud agent environment setup (3.7+)
 └── sandbox.json                # Network access controls
 ```
@@ -249,25 +249,25 @@ Todo-lists are NOT suggestions - they are executable checklists that MUST be fol
 ## Best Practices
 
 1. **Choose the right starting point:**
-   - `/brief` - For 80% of features
+   - `/sdd-brief` - For 80% of features
    - `/sdd-full-plan` - For full applications
-   - `/research` + `/specify` - For complex features
+   - `/sdd-research` + `/sdd-specify` - For complex features
 
 2. **Heavy App Path** (new apps with 20+ tasks, enterprise complexity):
    - Start with `/sdd-full-plan [project-id] [description]`
    - For 40+ tasks: Use **Option C: Phased Creation** — create epics one at a time, approve each, optionally execute or continue
-   - Execute with `/execute-parallel [project-id] --until-finish`
-   - Resume after interruption: `/execute-parallel [project-id] --resume`
+   - Execute with `/sdd-execute-parallel [project-id] --until-finish`
+   - Resume after interruption: `/sdd-execute-parallel [project-id] --resume`
 
-3. **Keep specs updated with `/evolve`**
+3. **Keep specs updated with `/sdd-evolve`**
 
-4. **Use `/refine` for iterative improvements**
+4. **Use `/sdd-refine` for iterative improvements**
 
-5. **Upgrade when complexity emerges with `/upgrade`**
+5. **Upgrade when complexity emerges with `/sdd-upgrade`**
 
-6. **Use `/audit` to investigate issues systematically**
+6. **Use `/sdd-audit` to investigate issues systematically**
 
-7. **Generate coding rules for new projects with `/generate-rules`**
+7. **Generate coding rules for new projects with `/sdd-generate-rules`**
 
 ## Spec Archival Workflow
 
@@ -279,7 +279,7 @@ Run **`/sdd-complete [task-id]`**. That command:
 2. Moves `specs/active/[task-id]` → `specs/completed/[task-id]`
 3. Updates `specs/index.md` if present
 
-Do not leave a shipped feature in `specs/active/`. `/implement` must AskQuestion to archive when todos are done.
+Do not leave a shipped feature in `specs/active/`. `/sdd-implement` must AskQuestion to archive when todos are done.
 
 **When to archive:**
 - All acceptance criteria met

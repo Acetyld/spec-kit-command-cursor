@@ -1,6 +1,6 @@
 # SDD Full Plan Examples
 
-This document provides comprehensive examples of using `/sdd-full-plan` and `/pecut-all-in-one` commands at different complexity levels.
+This document provides comprehensive examples of using `/sdd-full-plan` and `/sdd-full-plan` commands at different complexity levels.
 
 ---
 
@@ -98,9 +98,9 @@ specs/todo-roadmap/user-notifications/
 ```
 
 ## Integration
-- Epic 1 tasks → /brief (quick specs)
-- Implementation → /implement
-- Updates → /evolve
+- Epic 1 tasks → /sdd-brief (quick specs)
+- Implementation → /sdd-implement
+- Updates → /sdd-evolve
 
 Approve this plan?
 ```
@@ -167,8 +167,8 @@ I understand the project well, create everything at once.
       "subtasks": ["task-001-1", "task-001-2", "task-001-3", "task-001-4"],
       "sdd": {
         "phase": "brief",
-        "commands": ["/brief"],
-        "executeCommand": "/execute-task epic-001"
+        "commands": ["/sdd-brief"],
+        "executeCommand": "/sdd-execute-task epic-001"
       }
     },
     "task-001-1": {
@@ -183,9 +183,9 @@ I understand the project well, create everything at once.
       "dependencies": [],
       "sdd": {
         "phase": "research",
-        "commands": ["/research"],
+        "commands": ["/sdd-research"],
         "linkedSpec": null,
-        "executeCommand": "/execute-task task-001-1"
+        "executeCommand": "/sdd-execute-task task-001-1"
       }
     }
   }
@@ -196,14 +196,14 @@ I understand the project well, create everything at once.
 
 ```bash
 # Step 1: Start first task
-/execute-task task-001-1
+/sdd-execute-task task-001-1
 
 # AI runs research phase
-# Creates: specs/active/task-001-1/research.md
+# Creates: specs/active/task-001-1/sdd-research.md
 # Updates: roadmap.json status → review
 
 # Step 2: Continue with next task
-/execute-task task-001-2
+/sdd-execute-task task-001-2
 
 # And so on...
 ```
@@ -345,8 +345,8 @@ Approve this plan?
       "subtasks": ["task-001-1", "task-001-2", "task-001-3", "task-001-4"],
       "sdd": {
         "phase": "research",
-        "commands": ["/research", "/specify", "/sdd-plan"],
-        "executeCommand": "/execute-task epic-001"
+        "commands": ["/sdd-research", "/sdd-specify", "/sdd-plan"],
+        "executeCommand": "/sdd-execute-task epic-001"
       },
       "dependencies": []
     },
@@ -360,8 +360,8 @@ Approve this plan?
       "dependencies": ["epic-001"],
       "sdd": {
         "phase": "implementation",
-        "commands": ["/brief", "/implement"],
-        "executeCommand": "/execute-task epic-002"
+        "commands": ["/sdd-brief", "/sdd-implement"],
+        "executeCommand": "/sdd-execute-task epic-002"
       }
     }
   },
@@ -403,7 +403,7 @@ Building a multi-vendor marketplace with payments, shipping, and vendor manageme
 
 ### Command
 ```bash
-/pecut-all-in-one ecommerce-marketplace Multi-vendor marketplace platform with payment processing, shipping integration, vendor management, and analytics
+/sdd-full-plan ecommerce-marketplace Multi-vendor marketplace platform with payment processing, shipping integration, vendor management, and analytics
 ```
 
 ### AI Analysis Phase
@@ -440,7 +440,7 @@ Questions:
 ### AI Plan Presentation
 
 ```markdown
-# Plan for /pecut-all-in-one ecommerce-marketplace
+# Plan for /sdd-full-plan ecommerce-marketplace
 
 ## Project Analysis
 - **Type:** Platform
@@ -582,8 +582,8 @@ Approve this plan?
       ],
       "sdd": {
         "phase": "research",
-        "commands": ["/research"],
-        "executeCommand": "/execute-task epic-001"
+        "commands": ["/sdd-research"],
+        "executeCommand": "/sdd-execute-task epic-001"
       },
       "dependencies": [],
       "tags": ["phase-1", "foundation", "research"]
@@ -605,8 +605,8 @@ Approve this plan?
       "dependencies": ["epic-006"],
       "sdd": {
         "phase": "specification",
-        "commands": ["/specify", "/sdd-plan", "/tasks", "/implement"],
-        "executeCommand": "/execute-task epic-007"
+        "commands": ["/sdd-specify", "/sdd-plan", "/sdd-tasks", "/sdd-implement"],
+        "executeCommand": "/sdd-execute-task epic-007"
       },
       "tags": ["phase-3", "critical", "payment", "pci-compliance"],
       "markdown": "## Payment Processing System\n\n**Critical Feature**\n\nImplement secure multi-provider payment processing with PCI compliance.\n\n### Providers\n- Stripe (primary)\n- PayPal (alternative)\n- Apple Pay (convenience)\n\n### Compliance\n- PCI SAQ A-EP\n- Secure tokenization\n- No raw card data storage\n\n### Security\n- 3D Secure\n- Fraud detection\n- Rate limiting\n- Audit logging"
@@ -698,7 +698,7 @@ Created files:
 - execution-log.md (template)
 
 All tasks ready for execution!
-Start with: /execute-task epic-001
+Start with: /sdd-execute-task epic-001
 ```
 
 **Benefits shown:**
@@ -713,7 +713,7 @@ Start with: /execute-task epic-001
 
 ```bash
 # Step 1: Execute task
-/execute-task task-001-1
+/sdd-execute-task task-001-1
 ```
 
 **AI Response:**
@@ -726,8 +726,8 @@ Status: todo
 Dependencies: ✅ All met
 
 Plan for execution:
-1. Run: /research task-001-1 "Research existing marketplace platforms"
-2. Create: specs/active/task-001-1/research.md
+1. Run: /sdd-research task-001-1 "Research existing marketplace platforms"
+2. Create: specs/active/task-001-1/sdd-research.md
 3. Update: roadmap.json
 4. Log: execution-log.md
 
@@ -738,7 +738,7 @@ Approve execution?
 
 **AI Executes:**
 ```
-Running /research task-001-1...
+Running /sdd-research task-001-1...
 
 [Research phase with PLAN mode]
 → Creating research.md
@@ -759,7 +759,7 @@ Next available: task-001-2 (ready to execute)
 
 ```bash
 # Try to execute task with unmet dependency
-/execute-task task-002-1
+/sdd-execute-task task-002-1
 ```
 
 **AI Response:**
@@ -908,7 +908,7 @@ Available tasks:
 **Update regularly:**
 ```bash
 # Mark task complete
-/execute-task task-001-1
+/sdd-execute-task task-001-1
 # System updates status automatically
 
 # Track hours
@@ -986,7 +986,7 @@ syncRoadmapChanges();
 ### Pattern 2: New Application
 
 ```bash
-/pecut-all-in-one app-name Comprehensive description with key features
+/sdd-full-plan app-name Comprehensive description with key features
 → Medium complexity
 → 4-8 epics
 → Mixed SDD approach
@@ -1016,7 +1016,7 @@ syncRoadmapChanges();
 
 3. **Execute first task:**
    ```bash
-   /execute-task epic-001
+   /sdd-execute-task epic-001
    ```
 
 4. **Track progress:**

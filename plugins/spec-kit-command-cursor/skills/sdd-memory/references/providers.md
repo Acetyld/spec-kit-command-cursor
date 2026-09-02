@@ -14,7 +14,7 @@ No external memory. The "memory" is the repo itself.
 - Scan `specs/` (active + completed) for prior decisions, especially `plan.md` "Decisions" sections and `changelog` entries.
 
 **Persist:**
-- Write durable facts where they belong: a decision → `plan.md`; a convention → a `.cursor/rules/*.mdc` (consider `/generate-rules`); a gotcha → `progress.md` / `notes.md`.
+- Write durable facts where they belong: a decision → `plan.md`; a convention → a `.cursor/rules/*.mdc` (consider `/sdd-generate-rules`); a gotcha → `progress.md` / `notes.md`.
 - There is no separate memory store. This keeps the toolkit fully portable.
 
 ---

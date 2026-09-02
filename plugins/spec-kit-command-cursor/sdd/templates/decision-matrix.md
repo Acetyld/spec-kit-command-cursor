@@ -2,7 +2,7 @@
 
 ## Quick Decision Guide
 
-### Use `/brief` (Lightweight Path) When:
+### Use `/sdd-brief` (Lightweight Path) When:
 - ✅ **Single team** feature
 - ✅ **Familiar technology** stack
 - ✅ **Clear requirements** from stakeholders
@@ -29,16 +29,16 @@
 ```
 Feature Idea
     ├─ Is it complex/high-risk? ────── YES ──► Full Planning
-    │                                         /research → /specify → /sdd-plan → /tasks → /implement
+    │                                         /sdd-research → /sdd-specify → /sdd-plan → /sdd-tasks → /sdd-implement
     └─ NO
        │
-       ├─ Use /brief (30 min planning)
+       ├─ Use /sdd-brief (30 min planning)
        │
        ├─ Start coding
        │
        ├─ During development:
-       │   ├─ Complexity discovered? ── YES ──► /upgrade to Full SDD
-       │   └─ Requirements change? ──── YES ──► /evolve brief
+       │   ├─ Complexity discovered? ── YES ──► /sdd-upgrade to Full SDD
+       │   └─ Requirements change? ──── YES ──► /sdd-evolve brief
        │
        └─ Ship feature
 ```
@@ -57,7 +57,7 @@ Feature Idea
 
 ## Examples
 
-### ✅ Perfect for `/brief`:
+### ✅ Perfect for `/sdd-brief`:
 - Add user avatar upload
 - Create admin dashboard filter
 - Build email notification system  
@@ -86,5 +86,5 @@ Feature Idea
 1. **Default to brief** - start lightweight
 2. **Time-box planning** - if brief takes >30min, consider upgrade
 3. **Monitor complexity** - upgrade when needed
-4. **Keep evolving** - use `/evolve` for living documentation
+4. **Keep evolving** - use `/sdd-evolve` for living documentation
 5. **Learn from escalations** - improve future decision making

@@ -1,13 +1,13 @@
 ---
 name: sdd-implementation
-description: Finish the planned spec — expand every tasks.md item into todo-list.md and keep coding until all todos are done or blocked.
+description: Finish remaining T0xx tasks ([X] in tasks.md). /goal + sibling verifier. Next /sdd-converge.
 icon: rocket
 color: green
 ---
 
 # SDD Implementation Skill
 
-Build what has been planned. `/implement` finishes the spec, not the first phase.
+Build what has been planned. `/sdd-implement` finishes remaining `T0xx` tasks unless `$ARGUMENTS` scopes a phase. Next is `/sdd-converge`, not archive.
 
 ## When to Use
 
@@ -18,10 +18,10 @@ Build what has been planned. `/implement` finishes the spec, not the first phase
 ## Protocol
 
 ### Step 1: Load the Plan
-Read: `plan.md` → `spec.md` → `tasks.md` → `todo-list.md`
+Read: `tasks.md` → `plan.md` → `spec.md` → `data-model.md` → `contracts/` → `research.md` → `.sdd/memory/constitution.md` → `quickstart.md` → `todo-list.md`. Treat `checklists/` as a read-only gate (AskQuestion if unchecked; never tick them).
 
 ### Step 2: Expand the checklist
-If `tasks.md` exists, `todo-list.md` must have **one checkbox per task** (`1.1`, `3.2`, `4.1`, …) with the task title.
+If `tasks.md` exists, `todo-list.md` must be a **1:1 copy** of those `T001` checkboxes.
 
 Forbidden:
 - `3.2–3.10 (see tasks.md)`
@@ -32,13 +32,13 @@ If the list is stubbed or missing later phases, rewrite it from `tasks.md` befor
 
 ### Step 3: Execute until finished
 1. **Read entire list** before starting
-2. **Execute in dependency order** — ready todos in later phases may run as soon as their deps are done (do not wait for “Phase 2” to finish if Phase 4 is already unblocked)
-3. **When a phase ends, start the next ready todos in the same run**
-4. **Mark completion** — `- [ ]` → `- [x]` immediately
+2. **Execute in dependency order** — `[P]` may fan out; same-file tasks stay sequential
+3. **When a phase ends, start the next ready tasks in the same run**
+4. **Mark completion** — `[X]` in `tasks.md` and the matching `todo-list.md` line
 5. **Document blockers** — never skip silently, use `[BLOCKED: reason]`
 6. **Do not stop** after a phase, a verifier checkpoint, or “show progress”
 
-Stop only when every todo is `[x]` or `[BLOCKED]`, or the run is forced to pause (context / nothing left unblocked). On a forced pause the last line is: `Reply continue` or `/implement [task-id]`.
+Stop only when every in-scope task is `[X]` or `[BLOCKED]`, or the run is forced to pause. On a forced pause the last line is: `Reply continue` or `/sdd-implement [task-id]`. Then `/sdd-converge`.
 
 ### Step 4: Follow Patterns
 Reference `references/patterns.md` for project conventions and implementation patterns.
@@ -48,7 +48,7 @@ Use `scripts/progress.sh` to visualize completion status.
 
 ### Step 6: Report
 
-**Complete** (all todos closed, sibling verifier ran on the whole list):
+**Complete** (in-scope `T0xx` closed, sibling verifier ran on the whole list):
 
 ```markdown
 ## Implementation Summary
@@ -66,7 +66,7 @@ Use `scripts/progress.sh` to visualize completion status.
 - [anything that should update specs]
 ```
 
-**Paused** (forced stop): X/Y done, list still-open ids, last line = `Reply continue` or `/implement [task-id]`. Never “Implementation complete” while boxes are open.
+**Paused** (forced stop): X/Y done, list still-open ids, last line = `Reply continue` or `/sdd-implement [task-id]`. Never “Implementation complete” while boxes are open.
 
 ## Anti-Patterns
 
@@ -81,7 +81,7 @@ Use `scripts/progress.sh` to visualize completion status.
 ## Integration
 
 - After a **batch**, the **parent** may spawn a checkpoint `sdd-verifier`, then **continues**
-- After **all todos** are closed, the **parent** spawns `sdd-verifier` for the whole list (implementer never spawns verifier)
+- After **all in-scope tasks** are closed, the **parent** spawns `sdd-verifier` for the whole list (implementer never spawns verifier). Next: `/sdd-converge`.
 - Recall/persist project knowledge via the `sdd-memory` skill (no-op when the memory provider is `standard`)
 - Discoveries trigger `sdd-evolve` skill for spec updates
 - Use the ask question tool for ambiguous requirements

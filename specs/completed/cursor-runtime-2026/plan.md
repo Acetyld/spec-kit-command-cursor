@@ -70,7 +70,7 @@ flowchart TB
 | Verifier spawn | Always sibling; implementer never spawns | One rule. Legal at depth 1 *and* when orchestrator is depth 1 |
 | Slice outputs | Children return markdown in the Task result; main writes the spec file | Avoid leftover `plan-slice-*.md` and write races |
 | Hooks scope | Plugin `hooks/` (auto-discovered) | Activates with the plugin; no init overwrite of user `.cursor/hooks.json` |
-| `/goal` | Prompt instruction in `/implement` (available-when-present) | Commands cannot invoke slash skills as tools |
+| `/goal` | Prompt instruction in `/sdd-implement` (available-when-present) | Commands cannot invoke slash skills as tools |
 | Parallel cap | Reuse `maxParallelImplementers` for all fan-out | Already in config; do not add a second knob this release |
 | Isolated VM swarms | Out of scope | Spec; keep `touchedFiles` serialization |
 
@@ -116,7 +116,7 @@ flowchart TB
 |-------|--------|
 | `sdd-implementer` | Delete "spawn sdd-verifier". Report done + files + blockers. Parent verifies. |
 | `sdd-orchestrator` | Sibling verifier after each implementer; Await; Task cloud params; `/autopilot`; checkpoint `agentIds`. |
-| `sdd-explorer` | Tighten description: "SDD research report for /research /brief". May use built-in Explore internally. Do not write `research.md`. |
+| `sdd-explorer` | Tighten description: "SDD research report for /sdd-research /sdd-brief". May use built-in Explore internally. Do not write `research.md`. |
 | `sdd-planner` | Do not write `plan.md`/`spec.md` when spawned as a child. Return a complete slice. No SwitchMode. |
 | `sdd-verifier` | Unchanged role; parent invokes. |
 | `sdd-reviewer` | `/babysit` → `/autopilot` if present. No bugbot Task this slice. |
@@ -125,11 +125,11 @@ flowchart TB
 
 | Command | Body change |
 |---------|-------------|
-| `/research`, `/brief` | Split areas → up to N `sdd-explorer` Tasks in one message → main synthesizes file. AskQuestion on main before/after as today. |
-| `/specify`, `/sdd-plan` | Split only when slices are obvious; else one planner or main. Main writes the file. |
-| `/implement` | Instruct `/goal` (title + "until sibling verifier reports complete"). If ≥5 independent todos or user says parallel → implementer siblings → verifier siblings. Else one implementer or main, then sibling verifier. |
-| `/execute-parallel` | Same sibling + Await protocol. Store agent IDs on checkpoint. |
-| `/execute-task` | Align implement path with sibling verifier. |
+| `/sdd-research`, `/sdd-brief` | Split areas → up to N `sdd-explorer` Tasks in one message → main synthesizes file. AskQuestion on main before/after as today. |
+| `/sdd-specify`, `/sdd-plan` | Split only when slices are obvious; else one planner or main. Main writes the file. |
+| `/sdd-implement` | Instruct `/goal` (title + "until sibling verifier reports complete"). If ≥5 independent todos or user says parallel → implementer siblings → verifier siblings. Else one implementer or main, then sibling verifier. |
+| `/sdd-execute-parallel` | Same sibling + Await protocol. Store agent IDs on checkpoint. |
+| `/sdd-execute-task` | Align implement path with sibling verifier. |
 | All 19 commands | YAML `name` + `description`. Headers match body. |
 
 ### C4 — Skills (Custom Modes)
@@ -215,9 +215,9 @@ There is no HTTP API. The contract is the **Task spawn protocol**.
 
 | Caller | Tool | Params | When |
 |--------|------|--------|------|
-| Main `/research` | Task × N | `subagent_type: sdd-explorer`, slice prompt, no file write | Distinct areas |
-| Main `/specify` `/sdd-plan` | Task × N | `subagent_type: sdd-planner`, slice prompt, "return text only" | Clean split |
-| Main `/implement` | Task | `sdd-implementer`, `run_in_background: true` if long | Large or asked |
+| Main `/sdd-research` | Task × N | `subagent_type: sdd-explorer`, slice prompt, no file write | Distinct areas |
+| Main `/sdd-specify` `/sdd-plan` | Task × N | `subagent_type: sdd-planner`, slice prompt, "return text only" | Clean split |
+| Main `/sdd-implement` | Task | `sdd-implementer`, `run_in_background: true` if long | Large or asked |
 | Parent after implementer | Task | `sdd-verifier`, foreground | Always for that batch |
 | Orchestrator | Task | implementers in one message; Await; then verifier siblings | Each DAG batch |
 | Orchestrator (cloud) | Task | `environment: "cloud"`, optional `cloud_base_branch` | Long/risky/env-heavy |
@@ -273,9 +273,9 @@ prompt: "Explore existing specs/ and memory-relevant conventions. Return summary
 - [ ] `sdd-implementer`: remove child-verifier spawn
 - [ ] `sdd-orchestrator`: sibling verifier, Await, cloud Task params, `/autopilot`, `agentIds`
 - [ ] `sdd-explorer` / `sdd-planner`: return-text-only; explorer description
-- [ ] `commands/research.md`, `brief.md`, `specify.md`, `sdd-plan.md`: real fan-out
-- [ ] `commands/implement.md`: `/goal` + parallel threshold + sibling verifier
-- [ ] `commands/execute-parallel.md`, `execute-task.md`: sibling + Await + checkpoint IDs
+- [ ] `commands/sdd-research.md`, `brief.md`, `specify.md`, `sdd-plan.md`: real fan-out
+- [ ] `commands/sdd-implement.md`: `/goal` + parallel threshold + sibling verifier
+- [ ] `commands/sdd-execute-parallel.md`, `execute-task.md`: sibling + Await + checkpoint IDs
 
 ### Phase 2 — Integration (hooks + skills + frontmatter)
 
@@ -315,8 +315,8 @@ None blocking. Locked with the user:
 - Keep `sdd-explorer`
 - Optional plugin hooks (`subagentStop`, `stop`)
 - Fan-out siblings; AskQuestion on main
-- This slice: hygiene + Custom Modes + `/goal` on `/implement`
-- Later: isolated VM swarms, `/automate`, `/audit` → bugbot
+- This slice: hygiene + Custom Modes + `/goal` on `/sdd-implement`
+- Later: isolated VM swarms, `/automate`, `/sdd-audit` → bugbot
 
 ---
 
@@ -327,7 +327,7 @@ None blocking. Locked with the user:
 | Static | Ripgrep: `/babysit` = 0 in `plugins/spec-kit-command-cursor/**` (except changelog "formerly"); `spawns sdd-verifier` = 0; every `commands/*.md` has `^name:`; four skills have `icon:` + `color:`; templates `sddVersion` is `6.0` not `5.1` |
 | Protocol review | Read agent-manual: diagrams are sibling-only; Task table present |
 | Hook smoke | `echo '{}'` pipe into scripts → exit 0; pipe a fake verifier payload → exit 0 and no crash |
-| Manual (optional) | `/research` on this repo should issue ≥1 Task `sdd-explorer`; `/implement` text mentions `/goal` |
+| Manual (optional) | `/sdd-research` on this repo should issue ≥1 Task `sdd-explorer`; `/sdd-implement` text mentions `/goal` |
 
 No unit test framework in this repo. Verification is grep + file existence + a dry read of command bodies.
 
@@ -336,8 +336,8 @@ No unit test framework in this repo. Verification is grep + file existence + a d
 ## Next Steps
 
 - Review this plan
-- Run `/tasks cursor-runtime-2026` for a checkbox task list
-- Or run `/implement cursor-runtime-2026` if the phases above are enough
+- Run `/sdd-tasks cursor-runtime-2026` for a checkbox task list
+- Or run `/sdd-implement cursor-runtime-2026` if the phases above are enough
 
 ---
 **Created:** 2026-09-01  

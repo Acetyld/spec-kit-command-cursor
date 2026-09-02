@@ -33,7 +33,7 @@ Do not put commands, agents, skills, or the SDD system rule back under `.cursor/
 
 1. Create `plugins/spec-kit-command-cursor/commands/your-command.md`
 2. Follow the structure of existing commands (role, usage, phases, output)
-3. Add YAML frontmatter (`name`, `description`) so it shows cleanly in the `/` menu
+3. Add YAML frontmatter (`name`, `description`) so it shows cleanly in the `/` menu. Plugin commands use `/sdd-*` (`name: sdd-…`). Native Cursor tools stay unprefixed.
 4. Add the command to the reference table in `plugins/spec-kit-command-cursor/rules/sdd-system.mdc`
 5. If the command uses a subagent, map it in `plugins/spec-kit-command-cursor/docs/agent-manual.md`
 

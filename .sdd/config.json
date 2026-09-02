@@ -1,5 +1,5 @@
 {
-  "version": "6.0.1",
+  "version": "6.1.0",
   "cursorMinVersion": "3.8",
   "project": {
     "name": "SDD Cursor Commands",
@@ -16,10 +16,12 @@
     "maxParallelImplementers": 4,
     "templates": {
       "brief": ".sdd/templates/feature-brief-v2.md",
-      "spec": ".sdd/templates/spec-compact.md",
-      "plan": ".sdd/templates/plan-compact.md",
-      "tasks": ".sdd/templates/tasks-compact.md",
+      "spec": ".sdd/templates/spec-template.md",
+      "plan": ".sdd/templates/plan-template.md",
+      "tasks": ".sdd/templates/tasks-template.md",
       "research": ".sdd/templates/research-compact.md",
+      "constitution": ".sdd/templates/constitution-template.md",
+      "checklist": ".sdd/templates/checklist-template.md",
       "todo": ".sdd/templates/todo-compact.md"
     }
   },
@@ -56,8 +58,8 @@
     "backlog": "specs/backlog"
   },
   "workflow": {
-    "phases": ["specify", "plan", "tasks", "implement", "review", "complete"],
+    "phases": ["constitution", "specify", "clarify", "plan", "checklist", "tasks", "analyze", "implement", "converge", "complete"],
     "requiredFiles": ["spec.md", "plan.md", "tasks.md"],
-    "optionalFiles": ["progress.md", "reviews.md", "notes.md"]
+    "optionalFiles": ["research.md", "data-model.md", "quickstart.md", "progress.md", "reviews.md", "notes.md"]
   }
 }

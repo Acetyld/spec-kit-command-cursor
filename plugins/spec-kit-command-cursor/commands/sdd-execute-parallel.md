@@ -1,9 +1,9 @@
 ---
-name: execute-parallel
+name: sdd-execute-parallel
 description: Run roadmap tasks as sibling implementers plus sibling verifiers. Await, checkpoints, optional Task cloud.
 ---
 
-# /execute-parallel Command
+# /sdd-execute-parallel Command
 
 Execute multiple tasks in parallel using async background subagents for coordination.
 
@@ -16,18 +16,18 @@ Execute multiple tasks in parallel using async background subagents for coordina
 ## Usage
 
 ```
-/execute-parallel [project-id]
-/execute-parallel [project-id] --epic [epic-id]
-/execute-parallel [project-id] --until-finish
-/execute-parallel [project-id] --resume
+/sdd-execute-parallel [project-id]
+/sdd-execute-parallel [project-id] --epic [epic-id]
+/sdd-execute-parallel [project-id] --until-finish
+/sdd-execute-parallel [project-id] --resume
 ```
 
 **Examples:**
 ```
-/execute-parallel blog-platform
-/execute-parallel saas-dashboard --epic epic-002
-/execute-parallel my-project --until-finish
-/execute-parallel my-project --resume
+/sdd-execute-parallel blog-platform
+/sdd-execute-parallel saas-dashboard --epic epic-002
+/sdd-execute-parallel my-project --until-finish
+/sdd-execute-parallel my-project --resume
 ```
 
 ---
@@ -47,7 +47,7 @@ When `--resume` is provided:
 
 For heavy roadmaps (20+ tasks), load only what's needed:
 - **Orchestrator:** Read `dag.roots`, `dag.parallelGroups`, `statistics`, and for the current batch only: `tasks.[task-id]` for ready tasks (including `sdd.touchedFiles`). Do NOT load full `tasks` object for all 40+ tasks.
-- **Implementer prompts:** Pass only `task-id`, `task title`, `linkedSpec path`, `executeCommand`. The implementer reads `specs/todo-roadmap/[project-id]/tasks/[task-id].json` and spec files on demand. This keeps orchestrator context lean.
+- **Implementer prompts:** Pass only `task-id`, `task title`, `linkedSpec path`, `executeCommand`. The implementer reads `specs/todo-roadmap/[project-id]/sdd-tasks/[task-id].json` and spec files on demand. This keeps orchestrator context lean.
 
 **Step 2: Identify ready tasks**
 
@@ -80,12 +80,12 @@ Group tasks into parallel batches based on:
 | Task Phase | Subagent | Model | Mode |
 |------------|----------|-------|------|
 | research | sdd-explorer | inherit | foreground |
-| brief/specify/sdd-plan/tasks | sdd-planner | inherit | foreground |
+| brief/specify/clarify/plan/checklist/tasks | sdd-planner | inherit | foreground |
 | implement | sdd-implementer | inherit | **background** |
 | review | sdd-reviewer | inherit | foreground |
 | verify | sdd-verifier | inherit | foreground |
 
-**Cursor 3.8 guidance:** Use built-in `/multitask` for quick independent prompts that do not need SDD state. Use `/execute-parallel` for roadmap-backed work because it enforces dependency order, file conflict checks, checkpoints, and verifier handoffs.
+**Cursor 3.8 guidance:** Use built-in `/multitask` for quick independent prompts that do not need SDD state. Use `/sdd-execute-parallel` for roadmap-backed work because it enforces dependency order, file conflict checks, checkpoints, and verifier handoffs.
 
 **Worktree guidance:** For risky or competing implementation approaches, launch the agent in an Agents Window worktree. `.cursor/worktrees.json` prepares the checkout before the SDD command runs.
 
@@ -110,7 +110,7 @@ Pass minimal context — implementer loads full details on demand:
 ```
 Task 1: {
   subagent_type: "sdd-implementer",
-  prompt: "Execute task-001: [title]. Read task details from specs/todo-roadmap/[project-id]/tasks/task-001.json and linked spec at [linkedSpec path]. Run [executeCommand].",
+  prompt: "Execute task-001: [title]. Read task details from specs/todo-roadmap/[project-id]/sdd-tasks/task-001.json and linked spec at [linkedSpec path]. Run [executeCommand].",
   model: "inherit"
 }
 ```
@@ -191,7 +191,7 @@ Task 1: {
 Without `--until-finish`: executes one batch of ready tasks and reports.
 With `--until-finish`: continuously identifies ready tasks, spawns batches, collects results, and repeats until the entire roadmap is complete or all remaining tasks are blocked.
 
-This is the **parallel** equivalent of `/execute-task --until-finish` (which runs sequentially).
+This is the **parallel** equivalent of `/sdd-execute-task --until-finish` (which runs sequentially).
 
 ---
 
@@ -208,7 +208,7 @@ This is the **parallel** equivalent of `/execute-task --until-finish` (which run
 
 **Recovery:**
 ```
-/execute-parallel [project] --resume
+/sdd-execute-parallel [project] --resume
 ```
 1. Read `specs/todo-roadmap/[project-id]/execution-checkpoint.json` if present
 2. Skip all tasks with status `done`
@@ -222,6 +222,6 @@ Checkpoint is written after each batch during `--until-finish` runs.
 ## Related
 
 - `/sdd-full-plan` — Create roadmap with DAG
-- `/execute-task` — Execute single task sequentially
+- `/sdd-execute-task` — Execute single task sequentially
 - `sdd-orchestrator` subagent — Detailed orchestration logic
 - `docs/agent-manual.md` — Full agent protocol

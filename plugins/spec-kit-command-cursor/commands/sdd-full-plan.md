@@ -7,7 +7,7 @@ description: Create a full project roadmap (DAG) and optionally execute it.
 
 Create a comprehensive project roadmap from A to Z with kanban-style task organization, epic hierarchy, and DAG-based parallel execution.
 
-**Aliases:** `/pecut-all-in-one`
+**Aliases:** `/sdd-full-plan`
 
 **Supports `--until-finish` flag** for automated execution of the entire project after roadmap creation.
 
@@ -36,7 +36,7 @@ Create a comprehensive project roadmap from A to Z with kanban-style task organi
 
 ```
 /sdd-full-plan [project-id] [description] [--until-finish]
-/pecut-all-in-one [project-id] [description] [--until-finish]
+/sdd-full-plan [project-id] [description] [--until-finish]
 ```
 
 **Examples:**
@@ -89,7 +89,7 @@ Do not list Option A/B/C only in chat. Wait for the answers before Phase 3.
 2. User approves → create files for Epic 1
 3. Ask: execute Epic 1 now, or continue to Epic 2?
 4. Create Epic 2 + its tasks (with cross-epic dependencies to Epic 1) → approve
-5. Repeat until all epics created. Each phase can be executed via `/execute-parallel` or paused for review.
+5. Repeat until all epics created. Each phase can be executed via `/sdd-execute-parallel` or paused for review.
 
 **Create directory structure:**
 ```
@@ -122,7 +122,7 @@ specs/todo-roadmap/[project-id]/
 - Task metadata (id, title, description, type, parentId, status, priority)
 - Dependencies and parallelization flags
 - SDD command mappings (`phase`, `commands`, `executeCommand`)
-- **`sdd.touchedFiles`** (for implementation tasks): Array of file paths/globs this task will modify (e.g. `["src/auth/**", "package.json"]`). Infer from task scope — e.g. "Implement auth API" → `["src/auth/**", "src/api/auth.ts"]`. Enables conflict detection during parallel execution. Omit for research/brief/spec/plan phases.
+- **`sdd.touchedFiles`** (for implementation tasks): Array of file paths/globs this task will modify (e.g. `["src/auth/**", "package.json"]`). Infer from task scope — e.g. "Implement auth API" → `["src/auth/**", "src/api/auth.ts"]`. Enables conflict detection during parallel execution. Omit for research/sdd-brief/spec/plan phases.
 - Orchestration fields for agent-orchestration
 
 **Create execution-log.md** for tracking task history and status changes.
@@ -150,7 +150,7 @@ If `--until-finish` flag provided, execution begins immediately after roadmap cr
 8. **Error Handling** — mark failed task as `blocked`, continue independent tasks, report at end
 9. **Final Completion** — show epic summary, files created, verification results
 
-**This is equivalent to running `/execute-parallel [project-id] --until-finish` after roadmap creation.** The `--until-finish` flag simply combines both steps into one command.
+**This is equivalent to running `/sdd-execute-parallel [project-id] --until-finish` after roadmap creation.** The `--until-finish` flag simply combines both steps into one command.
 
 ---
 
@@ -175,12 +175,12 @@ Follow Phase 5 execution workflow with progress updates and completion summary.
 
 | Phase | Command | Output |
 |------|---------|--------|
-| Research | `/research` | research.md |
-| Brief | `/brief` | feature-brief.md |
-| Specification | `/specify` | spec.md |
+| Research | `/sdd-research` | research.md |
+| Brief | `/sdd-brief` | feature-brief.md |
+| Specification | `/sdd-specify` | spec.md |
 | Planning | `/sdd-plan` | plan.md |
-| Tasks | `/tasks` | tasks.md |
-| Implementation | `/implement` | Code + todo-list.md |
+| Tasks | `/sdd-tasks` | tasks.md |
+| Implementation | `/sdd-implement` | Code + todo-list.md |
 
 ## Complexity Guidelines
 
@@ -193,7 +193,7 @@ Follow Phase 5 execution workflow with progress updates and completion summary.
 
 ## Related Commands
 
-- `/execute-task [task-id] --until-finish` — Execute task/epic until complete
-- `/execute-parallel [project-id]` — Parallel execution via async subagents
-- `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/audit`
+- `/sdd-execute-task [task-id] --until-finish` — Execute task/epic until complete
+- `/sdd-execute-parallel [project-id]` — Parallel execution via async subagents
+- `/sdd-constitution`, `/sdd-specify`, `/sdd-clarify`, `/sdd-plan`, `/sdd-checklist`, `/sdd-tasks`, `/sdd-analyze`, `/sdd-implement`, `/sdd-converge`, `/sdd-brief`, `/sdd-research`, `/sdd-audit`
 - `docs/agent-manual.md` — Full agent protocol

@@ -27,7 +27,7 @@ Cursor 2.5–3.x already ships the primitives spec-kit wraps in prompts: plugins
 
 ### Reusable Components
 
-- **DAG + `touchedFiles` + checkpoint** in `/execute-parallel` — keep. This is the product. Cursor does not ship roadmap state.
+- **DAG + `touchedFiles` + checkpoint** in `/sdd-execute-parallel` — keep. This is the product. Cursor does not ship roadmap state.
 - **Verifier vs reviewer split** — keep. Maps cleanly onto Cursor's own "verification agent" example plus native Bugbot/Security Review.
 - **AskQuestion-first protocol** — keep for user decisions. Do not move those turns into background subagents.
 - **Skill `references/` + `scripts/`** — already matches Agent Skills progressive loading.
@@ -188,7 +188,7 @@ Also: nested spawn needs Task tool in the current mode; hooks/policies can block
 
 `/review`, `/review-bugbot`, `/review-security`, `/automate`, `/autopilot`, `/loop`, `/goal`, `/create-subagent`, `/create-skill`, `/create-hook`, `/create-rule`, `/worktree`, `/best-of-n`, `/apply-worktree`, `/split-to-prs`, `/canvas`, `/migrate-to-skills`.
 
-Task types already in this runtime: `bugbot`, `security-review`, `best-of-n-runner`, `cursor-guide`, `ci-investigator`. `/audit` should **Task-spawn** `bugbot` + `security-review`, then fold into `sdd-reviewer`. Telling the agent to "type `/review`" is a wrapper around a tool it already has.
+Task types already in this runtime: `bugbot`, `security-review`, `best-of-n-runner`, `cursor-guide`, `ci-investigator`. `/sdd-audit` should **Task-spawn** `bugbot` + `security-review`, then fold into `sdd-reviewer`. Telling the agent to "type `/review`" is a wrapper around a tool it already has.
 
 ### Hooks (we deleted them)
 
@@ -263,30 +263,30 @@ Locked with the user after research. These override earlier "debatable" options.
 | Hooks | **Small optional pack** (`subagentStop`, `stop`). Structured verify/checkpoint output only — no noisy logging. |
 | Spawn | **Really spawn, and fan out.** Explore / research / plan should launch *multiple* subagents in one message instead of blocking on main. Build: parallel by default on large work (or when asked). AskQuestion stays on **main**. |
 | Nest limit | Fan-out is **siblings from main** (or from orchestrator as depth-1). Verifier is a **sibling** of implementer, never a grandchild. |
-| This round | Hygiene (names, nest flatten, Task docs, command frontmatter) + **Custom Modes** + **`/goal` on `/implement`** (user already uses `/goal` so implement keeps going until done). Isolated VM swarms and `/automate` recipes: later. |
+| This round | Hygiene (names, nest flatten, Task docs, command frontmatter) + **Custom Modes** + **`/goal` on `/sdd-implement`** (user already uses `/goal` so implement keeps going until done). Isolated VM swarms and `/automate` recipes: later. |
 
 ### Fan-out spawn model (agreed)
 
 ```
-/research or /brief (main, AskQuestion)
+/sdd-research or /sdd-brief (main, AskQuestion)
 ├── sdd-explorer  (area A, readonly)
 ├── sdd-explorer  (area B, readonly)
 └── sdd-explorer  (external / deep, optional)
         → main synthesizes research.md / feature-brief.md
 
-/sdd-plan or /specify (main, AskQuestion)
+/sdd-plan or /sdd-specify (main, AskQuestion)
 ├── sdd-planner  (API / backend slice)
 └── sdd-planner  (UI / data slice)
         → main merges plan.md / spec.md, asks user on conflicts
 
-/implement or /execute-parallel (main or orchestrator @ depth 1)
+/sdd-implement or /sdd-execute-parallel (main or orchestrator @ depth 1)
 ├── sdd-implementer  (task 1, background)
 ├── sdd-implementer  (task 2, background)
 ├── sdd-verifier     (task 1)     ← sibling, after implementer returns
 └── sdd-verifier     (task 2)
 ```
 
-`/implement` should set a **`/goal`** (or instruct the agent to) so the session keeps working until verifier is green — not a single pass that stops at "looks done."
+`/sdd-implement` should set a **`/goal`** (or instruct the agent to) so the session keeps working until verifier is green — not a single pass that stops at "looks done."
 
 ---
 
@@ -299,13 +299,13 @@ Treat spec-kit as a **spec + DAG + memory workflow on top of Cursor**, not a sec
 1. **Flatten the subagent tree** to respect the 2-level nest limit. Orchestrator (or main) spawns implementer **and** verifier as siblings. Stop telling implementers to spawn verifiers when they are already grandchildren.
 2. **Rename `/babysit` → `/autopilot`** everywhere (rules, agents, commands, README).
 3. **Document Task primitives** in agent-manual: `environment: "cloud"`, `run_in_background`, `resume`, `bugbot`, `security-review`, `best-of-n-runner`. Stop "type /in-cloud" as the only cloud path.
-4. **Really spawn, fan-out.** `/research`, `/brief`, `/specify`, `/sdd-plan` launch multiple sibling subagents in one message; main only synthesizes and AskQuestions. `/implement` fans out on large work and pairs with `/goal`. See Decisions.
+4. **Really spawn, fan-out.** `/sdd-research`, `/sdd-brief`, `/sdd-specify`, `/sdd-plan` launch multiple sibling subagents in one message; main only synthesizes and AskQuestions. `/sdd-implement` fans out on large work and pairs with `/goal`. See Decisions.
 
 ### P1 — use the platform (high leverage)
 
-5. **Wire `/audit` to native reviewers** — Task `bugbot` + `security-review`, then `sdd-reviewer` for spec gap analysis.
+5. **Wire `/sdd-audit` to native reviewers** — Task `bugbot` + `security-review`, then `sdd-reviewer` for spec gap analysis.
 6. **Skill Custom Modes** — add `icon` + `color` to planning / implementation / audit skills; document pinning with Option+Enter (Mac) / Alt+Enter (Windows).
-7. **Isolated swarms in `/execute-parallel`** — when `touchedFiles` overlap or `--isolate`, ask for "each in its own environment" (worktree or `environment: cloud`) instead of serializing the batch.
+7. **Isolated swarms in `/sdd-execute-parallel`** — when `touchedFiles` overlap or `--isolate`, ask for "each in its own environment" (worktree or `environment: cloud`) instead of serializing the batch.
 8. **Await** background implementers instead of busy-loop prose.
 9. **Optional plugin hooks** (`subagentStop`, `stop`) to write structured verify results and flush checkpoints on compact/stop.
 10. **Command frontmatter** on all 19 commands (`name` + `description`).
@@ -314,10 +314,10 @@ Treat spec-kit as a **spec + DAG + memory workflow on top of Cursor**, not a sec
 ### P2 — product upgrades (new SDD surface)
 
 12. **`/sdd-init` generates real `environment.json` + `worktrees.json`** from detected stack (install vs start vs terminals; no `echo`).
-13. **Automation recipes** via `/automate`: "on PR review comment, run `/audit`"; "on CI fail, `/implement` the failing task"; "on Slack emoji, `/brief`".
+13. **Automation recipes** via `/automate`: "on PR review comment, run `/sdd-audit`"; "on CI fail, `/sdd-implement` the failing task"; "on Slack emoji, `/sdd-brief`".
 14. **`/goal` + Custom Mode** as the blessed `--until-finish` UX: pin `sdd-implementation`, goal = "close this spec until verifier is green".
 15. **`/best-of-n` for `/sdd-plan`** competing architectures, then AskQuestion to pick.
-16. **Resume subagents** in `/execute-parallel --resume` (agent IDs in checkpoint, not just task status).
+16. **Resume subagents** in `/sdd-execute-parallel --resume` (agent IDs in checkpoint, not just task status).
 17. **Pin explorer model** to a fast ID (or delete `sdd-explorer` and use built-in Explore). Pin planner to high-effort when user asks.
 18. **Manifest hygiene:** `logo`, `homepage`, `repository`, bump marketplace version with plugin version; drop `sddVersion: "5.1"` / `planMode: true` from roadmap templates.
 19. **Plugin canvas** for first-run (`/sdd-init` walkthrough) if/when canvases are authorable for community plugins.
@@ -345,7 +345,7 @@ Treat spec-kit as a **spec + DAG + memory workflow on top of Cursor**, not a sec
 | Built-in Explore vs `sdd-explorer` auto-delegate fights | Medium | Tighten descriptions; "always use sdd-explorer for SDD research reports" |
 | Cloud MCP gap (local mem0 won't exist in cloud) | High | Cloud path = `standard` or cursor-native only |
 
-**Suggested spike (2–4h):** one `/execute-parallel` batch of 2 implementers + sibling verifiers; confirm grandchild spawn fails; confirm Await + isolate-environment works.
+**Suggested spike (2–4h):** one `/sdd-execute-parallel` batch of 2 implementers + sibling verifiers; confirm grandchild spawn fails; confirm Await + isolate-environment works.
 
 ---
 

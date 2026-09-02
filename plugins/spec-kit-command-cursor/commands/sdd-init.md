@@ -18,7 +18,7 @@ Scaffold the project-side SDD folders that the plugin does not install (commands
 **I WILL:** create `.sdd/` and `specs/` if missing, copy bundled templates when readable, and report what exists.
 **I WILL NOT:** overwrite existing specs, change application code, or force-replace a present `.sdd/config.json` unless `--force` is passed.
 
-**Output:** `.sdd/config.json`, `.sdd/templates/`, `specs/{active,completed,backlog,todo-roadmap}/`
+**Output:** `.sdd/config.json`, `.sdd/templates/`, `.sdd/memory/constitution.md`, `specs/{active,completed,backlog,todo-roadmap}/`
 
 ---
 
@@ -44,7 +44,7 @@ If `.sdd/config.json` exists and `--force` was not passed:
 ```
 SDD already initialized at .sdd/config.json
 specs/active exists: yes/no
-Next: /brief <id> <description>
+Next: /sdd-constitution   or   /sdd-brief <id> <description>
 ```
 
 Stop there.
@@ -58,6 +58,7 @@ specs/backlog
 specs/todo-roadmap
 .sdd/templates
 .sdd/templates/rules
+.sdd/memory
 ```
 
 ### 4. Write `.sdd/config.json`
@@ -66,7 +67,7 @@ If missing (or `--force`), write this starter and fill `project.name` / `project
 
 ```json
 {
-  "version": "6.0.1",
+  "version": "6.1.0",
   "cursorMinVersion": "3.8",
   "project": {
     "name": "PROJECT_NAME",
@@ -83,10 +84,12 @@ If missing (or `--force`), write this starter and fill `project.name` / `project
     "maxParallelImplementers": 4,
     "templates": {
       "brief": ".sdd/templates/feature-brief-v2.md",
-      "spec": ".sdd/templates/spec-compact.md",
-      "plan": ".sdd/templates/plan-compact.md",
-      "tasks": ".sdd/templates/tasks-compact.md",
+      "spec": ".sdd/templates/spec-template.md",
+      "plan": ".sdd/templates/plan-template.md",
+      "tasks": ".sdd/templates/tasks-template.md",
       "research": ".sdd/templates/research-compact.md",
+      "constitution": ".sdd/templates/constitution-template.md",
+      "checklist": ".sdd/templates/checklist-template.md",
       "todo": ".sdd/templates/todo-compact.md"
     }
   },
@@ -123,9 +126,9 @@ If missing (or `--force`), write this starter and fill `project.name` / `project
     "backlog": "specs/backlog"
   },
   "workflow": {
-    "phases": ["specify", "plan", "tasks", "implement", "review", "complete"],
+    "phases": ["constitution", "specify", "clarify", "plan", "checklist", "tasks", "analyze", "implement", "converge", "complete"],
     "requiredFiles": ["spec.md", "plan.md", "tasks.md"],
-    "optionalFiles": ["progress.md", "reviews.md", "notes.md"]
+    "optionalFiles": ["research.md", "data-model.md", "quickstart.md", "progress.md", "reviews.md", "notes.md"]
   }
 }
 ```
@@ -136,9 +139,11 @@ Search in this order and copy the `templates/` tree into `.sdd/templates/` (do n
 
 1. `plugins/spec-kit-command-cursor/sdd/templates/` (this repo)
 2. Any readable `sdd/templates/` next to the installed plugin (under `~/.cursor/plugins/cache/`)
-3. If neither is readable, skip copy — command output formats in `/brief`, `/specify`, `/sdd-plan` are enough to proceed
+3. If neither is readable, skip copy — command output formats in `/sdd-brief`, `/sdd-specify`, `/sdd-plan` are enough to proceed
 
 Also copy `guidelines.md` and `ROADMAP_FORMAT_SPEC.md` into `.sdd/` when found.
+
+If `.sdd/memory/constitution.md` is missing, copy `constitution-template.md` there as a stub. Tell the user to fill it with `/sdd-constitution` before a complex feature.
 
 ### 6. Optional project Cursor files
 
@@ -156,9 +161,11 @@ Do **not** copy plugin `commands/`, `agents/`, `skills/`, or `rules/` into the p
 List created/skipped paths. Then:
 
 ```
-Ready. Everyday flow: /brief <id> <description>  →  /implement <id>
-Complex: /research → /specify → /sdd-plan → /tasks → /implement
-Whole app: /sdd-full-plan <id>  →  /execute-parallel <id> --until-finish
-Pin sdd-implementation as a Custom Mode (Option+Enter) and use /goal on /implement when available.
+Ready.
+Official: /sdd-constitution → /sdd-specify → /sdd-clarify → /sdd-plan → /sdd-checklist → /sdd-tasks → /sdd-analyze → /sdd-implement → /sdd-converge → /sdd-complete
+Shorter: /sdd-specify → /sdd-plan → /sdd-tasks → /sdd-implement → /sdd-converge
+Everyday: /sdd-brief <id> <description>  →  /sdd-implement <id>
+Whole app: /sdd-full-plan <id>  →  /sdd-execute-parallel <id> --until-finish
+Pin sdd-implementation as a Custom Mode (Option+Enter) and use /goal on /sdd-implement when available.
 Plugin hooks (subagentStop, stop) are optional and already in the plugin — not copied here.
 ```

@@ -1,9 +1,9 @@
 ---
-name: brief
+name: sdd-brief
 description: Quick 30-minute feature brief. May fan out sdd-explorer siblings; main writes feature-brief.md.
 ---
 
-# /brief Command
+# /sdd-brief Command
 
 Create a lightweight feature brief in ~30 minutes, then start coding.
 
@@ -30,14 +30,14 @@ Create focused feature briefs through analysis and strategic questioning.
 ## Usage
 
 ```
-/brief [task-id] [feature-description]
+/sdd-brief [task-id] [feature-description]
 ```
 
 **Examples:**
 ```
-/brief user-auth JWT authentication with login/logout
-/brief checkout-flow Streamlined one-page checkout with guest option
-/brief notification-system Real-time push notifications for mobile
+/sdd-brief user-auth JWT authentication with login/logout
+/sdd-brief checkout-flow Streamlined one-page checkout with guest option
+/sdd-brief notification-system Real-time push notifications for mobile
 ```
 
 ---
@@ -81,7 +81,7 @@ Give each question at least two concrete options. Batch them in one AskQuestion 
 | Architecture | Existing patterns | New patterns needed |
 | Dependencies | Few/none | Multiple external |
 
-If complexity suggests Full SDD, call **AskQuestion**: "Planning depth?" → Quick brief / Full SDD (`/research` → `/specify` → `/sdd-plan`).
+If complexity suggests Full SDD, call **AskQuestion**: "Planning depth?" → Quick brief / Official (`/sdd-specify` → `/sdd-clarify` → `/sdd-plan`).
 
 ### Phase 2: Planning (Create Plan)
 
@@ -205,7 +205,7 @@ Verify file created and contains: problem statement, 3+ requirements, actionable
 - Core requirements: [Count] must-haves
 - Next actions: [Count] items
 
-**Next:** Start coding or run `/upgrade [task-id]` for full SDD planning
+**Next:** Start coding or run `/sdd-upgrade [task-id]` for full SDD planning
 ```
 
 ---
@@ -222,7 +222,7 @@ Verify file created and contains: problem statement, 3+ requirements, actionable
 ### Issue: Feature is too complex for brief
 **Cause**: Multi-team, high-risk, or architecturally significant feature
 **Solution**: Suggest Full SDD planning:
-- "This looks complex. Would you prefer full planning with `/research` → `/specify` → `/sdd-plan`?"
+- "This looks complex. Would you prefer full planning with `/sdd-research` → `/sdd-specify` → `/sdd-plan`?"
 
 ### Issue: Can't find existing patterns
 **Cause**: New project or greenfield feature
@@ -233,8 +233,8 @@ Verify file created and contains: problem statement, 3+ requirements, actionable
 
 ## Related Commands
 
-- `/evolve [task-id]` - Update brief as you discover things
-- `/upgrade [task-id]` - Expand to full SDD 6.0 if needed
-- `/implement [task-id]` - Start implementation (requires plan.md)
-- `/refine [task-id]` - Refine the brief through discussion
-- `/research [task-id]` - Deep pattern research (Full SDD planning)
+- `/sdd-evolve [task-id]` - Update brief as you discover things
+- `/sdd-upgrade [task-id]` - Expand to full SDD 6.0 if needed
+- `/sdd-implement [task-id]` - Start implementation (requires plan.md)
+- `/sdd-refine [task-id]` - Refine the brief through discussion
+- `/sdd-research [task-id]` - Deep pattern research (Full SDD planning)

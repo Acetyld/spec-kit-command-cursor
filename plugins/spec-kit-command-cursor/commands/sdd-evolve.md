@@ -1,9 +1,9 @@
 ---
-name: evolve
+name: sdd-evolve
 description: Update existing specs when implementation discovers new requirements.
 ---
 
-# /evolve Command
+# /sdd-evolve Command
 
 Update existing specifications with new discoveries, changes, or refinements made during development. Keep documentation aligned with reality.
 
@@ -22,13 +22,13 @@ Update existing specifications with new discoveries, changes, or refinements mad
 ## Usage
 
 ```
-/evolve [task-id] [change-description]
+/sdd-evolve [task-id] [change-description]
 ```
 
 **Examples:**
-- `/evolve user-auth Added password strength validation after security review`
-- `/evolve checkout-flow Discovered need for guest checkout fallback`
-- `/evolve notification-system Changed from polling to WebSocket based on performance testing`
+- `/sdd-evolve user-auth Added password strength validation after security review`
+- `/sdd-evolve checkout-flow Discovered need for guest checkout fallback`
+- `/sdd-evolve notification-system Changed from polling to WebSocket based on performance testing`
 
 ---
 
@@ -39,7 +39,7 @@ Update existing specifications with new discoveries, changes, or refinements mad
 1. **Find existing specs** in `specs/active/[task-id]/` (check feature-brief.md, spec.md, plan.md, tasks.md)
 2. **Read all related files** to understand current state and context
 3. **Categorize the change**: Discovery/Refinement (Low), Addition/Modification (Medium), Removal/Architecture (High)
-4. **Assess upgrade need**: Multiple major changes → suggest `/upgrade`, simple discovery → continue with `/evolve`
+4. **Assess upgrade need**: Multiple major changes → suggest `/sdd-upgrade`, simple discovery → continue with `/sdd-evolve`
 
 ### Phase 2: Planning
 
@@ -96,7 +96,7 @@ End response with:
 **Changelog:** | [version] | [date] | [description] | [reason] |
 **Downstream impact:** [List of files marked STALE, or "None"]
 **Cross-references:** [Other files that may need updates]
-**Next steps:** Review spec, update stale downstream docs, or consider `/upgrade` for major changes
+**Next steps:** Review spec, update stale downstream docs, or consider `/sdd-upgrade` for major changes
 ```
 
 ---
@@ -113,7 +113,7 @@ End response with:
 
 ## When to Suggest Upgrade
 
-Suggest `/upgrade` when change fundamentally alters approach, multiple related changes needed, brief insufficient, or architecture needs redesign.
+Suggest `/sdd-upgrade` when change fundamentally alters approach, multiple related changes needed, brief insufficient, or architecture needs redesign.
 
 ---
 
@@ -127,8 +127,8 @@ Suggest `/upgrade` when change fundamentally alters approach, multiple related c
 
 ## Related Commands
 
-- `/brief [task-id]` - Create initial brief
-- `/upgrade [task-id]` - Expand to full SDD 6.0
-- `/refine [task-id]` - Interactive refinement session
-- `/specify [task-id]` - Create detailed specification
+- `/sdd-brief [task-id]` - Create initial brief
+- `/sdd-upgrade [task-id]` - Expand to full SDD 6.0
+- `/sdd-refine [task-id]` - Interactive refinement session
+- `/sdd-specify [task-id]` - Create detailed specification
 - `/sdd-plan [task-id]` - Update technical plan

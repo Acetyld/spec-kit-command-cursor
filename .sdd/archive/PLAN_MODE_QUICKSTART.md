@@ -39,14 +39,14 @@ Your Command → AI Analyzes → AI Shows Plan → You Approve → AI Executes
 
 ### Without PLAN Mode (Old Way)
 ```bash
-You: /brief user-auth Add login feature
+You: /sdd-brief user-auth Add login feature
 AI:  ✓ Created feature-brief.md
 You: *Opens file* "Wait, that's not what I wanted..."
 ```
 
 ### With PLAN Mode (New Way)
 ```bash
-You: /brief user-auth Add login feature
+You: /sdd-brief user-auth Add login feature
 AI:  Let me analyze... I have questions:
      - OAuth or traditional login?
      - Password reset needed?
@@ -124,7 +124,7 @@ AI:  ✓ Created feature-brief.md exactly as planned
 Let's try a simple example:
 
 ```bash
-/brief hello-sdd Test PLAN mode with a simple hello world feature
+/sdd-brief hello-sdd Test PLAN mode with a simple hello world feature
 ```
 
 **What Will Happen:**
@@ -150,7 +150,7 @@ Let's try a simple example:
 
 4. **AI Presents Plan**
    ```
-   Plan for /brief hello-sdd
+   Plan for /sdd-brief hello-sdd
    
    Will create: specs/active/hello-sdd/feature-brief.md
    
@@ -184,7 +184,7 @@ Let's try a simple example:
 ### Scenario 1: AI Asks Good Questions
 
 ```bash
-You: /brief checkout-flow Quick checkout process
+You: /sdd-brief checkout-flow Quick checkout process
 AI:  Questions:
      1. Guest checkout or login required?
      2. Save payment methods?
@@ -223,12 +223,12 @@ AI:  Executing...
 ### 1. Be Specific in Commands
 **Good:**
 ```bash
-/brief user-notifications Email and in-app notifications with preferences
+/sdd-brief user-notifications Email and in-app notifications with preferences
 ```
 
 **Too Vague:**
 ```bash
-/brief notifications Add notifications
+/sdd-brief notifications Add notifications
 ```
 
 ### 2. Answer Questions Thoughtfully
@@ -274,14 +274,14 @@ Every SDD command now follows this pattern:
 
 | Command | What You'll Review Before Approval |
 |---------|-----------------------------------|
-| `/brief` | Brief structure, research scope, requirements |
-| `/evolve` | Proposed changes, before/after comparison |
-| `/research` | Research strategy, areas to examine |
-| `/specify` | Specification structure, user stories |
+| `/sdd-brief` | Brief structure, research scope, requirements |
+| `/sdd-evolve` | Proposed changes, before/after comparison |
+| `/sdd-research` | Research strategy, areas to examine |
+| `/sdd-specify` | Specification structure, user stories |
 | `/plan` | Architecture approach, tech decisions |
-| `/tasks` | Task breakdown, effort estimates |
-| `/implement` | Todo-list preview, execution order |
-| `/upgrade` | Upgrade strategy, document mapping |
+| `/sdd-tasks` | Task breakdown, effort estimates |
+| `/sdd-implement` | Todo-list preview, execution order |
+| `/sdd-upgrade` | Upgrade strategy, document mapping |
 
 ## What If I Don't Like a Plan?
 
@@ -342,7 +342,7 @@ After using PLAN mode a few times, you'll notice:
 
 Speed up the process by providing context in your command:
 ```bash
-/brief payment-integration 
+/sdd-brief payment-integration 
   Support Stripe and PayPal
   Tokenization for security
   Retry logic for failures
@@ -370,7 +370,7 @@ More context = fewer questions = faster to approval!
 → For complex projects, use background planning (Cursor 2.1+)
 
 ### "I approved but want to change something"
-→ Use `/evolve` to update after creation
+→ Use `/sdd-evolve` to update after creation
 
 ### "How do I find something in a large plan?"
 → Use ⌘+F to search within the plan (Cursor 2.1+)
@@ -380,7 +380,7 @@ More context = fewer questions = faster to approval!
 
 1. **Try your first PLAN mode command:**
    ```bash
-   /brief test-plan-mode Testing PLAN mode workflow
+   /sdd-brief test-plan-mode Testing PLAN mode workflow
    ```
 
 2. **Read comprehensive examples:**
@@ -414,10 +414,10 @@ More context = fewer questions = faster to approval!
 
 🎉 **Ready to Experience PLAN Mode?**
 
-Start with a simple `/brief` command and see the magic happen!
+Start with a simple `/sdd-brief` command and see the magic happen!
 
 ```bash
-/brief your-feature-name Describe what you want to build
+/sdd-brief your-feature-name Describe what you want to build
 ```
 
 The AI will guide you through the rest! 🚀

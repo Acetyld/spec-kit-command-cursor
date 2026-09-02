@@ -27,8 +27,8 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 - Documented faster workflow benefits
 
 **Commands Enhanced:**
-- `/brief`, `/evolve`, `/research`, `/specify`, `/plan`, `/tasks`
-- `/implement`, `/upgrade`, `/sdd-full-plan`, `/pecut-all-in-one`, `/execute-task`
+- `/sdd-brief`, `/sdd-evolve`, `/sdd-research`, `/sdd-specify`, `/plan`, `/sdd-tasks`
+- `/sdd-implement`, `/sdd-upgrade`, `/sdd-full-plan`, `/sdd-full-plan`, `/sdd-execute-task`
 
 **Impact:**
 - Faster question answering
@@ -67,13 +67,13 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 **Files Updated:** 2 command files + documentation
 
 **Changes:**
-- Added Phase 4: Code Review to `/implement` command
+- Added Phase 4: Code Review to `/sdd-implement` command
 - Integrated review checklist
 - Documented workflow
 
 **Files Updated:**
-- `.cursor/commands/implement.md`
-- `.cursor/commands/execute-task.md`
+- `.cursor/commands/sdd-implement.md`
+- `.cursor/commands/sdd-execute-task.md`
 - `.sdd/guidelines.md`
 - `.sdd/CURSOR_2.1_ENHANCEMENTS.md`
 
@@ -91,12 +91,12 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 **Files Updated:** 2 command files
 
 **Changes:**
-- Updated `/research` command to leverage instant grep
+- Updated `/sdd-research` command to leverage instant grep
 - Added notes about faster searches
 - Documented parallel search capability
 
 **Files Updated:**
-- `.cursor/commands/research.md`
+- `.cursor/commands/sdd-research.md`
 - `.cursor/commands/plan.md`
 - `.sdd/CURSOR_2.1_ENHANCEMENTS.md`
 
@@ -135,13 +135,13 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 **Files Updated:** 3 command files + specification
 
 **Changes:**
-- Added parallel execution documentation to `/execute-task`
-- Updated `/tasks` command with multi-agent notes
+- Added parallel execution documentation to `/sdd-execute-task`
+- Updated `/sdd-tasks` command with multi-agent notes
 - Added to roadmap format spec
 
 **Files Updated:**
-- `.cursor/commands/execute-task.md`
-- `.cursor/commands/tasks.md`
+- `.cursor/commands/sdd-execute-task.md`
+- `.cursor/commands/sdd-tasks.md`
 - `.sdd/ROADMAP_FORMAT_SPEC.md`
 - `.sdd/CURSOR_2.1_ENHANCEMENTS.md`
 
@@ -207,17 +207,17 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 ### Modified Files (15+)
 
 **Command Files (11):**
-1. `.cursor/commands/brief.md` - Interactive UI + plan search
-2. `.cursor/commands/evolve.md` - Interactive UI
-3. `.cursor/commands/research.md` - Interactive UI + instant grep
-4. `.cursor/commands/specify.md` - Interactive UI + plan search
+1. `.cursor/commands/sdd-brief.md` - Interactive UI + plan search
+2. `.cursor/commands/sdd-evolve.md` - Interactive UI
+3. `.cursor/commands/sdd-research.md` - Interactive UI + instant grep
+4. `.cursor/commands/sdd-specify.md` - Interactive UI + plan search
 5. `.cursor/commands/plan.md` - Interactive UI + background planning + instant grep
-6. `.cursor/commands/tasks.md` - Interactive UI + multi-agents
-7. `.cursor/commands/implement.md` - Interactive UI + code review + plan search
-8. `.cursor/commands/upgrade.md` - Interactive UI + plan search
+6. `.cursor/commands/sdd-tasks.md` - Interactive UI + multi-agents
+7. `.cursor/commands/sdd-implement.md` - Interactive UI + code review + plan search
+8. `.cursor/commands/sdd-upgrade.md` - Interactive UI + plan search
 9. `.cursor/commands/sdd-full-plan.md` - Interactive UI + background planning + plan search
-10. `.cursor/commands/pecut-all-in-one.md` - Execution mode notes
-11. `.cursor/commands/execute-task.md` - Interactive UI + multi-agents + code review
+10. `.cursor/commands/sdd-full-plan.md` - Execution mode notes
+11. `.cursor/commands/sdd-execute-task.md` - Interactive UI + multi-agents + code review
 
 **Documentation Files (5):**
 1. `.sdd/PLAN_MODE_EXAMPLES.md` - Cursor 2.1 features section
@@ -269,7 +269,7 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 
 ### Interactive Questions
 ```
-/brief user-auth Add authentication
+/sdd-brief user-auth Add authentication
 
 [Question appears in interactive UI]
 "What authentication method? (OAuth, JWT, Session)"
@@ -279,7 +279,7 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 
 ### Plan Search
 ```
-/specify blog-platform Full blog
+/sdd-specify blog-platform Full blog
 
 [Plan generated - 300 lines]
 ⌘+F → Type "database" → Find all DB sections
@@ -288,7 +288,7 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 
 ### Code Review
 ```
-/implement user-notifications
+/sdd-implement user-notifications
 
 [Implementation completes]
 [AI Code Review runs automatically]
@@ -300,9 +300,9 @@ Successfully integrated all Cursor 2.1 features into the SDD system, enhancing u
 ```
 [3 independent tasks ready]
 
-/execute-task task-001  # Agent 1
-/execute-task task-002  # Agent 2
-/execute-task task-003  # Agent 3
+/sdd-execute-task task-001  # Agent 1
+/sdd-execute-task task-002  # Agent 2
+/sdd-execute-task task-003  # Agent 3
 
 [All execute in parallel]
 [Complete 3x faster]

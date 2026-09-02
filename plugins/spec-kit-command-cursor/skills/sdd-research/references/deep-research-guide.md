@@ -10,7 +10,7 @@ Methodology for thorough, multi-pass external research when standard analysis is
 | High cost-of-reversal | Database engine choice, auth provider, cloud platform |
 | Multiple viable candidates | 4+ options with no clear winner |
 | Standard research inconclusive | Phase 2 left too many unknowns |
-| User explicitly requests it | "/research --deep" or "do a deep dive on..." |
+| User explicitly requests it | "/sdd-research --deep" or "do a deep dive on..." |
 
 ## Multi-Pass Investigation
 

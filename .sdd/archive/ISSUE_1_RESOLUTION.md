@@ -28,7 +28,7 @@ The result files of spec.md, plan.md, and task.md were too large for simple impl
 **For 80% of features:**
 - Single `feature-brief.md` (~40 lines)
 - 30-minute planning → start coding
-- Living documentation with `/evolve`
+- Living documentation with `/sdd-evolve`
 
 **For 20% of complex features:**
 - Full SDD 2.0 workflow available when needed
@@ -70,9 +70,9 @@ For extreme token efficiency, JSON format available:
 ## Usage Recommendations
 
 ### For Simple Features (80% of cases)
-Use `/brief` command:
+Use `/sdd-brief` command:
 ```bash
-/brief feature-name description
+/sdd-brief feature-name description
 ```
 Creates single 40-line feature-brief.md
 
@@ -100,5 +100,5 @@ September 20, 2024
 
 ## Related Improvements
 - SDD 2.5 methodology (30-minute planning)
-- Living documentation with `/evolve`
-- Seamless escalation with `/upgrade`
+- Living documentation with `/sdd-evolve`
+- Seamless escalation with `/sdd-upgrade`

@@ -21,10 +21,10 @@ Install the plugin from this repo (Cursor → Plugins → add git marketplace), 
 
 ```
 /sdd-init
-/brief user-auth JWT authentication with login/logout
+/sdd-brief user-auth JWT authentication with login/logout
 ```
 
-`/sdd-init` creates `.sdd/` and `specs/` in the current project. `/brief` does that automatically if they are missing. For bigger work, see [Pick a Workflow](#pick-a-workflow).
+`/sdd-init` creates `.sdd/` and `specs/` in the current project. `/sdd-brief` does that automatically if they are missing. For bigger work, see [Pick a Workflow](#pick-a-workflow).
 
 ---
 
@@ -35,12 +35,14 @@ The ones you'll actually use day to day:
 | Command | What it does |
 |---------|--------------|
 | `/sdd-init` | First-time: create `.sdd/` + `specs/` in this project |
-| `/brief` | Quick 30-min plan for a feature (start here for most things) |
-| `/sdd-plan` | Technical architecture (`plan.md`). Not Cursor's `/plan` (Plan mode) |
-| `/implement` | Build it, with progress tracking |
+| `/sdd-constitution` | Project principles (`.sdd/memory/constitution.md`) |
+| `/sdd-specify` | WHAT/WHY spec + requirements checklist |
+| `/sdd-brief` | Quick 30-min plan for a feature (everyday extra) |
+| `/sdd-plan` | Technical architecture + Phase 0/1 artifacts. Not Cursor's `/plan` |
+| `/sdd-implement` | Finish remaining tasks; then `/sdd-converge` |
 | `/sdd-complete` | Close the spec: move `specs/active/` → `specs/completed/` |
-| `/audit` | Review the code against the spec |
-| `/evolve` | Update the spec when things change mid-build |
+| `/sdd-audit` | Review the code against the spec |
+| `/sdd-evolve` | Update the spec when things change mid-build |
 
 > Full command list, flags, and outputs are in the [technical docs](README-technical.md#commands).
 
@@ -50,19 +52,27 @@ The ones you'll actually use day to day:
 
 **Just building a feature?** (most of the time)
 ```
-/brief my-feature  →  /implement my-feature  →  /sdd-complete my-feature
+/sdd-brief my-feature  →  /sdd-implement my-feature  →  /sdd-complete my-feature
 ```
 
-**Complex or high-risk feature?**
+**Official Spec Kit path**
 ```
-/research  →  /specify  →  /sdd-plan  →  /tasks  →  /implement  →  /sdd-complete
+/sdd-constitution → /sdd-specify → /sdd-clarify → /sdd-plan → /sdd-checklist
+  → /sdd-tasks → /sdd-analyze → /sdd-implement → /sdd-converge → /sdd-complete
+```
+
+Shorter: `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` → `/sdd-converge`.
+
+**Complex or high-risk feature?** (pre-spec research extra)
+```
+/sdd-research  →  official sequence from /sdd-specify
 ```
 
 Cursor's built-in `/plan` is Plan mode (the **Build** button). SDD technical architecture is **`/sdd-plan`**.
 
 **Whole app or big project?**
 ```
-/sdd-full-plan my-app  →  /execute-parallel my-app --until-finish
+/sdd-full-plan my-app  →  /sdd-execute-parallel my-app --until-finish
 ```
 
 That's the 90% case. Everything else — deep research, parallel/cloud execution, heavy apps — is in the [technical docs](README-technical.md#workflows).
@@ -101,6 +111,6 @@ MIT License — see [LICENSE](LICENSE)
 
 **Made with ❤️ by [Aris](https://github.com/madebyaris)**
 
-Try it: `/brief hello-world Create a simple hello world feature`
+Try it: `/sdd-brief hello-world Create a simple hello world feature`
 
 </div>

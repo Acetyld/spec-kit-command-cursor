@@ -1,159 +1,52 @@
-# Implementation Tasks: {{FEATURE_NAME}}
+# Tasks: [FEATURE NAME]
 
-## Overview
-{{TASKS_OVERVIEW}}
+**Input**: `specs/active/[task-id]/`
+**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+**Tests**: Include test tasks only if the spec or user requested TDD.
 
-## Task Breakdown
+## Format: `[ID] [P?] [Story] Description`
 
-{{#each TASK_CATEGORIES}}
-### {{this.category}}
+- **[P]**: Parallel (different files, no unfinished deps)
+- **[Story]**: [US1], [US2], … on user-story phase tasks only
+- Include exact file paths
 
-{{#each this.tasks}}
-#### {{this.id}}: {{this.title}}
-**Description**: {{this.description}}
+## Phase 1: Setup (Shared Infrastructure)
 
-**Acceptance Criteria**:
-{{#each this.criteria}}
-- {{this}}
-{{/each}}
+**Purpose**: Project initialization and basic structure
 
-**Dependencies**: {{this.dependencies}}  
-**Estimated Effort**: {{this.effort}}  
-**Priority**: {{this.priority}}  
-**Assignee**: {{this.assignee}}  
-**Status**: {{this.status}}
-
-**Technical Notes**:
-{{this.technicalNotes}}
+- [ ] T001 Create project structure per implementation plan
+- [ ] T002 Initialize [language] project with [framework] dependencies
+- [ ] T003 [P] Configure linting and formatting tools
 
 ---
-{{/each}}
-{{/each}}
 
-## Implementation Order
+## Phase 2: Foundational (Blocking Prerequisites)
 
-### Phase 1: Foundation
-{{#each PHASE_1_TASKS}}
-- [ ] **{{this.id}}**: {{this.title}} ({{this.effort}})
-{{/each}}
+**Purpose**: MUST complete before any user story
 
-### Phase 2: Core Features
-{{#each PHASE_2_TASKS}}
-- [ ] **{{this.id}}**: {{this.title}} ({{this.effort}})
-{{/each}}
+- [ ] T004 Setup shared infrastructure required by all stories
 
-### Phase 3: Integration & Testing
-{{#each PHASE_3_TASKS}}
-- [ ] **{{this.id}}**: {{this.title}} ({{this.effort}})
-{{/each}}
-
-### Phase 4: Deployment & Monitoring
-{{#each PHASE_4_TASKS}}
-- [ ] **{{this.id}}**: {{this.title}} ({{this.effort}})
-{{/each}}
-
-## Task Dependencies
-
-```mermaid
-graph TD
-{{#each DEPENDENCIES}}
-    {{this.from}} --> {{this.to}}
-{{/each}}
-```
-
-## Definition of Done
-
-### For Each Task:
-- [ ] Code implemented according to specifications
-- [ ] Unit tests written and passing
-- [ ] Code reviewed and approved
-- [ ] Integration tests passing
-- [ ] Documentation updated
-- [ ] No security vulnerabilities introduced
-- [ ] Performance requirements met
-
-### For the Feature:
-- [ ] All acceptance criteria met
-- [ ] End-to-end tests passing
-- [ ] User acceptance testing completed
-- [ ] Deployment to staging successful
-- [ ] Monitoring and logging in place
-- [ ] Documentation completed
-- [ ] Stakeholder sign-off received
-
-## Risk Mitigation
-
-{{#each TASK_RISKS}}
-### {{this.task}}: {{this.risk}}
-**Impact**: {{this.impact}}  
-**Mitigation**: {{this.mitigation}}  
-**Contingency**: {{this.contingency}}
-{{/each}}
-
-## Resource Allocation
-
-| Phase | Estimated Duration | Team Members Required | Key Skills |
-|-------|-------------------|----------------------|------------|
-{{#each RESOURCE_PLANNING}}
-| {{this.phase}} | {{this.duration}} | {{this.teamSize}} | {{this.skills}} |
-{{/each}}
-
-## Testing Strategy
-
-### Unit Testing Tasks
-{{#each UNIT_TESTING_TASKS}}
-- [ ] {{this.component}}: {{this.description}}
-{{/each}}
-
-### Integration Testing Tasks
-{{#each INTEGRATION_TESTING_TASKS}}
-- [ ] {{this.integration}}: {{this.description}}
-{{/each}}
-
-### End-to-End Testing Tasks
-{{#each E2E_TESTING_TASKS}}
-- [ ] {{this.scenario}}: {{this.description}}
-{{/each}}
-
-## Deployment Tasks
-
-{{#each DEPLOYMENT_TASKS}}
-- [ ] **{{this.id}}**: {{this.description}}
-  - **Environment**: {{this.environment}}
-  - **Dependencies**: {{this.dependencies}}
-  - **Rollback Plan**: {{this.rollback}}
-{{/each}}
-
-## Communication Plan
-
-### Daily Standups
-- Progress updates on current tasks
-- Blockers and dependencies
-- Resource needs
-
-### Weekly Reviews
-- Phase completion status
-- Quality metrics review
-- Risk assessment updates
-
-### Milestone Reviews
-- Stakeholder demos
-- Acceptance criteria verification
-- Go/no-go decisions for next phase
-
-## Review Checklist
-- [ ] All tasks are clearly defined and actionable
-- [ ] Dependencies are identified and documented
-- [ ] Effort estimates are realistic
-- [ ] Resource allocation is feasible
-- [ ] Testing tasks are comprehensive
-- [ ] Deployment strategy is detailed
-- [ ] Risk mitigation plans are in place
-- [ ] Communication plan is established
+**Checkpoint**: Foundation ready — user stories may start
 
 ---
-**Created:** {{CREATED_DATE}}  
-**Last Updated:** {{UPDATED_DATE}}  
-**Status:** {{STATUS}}  
-**Project Manager:** {{PROJECT_MANAGER}}  
-**Tech Lead:** {{TECH_LEAD}}
+
+## Phase 3: User Story 1 - [Title] (Priority: P1)
+
+**Goal**: [What this story delivers]
+**Independent Test**: [How to verify alone]
+
+- [ ] T010 [P] [US1] [Work with file path]
+
+**Checkpoint**: US1 independently testable
+
+---
+
+## Phase N: Polish & Cross-Cutting Concerns
+
+- [ ] TXXX [P] Documentation updates
+- [ ] TXXX Run quickstart.md validation
+
+## Dependencies & Execution Order
+
+- Setup → Foundational (blocks all stories) → User stories (P1 → P2 → …) → Polish
+- `[P]` tasks may run in parallel (disjoint files)

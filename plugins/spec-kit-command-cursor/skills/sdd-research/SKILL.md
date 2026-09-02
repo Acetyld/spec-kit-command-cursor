@@ -14,7 +14,7 @@ Investigate codebase patterns and external solutions to inform specification and
 - Technical approach is unclear
 - Need to understand existing patterns
 - Evaluating solution options
-- Before `/specify` or `/sdd-plan` commands
+- Before `/sdd-specify` or `/sdd-plan` commands
 - **Deep research**: New domain, unfamiliar technology, high-stakes architectural decision, or when standard research yields insufficient clarity
 
 ## Research Modes
@@ -128,7 +128,7 @@ Perform iterative, multi-pass investigation:
 
 ## Integration
 
-- Findings feed into `/specify` and `sdd-planner` subagent
+- Findings feed into `/sdd-specify` and `sdd-planner` subagent
 - Can be invoked by `sdd-explorer` for deeper analysis
 - Call **AskQuestion** when research reveals multiple valid approaches the user must pick. Do not list those options only in chat.
 - Deep research mode uses `WebSearch` and `WebFetch` tools extensively — ensure sandbox allows outbound access

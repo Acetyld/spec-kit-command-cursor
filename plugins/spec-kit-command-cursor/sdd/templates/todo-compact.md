@@ -24,7 +24,7 @@
 4. Maximum flow - batch questions at end
 5. Reuse patterns where possible
 6. Update progress continuously
-7. Forced pause: last line is `Reply continue` or `/implement {{TASK_ID}}`
+7. Forced pause: last line is `Reply continue` or `/sdd-implement {{TASK_ID}}`
 
 ## Progress
 ### Done

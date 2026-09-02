@@ -1,5 +1,5 @@
 > **ARCHIVED** - This document is a historical record of the initial full-plan implementation.  
-> See `.cursor/commands/sdd-full-plan.md` and `.cursor/commands/execute-parallel.md` for current documentation.
+> See `.cursor/commands/sdd-full-plan.md` and `.cursor/commands/sdd-execute-parallel.md` for current documentation.
 
 # SDD Full Plan Implementation Summary
 
@@ -34,8 +34,8 @@ A comprehensive project planning system that creates full roadmaps with kanban-s
 /sdd-full-plan [project-id] [description]
 ```
 
-### 2. `/pecut-all-in-one` - Memorable Alias
-**File:** `.cursor/commands/pecut-all-in-one.md`
+### 2. `/sdd-full-plan` - Memorable Alias
+**File:** `.cursor/commands/sdd-full-plan.md`
 
 **Purpose:** Alias for `/sdd-full-plan` with memorable name
 
@@ -46,11 +46,11 @@ A comprehensive project planning system that creates full roadmaps with kanban-s
 
 **Usage:**
 ```bash
-/pecut-all-in-one [project-id] [description]
+/sdd-full-plan [project-id] [description]
 ```
 
-### 3. `/execute-task` - Task Orchestration
-**File:** `.cursor/commands/execute-task.md`
+### 3. `/sdd-execute-task` - Task Orchestration
+**File:** `.cursor/commands/sdd-execute-task.md`
 
 **Purpose:** Execute specific task from roadmap
 
@@ -64,7 +64,7 @@ A comprehensive project planning system that creates full roadmaps with kanban-s
 
 **Usage:**
 ```bash
-/execute-task [task-id]
+/sdd-execute-task [task-id]
 ```
 
 ---
@@ -170,8 +170,8 @@ A comprehensive project planning system that creates full roadmaps with kanban-s
 
 **Changes:**
 - ✅ Added "Full Project Planning" section
-- ✅ Documented `/sdd-full-plan` and `/pecut-all-in-one`
-- ✅ Added `/execute-task` documentation
+- ✅ Documented `/sdd-full-plan` and `/sdd-full-plan`
+- ✅ Added `/sdd-execute-task` documentation
 - ✅ Explained complexity detection
 - ✅ Showed file structure
 - ✅ Integration with existing SDD
@@ -234,11 +234,11 @@ User Approval
   ↓
 Generation: Create roadmap.json + roadmap.md + tasks/
   ↓
-User: /execute-task epic-001
+User: /sdd-execute-task epic-001
   ↓
-AI: Map to /research, run SDD command
+AI: Map to /sdd-research, run SDD command
   ↓
-Create: specs/active/epic-001/research.md
+Create: specs/active/epic-001/sdd-research.md
   ↓
 Update: roadmap.json status and links
   ↓
@@ -248,7 +248,7 @@ Log: execution-log.md entry
 ### Integration Points
 
 1. **With SDD Commands**
-   - Tasks map to: `/brief`, `/research`, `/specify`, `/plan`, `/tasks`, `/implement`
+   - Tasks map to: `/sdd-brief`, `/sdd-research`, `/sdd-specify`, `/plan`, `/sdd-tasks`, `/sdd-implement`
    - Automatic command selection based on task.sdd.phase
    - Full PLAN mode for each execution
 
@@ -335,12 +335,12 @@ blocked  on-hold    archived
 **Mapping:**
 | Task Phase | SDD Command | Output |
 |------------|-------------|--------|
-| research | `/research` | research.md |
-| brief | `/brief` | feature-brief.md |
-| specification | `/specify` | spec.md |
+| research | `/sdd-research` | research.md |
+| brief | `/sdd-brief` | feature-brief.md |
+| specification | `/sdd-specify` | spec.md |
 | planning | `/plan` | plan.md |
-| tasks | `/tasks` | tasks.md |
-| implementation | `/implement` | todo-list.md + code |
+| tasks | `/sdd-tasks` | tasks.md |
+| implementation | `/sdd-implement` | todo-list.md + code |
 
 **Each execution:**
 1. Reads task from roadmap.json
@@ -371,8 +371,8 @@ blocked  on-hold    archived
 
 **Command Definitions:** 3
 1. `.cursor/commands/sdd-full-plan.md` (450+ lines)
-2. `.cursor/commands/pecut-all-in-one.md` (70+ lines)
-3. `.cursor/commands/execute-task.md` (400+ lines)
+2. `.cursor/commands/sdd-full-plan.md` (70+ lines)
+3. `.cursor/commands/sdd-execute-task.md` (400+ lines)
 
 **Templates:** 3
 1. `.sdd/templates/roadmap-template.json` (80+ lines)
@@ -399,11 +399,11 @@ blocked  on-hold    archived
 
 All criteria met:
 
-- [x] `/sdd-full-plan` and `/pecut-all-in-one` work identically
+- [x] `/sdd-full-plan` and `/sdd-full-plan` work identically
 - [x] PLAN mode integrated (analysis → plan → approval → execute)
 - [x] Roadmap JSON is VSCode extension compatible
 - [x] Task hierarchy properly structured
-- [x] `/execute-task` orchestrates SDD commands
+- [x] `/sdd-execute-task` orchestrates SDD commands
 - [x] Status updates flow correctly
 - [x] Dependencies tracked and enforced
 - [x] Markdown view is human-readable
@@ -426,7 +426,7 @@ All criteria met:
 
 ### Medium Application
 ```bash
-/pecut-all-in-one blog-platform Full blog with CMS and analytics  
+/sdd-full-plan blog-platform Full blog with CMS and analytics  
 # Creates: 6-week roadmap, 8-12 tasks, Mixed SDD
 ```
 
@@ -438,7 +438,7 @@ All criteria met:
 
 ### Execute Task
 ```bash
-/execute-task epic-001
+/sdd-execute-task epic-001
 # Runs appropriate SDD command, creates specs, updates roadmap
 ```
 
@@ -471,8 +471,8 @@ All criteria met:
 
 **Command Documentation:**
 - [sdd-full-plan.md](.cursor/commands/sdd-full-plan.md)
-- [pecut-all-in-one.md](.cursor/commands/pecut-all-in-one.md)
-- [execute-task.md](.cursor/commands/execute-task.md)
+- [pecut-all-in-one.md](.cursor/commands/sdd-full-plan.md)
+- [execute-task.md](.cursor/commands/sdd-execute-task.md)
 
 **Specifications:**
 - [ROADMAP_FORMAT_SPEC.md](./ROADMAP_FORMAT_SPEC.md)

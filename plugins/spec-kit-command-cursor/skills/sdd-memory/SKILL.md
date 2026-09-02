@@ -1,6 +1,6 @@
 ---
 name: sdd-memory
-description: Recall and persist durable project knowledge (decisions, conventions, gotchas, architecture) across SDD sessions. Provider-aware — supports standard (rules-only), Cursor native Memories, and mem0. Use at the start of planning/implementation to recall context, and at the end to persist discoveries.
+description: Recall and persist durable project knowledge (decisions, conventions, gotchas, architecture) across SDD sessions. Provider-aware — supports standard (rules-only), Cursor native Memories, and mem0. Use at the start of planning/sdd-implementation to recall context, and at the end to persist discoveries.
 ---
 
 # SDD Memory Skill
@@ -9,7 +9,7 @@ Give SDD agents a configurable, optional long-term memory. The active backend is
 
 ## When to Use
 
-- **Recall** — starting `/brief`, `/research`, `/specify`, `/sdd-plan`, or `/implement`: load relevant prior decisions, conventions, and gotchas before acting.
+- **Recall** — starting `/sdd-brief`, `/sdd-research`, `/sdd-specify`, `/sdd-plan`, or `/sdd-implement`: load relevant prior decisions, conventions, and gotchas before acting.
 - **Persist** — finishing a task or hitting a durable discovery: save facts worth remembering next time.
 - **Manage** — `/sdd-memory` configures, seeds, or disables the backend.
 

@@ -1,9 +1,9 @@
 ---
-name: sdd-generate-prd
+name: generate-prd
 description: Guided PRD (product requirements) through questioning.
 ---
 
-# /sdd-generate-prd Command
+# /generate-prd Command
 
 Generate a Product Requirements Document through guided Socratic questioning, creating both comprehensive and AI-optimized versions.
 
@@ -18,14 +18,14 @@ Generate a Product Requirements Document through guided Socratic questioning, cr
 ## Usage
 
 ```
-/sdd-generate-prd [project-name] [optional: description]
+/generate-prd [project-name] [optional: description]
 ```
 
 **Examples:**
 ```
-/sdd-generate-prd saas-dashboard
-/sdd-generate-prd ecommerce-app Multi-vendor marketplace
-/sdd-generate-prd mobile-banking
+/generate-prd saas-dashboard
+/generate-prd ecommerce-app Multi-vendor marketplace
+/generate-prd mobile-banking
 ```
 
 ---
@@ -87,7 +87,7 @@ Assess clarity, completeness, and actionability (0-100% each). Overall status: R
 
 **Summary:** Problem [one sentence], [N] core features, [N] exclusions
 
-**Next steps:** Review PRD, refine with `/sdd-refine [task-id]`, create tasks with `/sdd-tasks [task-id]`, or start brief with `/sdd-brief [task-id]`
+**Next steps:** Review PRD, refine with `/refine [task-id]`, create tasks with `/tasks [task-id]`, or start brief with `/brief [task-id]`
 ```
 
 ---
@@ -108,8 +108,8 @@ Assess clarity, completeness, and actionability (0-100% each). Overall status: R
 
 ## Related Commands
 
-- `/sdd-refine [task-id]` - Iterate on PRD
-- `/sdd-brief [task-id]` - Quick 30-min planning alternative
+- `/refine [task-id]` - Iterate on PRD
+- `/brief [task-id]` - Quick 30-min planning alternative
 - `/sdd-plan [task-id]` - Technical plan from PRD
-- `/sdd-tasks [task-id]` - Task breakdown from PRD
-- `/sdd-implement [task-id]` - Start building
+- `/tasks [task-id]` - Task breakdown from PRD
+- `/implement [task-id]` - Start building

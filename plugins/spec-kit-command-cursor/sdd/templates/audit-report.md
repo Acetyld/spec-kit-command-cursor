@@ -45,7 +45,7 @@
 
 ### Outdated Spec References
 
-> Spec items that no longer match the implementation (spec may need `/sdd-evolve`).
+> Spec items that no longer match the implementation (spec may need `/evolve`).
 
 | # | Spec Section | Current State | Suggested Update |
 |---|-------------|---------------|-----------------|

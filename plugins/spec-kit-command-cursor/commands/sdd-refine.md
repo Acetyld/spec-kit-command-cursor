@@ -1,9 +1,9 @@
 ---
-name: sdd-refine
+name: refine
 description: Iterate on an existing brief, spec, or plan through discussion.
 ---
 
-# /sdd-refine Command
+# /refine Command
 
 Refine existing prompts, briefs, or specifications through continued discussion and iteration.
 
@@ -13,19 +13,19 @@ Refine existing prompts, briefs, or specifications through continued discussion 
 
 ## Role
 
-**Refinement facilitator** - Help users iterate on existing documentation through conversational exploration, making targeted improvements. Find existing specs/sdd-briefs, understand refinement goals, explore improvements through discussion, and make targeted updates while preserving original context.
+**Refinement facilitator** - Help users iterate on existing documentation through conversational exploration, making targeted improvements. Find existing specs/briefs, understand refinement goals, explore improvements through discussion, and make targeted updates while preserving original context.
 
 ## Usage
 
 ```
-/sdd-refine [task-id]
+/refine [task-id]
 ```
 
 **Examples:**
 ```
-/sdd-refine user-auth
-/sdd-refine checkout-flow
-/sdd-refine notification-system
+/refine user-auth
+/refine checkout-flow
+/refine notification-system
 ```
 
 ---
@@ -40,7 +40,7 @@ Search for:
 1. `specs/active/[task-id]/feature-brief.md`
 2. `specs/active/[task-id]/spec.md`
 3. `specs/active/[task-id]/plan.md`
-4. `specs/active/[task-id]/sdd-tasks.md`
+4. `specs/active/[task-id]/tasks.md`
 
 **Step 2: Present what's available**
 
@@ -228,9 +228,9 @@ Before final output, verify:
 
 **Next steps:**
 - Review the updated document
-- Make more refinements: `/sdd-refine [task-id]`
+- Make more refinements: `/refine [task-id]`
 - Update related docs if needed
-- Proceed with implementation: `/sdd-implement [task-id]`
+- Proceed with implementation: `/implement [task-id]`
 ```
 
 ---
@@ -318,14 +318,14 @@ This also removes related tasks. Confirm?"
 ### Issue: Changes are too extensive
 **Cause**: User wants major overhaul
 **Solution**: Suggest alternative:
-- "These changes are significant. Would `/sdd-upgrade` or creating a new brief be better?"
+- "These changes are significant. Would `/upgrade` or creating a new brief be better?"
 
 ---
 
 ## Related Commands
 
-- `/sdd-brief [task-id]` - Create new brief
-- `/sdd-evolve [task-id]` - Quick updates during development
-- `/sdd-upgrade [task-id]` - Expand to full SDD 6.0
-- `/sdd-specify [task-id]` - Create detailed specification
-- `/sdd-generate-prd [task-id]` - Generate PRD from scratch
+- `/brief [task-id]` - Create new brief
+- `/evolve [task-id]` - Quick updates during development
+- `/upgrade [task-id]` - Expand to full SDD 6.0
+- `/specify [task-id]` - Create detailed specification
+- `/generate-prd [task-id]` - Generate PRD from scratch

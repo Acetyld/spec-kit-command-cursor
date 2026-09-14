@@ -1,15 +1,15 @@
 > **ARCHIVED** - This document is a historical reference.  
-> See `.cursor/commands/sdd-generate-rules.md` for the current command documentation.
+> See `.cursor/commands/generate-rules.md` for the current command documentation.
 
 # Generate Rules Command Guide
 
-Complete guide for using the `/sdd-generate-rules` command to automatically generate coding rules for your project.
+Complete guide for using the `/generate-rules` command to automatically generate coding rules for your project.
 
 ---
 
 ## Overview
 
-The `/sdd-generate-rules` command analyzes your codebase, detects your technology stack, and generates comprehensive coding rules following 10X dev principles (DRY, KISS, modular) and language/framework best practices.
+The `/generate-rules` command analyzes your codebase, detects your technology stack, and generates comprehensive coding rules following 10X dev principles (DRY, KISS, modular) and language/framework best practices.
 
 ---
 
@@ -19,7 +19,7 @@ The `/sdd-generate-rules` command analyzes your codebase, detects your technolog
 
 ```bash
 # Auto-detect and generate rules
-/sdd-generate-rules
+/generate-rules
 ```
 
 This will:
@@ -37,9 +37,9 @@ This will:
 Specify primary language (overrides auto-detection):
 
 ```bash
-/sdd-generate-rules --language javascript
-/sdd-generate-rules --language python
-/sdd-generate-rules --language typescript
+/generate-rules --language javascript
+/generate-rules --language python
+/generate-rules --language typescript
 ```
 
 **Supported languages:**
@@ -57,9 +57,9 @@ Specify primary language (overrides auto-detection):
 Add framework-specific rules:
 
 ```bash
-/sdd-generate-rules --framework react
-/sdd-generate-rules --framework vue
-/sdd-generate-rules --framework django
+/generate-rules --framework react
+/generate-rules --framework vue
+/generate-rules --framework django
 ```
 
 **Supported frameworks:**
@@ -78,10 +78,10 @@ Add framework-specific rules:
 Override complexity detection:
 
 ```bash
-/sdd-generate-rules --complexity simple
-/sdd-generate-rules --complexity medium
-/sdd-generate-rules --complexity complex
-/sdd-generate-rules --complexity enterprise
+/generate-rules --complexity simple
+/generate-rules --complexity medium
+/generate-rules --complexity complex
+/generate-rules --complexity enterprise
 ```
 
 ### `--update-existing`
@@ -89,7 +89,7 @@ Override complexity detection:
 Update existing rules instead of creating new:
 
 ```bash
-/sdd-generate-rules --update-existing
+/generate-rules --update-existing
 ```
 
 This will:
@@ -102,7 +102,7 @@ This will:
 Deep codebase analysis mode:
 
 ```bash
-/sdd-generate-rules --analyze-codebase
+/generate-rules --analyze-codebase
 ```
 
 This will:
@@ -115,7 +115,7 @@ This will:
 Generate strict rules (more constraints):
 
 ```bash
-/sdd-generate-rules --strict
+/generate-rules --strict
 ```
 
 ### `--lenient`
@@ -123,7 +123,7 @@ Generate strict rules (more constraints):
 Generate flexible rules (fewer constraints):
 
 ```bash
-/sdd-generate-rules --lenient
+/generate-rules --lenient
 ```
 
 ### `--no-examples`
@@ -131,7 +131,7 @@ Generate flexible rules (fewer constraints):
 Don't include code examples in rules:
 
 ```bash
-/sdd-generate-rules --no-examples
+/generate-rules --no-examples
 ```
 
 ---
@@ -169,7 +169,7 @@ The command automatically detects your technology stack by analyzing:
 You can override auto-detection:
 
 ```bash
-/sdd-generate-rules --language typescript --framework react
+/generate-rules --language typescript --framework react
 ```
 
 ---
@@ -277,7 +277,7 @@ Summary provided:
 ### Example 1: React + TypeScript Project
 
 ```bash
-/sdd-generate-rules
+/generate-rules
 ```
 
 **Detected:**
@@ -298,7 +298,7 @@ Summary provided:
 ### Example 2: Python Django Project
 
 ```bash
-/sdd-generate-rules --analyze-codebase
+/generate-rules --analyze-codebase
 ```
 
 **Detected:**
@@ -320,7 +320,7 @@ Summary provided:
 ### Example 3: Update Existing Rules
 
 ```bash
-/sdd-generate-rules --update-existing
+/generate-rules --update-existing
 ```
 
 **Process:**
@@ -364,7 +364,7 @@ Regenerate rules when:
 - Best practices evolve
 
 ```bash
-/sdd-generate-rules --update-existing
+/generate-rules --update-existing
 ```
 
 ---
@@ -374,7 +374,7 @@ Regenerate rules when:
 ### With SDD System
 
 Rules complement SDD workflow:
-- Used during `/sdd-implement` phase
+- Used during `/implement` phase
 - Guide code generation
 - Ensure consistency
 
@@ -452,5 +452,5 @@ Share rules via team commands (Cursor 2.1+):
 ---
 
 **Last Updated:** 2025-10-21  
-**Command:** `/sdd-generate-rules`
+**Command:** `/generate-rules`
 

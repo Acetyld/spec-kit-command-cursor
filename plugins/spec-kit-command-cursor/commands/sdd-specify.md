@@ -1,85 +1,234 @@
 ---
-name: sdd-specify
-description: Write spec.md (WHAT/WHY) plus checklists/requirements.md. Official Spec Kit specify flow. AskQuestion for up to 3 clarifications.
+name: specify
+description: Write detailed spec.md with user stories and acceptance criteria. May fan out sdd-planner siblings; main writes the file.
 ---
 
-# /sdd-specify Command
+# /specify Command
 
-Port of official Spec Kit `/speckit.specify`. `FEATURE_DIR` = `specs/active/[task-id]/`. Main writes files. Fan-out `sdd-planner` only for a clean split; they return text. AskQuestion on main.
+Transform vague feature ideas into detailed, testable requirements with user stories and acceptance criteria.
 
-**See also:** `docs/agent-manual.md`. Template: `sdd/templates/spec-template.md`.
+**Subagent:** For a clean split (e.g. API vs UI), spawn **1–N** `sdd-planner` siblings in one message. They return text only. **Main writes `spec.md`.** Simple specs: stay on main. AskQuestion on main. Uses `sdd-planning` skill.
+
+**See also:** `docs/agent-manual.md` for spawn protocol.
 
 ---
 
 ## Role
 
-Write a stakeholder-facing specification. **WHAT and WHY only** — no tech stack, APIs, or file layout (that is `/sdd-plan`).
+You are a requirements analyst agent. Extract clear, complete requirements through strategic questioning and structured documentation.
+
+**What you do:**
+- Understand the problem and users
+- Ask clarifying questions to fill gaps
+- Define functional and non-functional requirements
+- Create user stories with acceptance criteria
+- Identify edge cases and error scenarios
+- Document success metrics
+
+**What you don't do:**
+- Write implementation code
+- Make technical architecture decisions (that's `/sdd-plan`)
+- Skip questioning if information is missing
+- Create files outside of `specs/`
+- Assume requirements without confirmation
 
 ---
 
 ## Usage
 
 ```
-/sdd-specify [task-id] [feature description]
+/specify [task-id] [feature-description]
 ```
 
-If task-id is omitted, derive a 2–4 word kebab short name from the description (`user-auth`).
+**Examples:**
+- `/specify user-auth User authentication with login, logout, and password reset`
+- `/specify checkout-flow One-page checkout with guest option and multiple payment methods`
+- `/specify notification-system Real-time notifications with email and push support`
 
 ---
 
 ## Instructions
 
-Skip extension hooks. If `.sdd/memory/constitution.md` exists, **load it** and honor MUST principles.
+If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 
-1. Require a feature description. Empty → error.
-2. `FEATURE_DIR` = `specs/active/[task-id]/`. Create the directory. Copy spec-template → `spec.md`.
-3. Extract actors, actions, data, constraints. Fill User Scenarios (P1, P2, … independently testable), Functional Requirements (FR-###), Success Criteria (SC-###, measurable, technology-agnostic), Key Entities, Assumptions.
-4. Max **3** `[NEEDS CLARIFICATION: …]` markers. Prefer informed guesses + Assumptions. Priority: scope > security/privacy > UX > technical.
-5. Write `FEATURE_DIR/checklists/requirements.md`:
+### Phase 1: Analysis
 
-```markdown
-# Specification Quality Checklist: [FEATURE NAME]
+1. **Parse the feature request** - Extract task-id and feature description
+2. **Check for existing research** - Look for `specs/active/[task-id]/research.md` and incorporate findings
+3. **Strategic questioning** — If anything in these categories is unclear, call **AskQuestion** in this turn (do not print the questions as a chat list):
 
-**Purpose**: Validate specification completeness before planning
-**Created**: [DATE]
-**Feature**: [spec.md]
+**Category 1: Problem & Users** — problem, primary users, current pain
+**Category 2: Core Requirements** — must-haves, first slice, out of scope
+**Category 3: Constraints & Success** — tech constraints, success metric, timeline
 
-## Content Quality
-- [ ] No implementation details (languages, frameworks, APIs)
-- [ ] Focused on user value and business needs
-- [ ] Written for non-technical stakeholders
-- [ ] All mandatory sections completed
+Give each question at least two options. Batch into one AskQuestion call. Wait for answers before Phase 2.
 
-## Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain
-- [ ] Requirements are testable and unambiguous
-- [ ] Success criteria are measurable
-- [ ] Success criteria are technology-agnostic
-- [ ] All acceptance scenarios are defined
-- [ ] Edge cases are identified
-- [ ] Scope is clearly bounded
-- [ ] Dependencies and assumptions identified
+**Validation:** Problem clearly stated, at least 3 core features, at least 1 exclusion defined.
 
-## Feature Readiness
-- [ ] All functional requirements have clear acceptance criteria
-- [ ] User scenarios cover primary flows
-- [ ] Feature meets measurable outcomes defined in Success Criteria
-- [ ] No implementation details leak into specification
+### Phase 2: Planning
+
+**Present spec structure before creating:**
+
+```
+## Specification Plan
+
+**Task ID:** [task-id]
+**Feature:** [feature name]
+
+**What I understood:**
+- Problem: [summary]
+- Users: [who]
+- Core features: [list]
+
+**Specification structure:**
+1. Problem Statement
+2. User Personas
+3. Functional Requirements (with user stories)
+4. Non-Functional Requirements
+5. Out of Scope
+6. Edge Cases & Error Handling
+7. Success Metrics
+
+**User stories I'll create:** [count]
+**Edge cases to cover:** [count]
+
+Does this capture what you want?
 ```
 
-6. Validate the spec against each item (up to 3 rewrite iterations). Tick `[x]` only when that quality item passes.
-7. If `[NEEDS CLARIFICATION]` remain (max 3): **one AskQuestion call** with those items (each ≥2 options). After answers, replace markers, re-validate, update checklist.
-8. Next: `/sdd-clarify [task-id]` (recommended) or `/sdd-plan [task-id]`.
+Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / Cancel. Do not only write "Ready to create the spec?" in chat. Wait for the answer before Phase 3.
 
-Do **not** embed other checklists inside spec.md.
+### Phase 3: Execution
+
+**Create directory if it doesn't exist:** `specs/active/[task-id]/`
+
+**Generate `specs/active/[task-id]/spec.md` with this structure:**
+
+```markdown
+# Specification: [Feature Name]
+
+**Task ID:** [task-id]
+**Created:** [date]
+**Status:** Ready for Planning
+**Version:** 1.0
+
+## 1. Problem Statement
+- The Problem: [Clear description]
+- Current Situation: [How users currently handle this]
+- Desired Outcome: [What success looks like]
+
+## 2. User Personas
+### Primary User: [Name]
+- Who: [Description]
+- Goals: [What they want to achieve]
+- Pain points: [Current frustrations]
+
+## 3. Functional Requirements
+### FR-1: [Requirement Name]
+**Description:** [What it does]
+
+**User Story:**
+> As a [user type], I want to [action] so that [benefit].
+
+**Acceptance Criteria:**
+- [ ] Given [context], when [action], then [result]
+- [ ] [Additional criteria]
+
+**Priority:** Must Have / Should Have / Nice to Have
+
+## 4. Non-Functional Requirements
+- Performance: [Specific metrics]
+- Security: [Security requirements]
+- Accessibility: [Accessibility requirements]
+- Scalability: [Scalability requirements]
+
+## 5. Out of Scope
+- ❌ [Exclusion 1] - [Why excluded]
+- ❌ [Exclusion 2] - [Why excluded]
+
+## 6. Edge Cases & Error Handling
+| Scenario | Expected Behavior |
+|----------|-------------------|
+| [Edge case] | [How system handles] |
+
+| Error | User Message | System Action |
+|-------|--------------|---------------|
+| [Error] | "[Message]" | [Action] |
+
+## 7. Success Metrics
+| Metric | Target | How to Measure |
+|--------|--------|----------------|
+| [Metric] | [Target] | [Method] |
+
+## 8. Open Questions
+- [ ] [Question requiring input]
+
+## 9. Revision History
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | [date] | Initial specification |
+
+## Next Steps
+1. Review spec with stakeholders
+2. Resolve open questions
+3. Run `/sdd-plan [task-id]` to create technical plan
+
+*Specification created with SDD 6.0*
+```
+
+### Phase 4: Verification
+
+**Before final output, verify:**
+- File created at `specs/active/[task-id]/spec.md`
+- Problem statement is clear
+- At least 3 user stories with acceptance criteria
+- Non-functional requirements defined
+- Out of scope items listed
+- Edge cases documented
+- Success metrics defined
+
+**Read the file back to verify it exists.**
 
 ---
 
 ## Output
 
-```
-✅ Specification: `specs/active/[task-id]/spec.md`
-Checklist: `specs/active/[task-id]/checklists/requirements.md` ([n]/[n] passing)
+**Your response MUST end with:**
 
-Next: /sdd-clarify [task-id]   or   /sdd-plan [task-id]
 ```
+✅ Specification created: `specs/active/[task-id]/spec.md`
+
+**Summary:**
+- Problem: [One sentence summary]
+- User stories: [Count]
+- Requirements: [Count] functional, [Count] non-functional
+- Edge cases: [Count]
+
+**Key features:**
+1. [Feature 1]
+2. [Feature 2]
+3. [Feature 3]
+
+**Next steps:**
+- Review the specification with stakeholders
+- Run `/sdd-plan [task-id]` to create technical implementation plan
+```
+
+---
+
+## Troubleshooting
+
+**User can't articulate requirements:** Use concrete examples - "When a user [action], what should happen?"
+
+**Too many requirements:** Force prioritization - "If you could only ship 3, which would they be?"
+
+**Conflicting requirements:** Document the conflict - "I notice [X] and [Y] seem to conflict. Which should take priority?"
+
+---
+
+## Related Commands
+
+- `/sdd-plan [task-id]` - Create technical plan from spec
+- `/tasks [task-id]` - Generate task breakdown
+- `/research [task-id]` - Research before specifying
+- `/brief [task-id]` - Quick alternative to full specification
+- `/refine [task-id]` - Iterate on existing spec

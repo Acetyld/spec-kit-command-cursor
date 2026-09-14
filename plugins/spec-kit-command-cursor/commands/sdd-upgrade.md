@@ -1,9 +1,9 @@
 ---
-name: sdd-upgrade
+name: upgrade
 description: Escalate a brief to full SDD (research, spec, plan, tasks).
 ---
 
-# /sdd-upgrade Command
+# /upgrade Command
 
 Escalate from lightweight SDD Quick Planning (Brief) to comprehensive SDD Full Planning when complexity is discovered during development.
 
@@ -18,14 +18,14 @@ Escalate from lightweight SDD Quick Planning (Brief) to comprehensive SDD Full P
 ## Usage
 
 ```
-/sdd-upgrade [task-id] [reason-for-upgrade]
+/upgrade [task-id] [reason-for-upgrade]
 ```
 
 **Examples:**
 ```
-/sdd-upgrade checkout-flow Discovered PCI compliance requirements
-/sdd-upgrade user-auth Multiple third-party integrations needed
-/sdd-upgrade notification-system Architecture more complex than expected
+/upgrade checkout-flow Discovered PCI compliance requirements
+/upgrade user-auth Multiple third-party integrations needed
+/upgrade notification-system Architecture more complex than expected
 ```
 
 ---
@@ -44,8 +44,8 @@ Look for:
 I can't find a feature brief for [task-id].
 
 Would you like to:
-1. Create a brief first: `/sdd-brief [task-id]`
-2. Start with full SDD 6.0: `/sdd-research [task-id]`
+1. Create a brief first: `/brief [task-id]`
+2. Start with full SDD 6.0: `/research [task-id]`
 ```
 
 **Step 2: Read and analyze the brief**
@@ -56,7 +56,7 @@ Extract from brief:
 - Core requirements
 - Technical approach
 - Next actions
-- Any discoveries documented via `/sdd-evolve`
+- Any discoveries documented via `/evolve`
 
 **Step 3: Walk through Escalation Decision Tree**
 
@@ -95,7 +95,7 @@ Let me help you decide if upgrading is the right call.
    - [ ] Significant unknowns to research
 
 **Scoring:**
-- 0-2 checked: Consider staying with brief + `/sdd-evolve`
+- 0-2 checked: Consider staying with brief + `/evolve`
 - 3-5 checked: Upgrade recommended
 - 6+ checked: Definitely upgrade
 
@@ -326,21 +326,21 @@ Before final output, verify:
 **Upgraded from:** SDD Quick Brief → SDD 6.0 Full
 
 **Documents created:**
-- `specs/active/[task-id]/sdd-research.md` - Research & context
+- `specs/active/[task-id]/research.md` - Research & context
 - `specs/active/[task-id]/spec.md` - Full specification
 - `specs/active/[task-id]/plan.md` - Technical architecture
-- `specs/active/[task-id]/sdd-tasks.md` - Implementation breakdown
+- `specs/active/[task-id]/tasks.md` - Implementation breakdown
 
 **Content preserved:** Problem statement, requirements, technical approach, discoveries/changelog
 
-**Next steps:** Review expanded documents, fill gaps if needed, run `/sdd-implement [task-id]` when ready
+**Next steps:** Review expanded documents, fill gaps if needed, run `/implement [task-id]` when ready
 ```
 
 ---
 
 ## When NOT to Upgrade
 
-Stay with brief + `/sdd-evolve` when:
+Stay with brief + `/evolve` when:
 - Timeline is short (< 2 weeks)
 - Scope is well-understood
 - Single developer
@@ -350,7 +350,7 @@ Stay with brief + `/sdd-evolve` when:
 ```
 Based on my analysis, the brief is still sufficient for this feature.
 
-Consider using `/sdd-evolve [task-id]` to add discoveries instead.
+Consider using `/evolve [task-id]` to add discoveries instead.
 
 Still want to upgrade? Confirm and I'll proceed.
 ```
@@ -377,9 +377,9 @@ Still want to upgrade? Confirm and I'll proceed.
 
 ## Related Commands
 
-- `/sdd-brief [task-id]` - Create lightweight brief
-- `/sdd-evolve [task-id]` - Update brief with discoveries
-- `/sdd-research [task-id]` - Deep research (part of SDD 6.0)
-- `/sdd-specify [task-id]` - Full specification (part of SDD 6.0)
+- `/brief [task-id]` - Create lightweight brief
+- `/evolve [task-id]` - Update brief with discoveries
+- `/research [task-id]` - Deep research (part of SDD 6.0)
+- `/specify [task-id]` - Full specification (part of SDD 6.0)
 - `/sdd-plan [task-id]` - Technical plan (part of SDD 6.0)
-- `/sdd-tasks [task-id]` - Task breakdown (part of SDD 6.0)
+- `/tasks [task-id]` - Task breakdown (part of SDD 6.0)

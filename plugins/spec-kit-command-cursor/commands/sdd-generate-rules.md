@@ -1,9 +1,9 @@
 ---
-name: sdd-generate-rules
+name: generate-rules
 description: Generate .cursor/rules from detected project stack.
 ---
 
-# /sdd-generate-rules Command
+# /generate-rules Command
 
 Automatically generate comprehensive Cursor coding rules based on technology stack detection and codebase analysis.
 
@@ -18,7 +18,7 @@ Automatically generate comprehensive Cursor coding rules based on technology sta
 ## Usage
 
 ```
-/sdd-generate-rules [options]
+/generate-rules [options]
 ```
 
 **Options:**
@@ -31,10 +31,10 @@ Automatically generate comprehensive Cursor coding rules based on technology sta
 
 **Examples:**
 ```
-/sdd-generate-rules
-/sdd-generate-rules --language typescript --framework react
-/sdd-generate-rules --analyze-codebase
-/sdd-generate-rules --update-existing
+/generate-rules
+/generate-rules --language typescript --framework react
+/generate-rules --analyze-codebase
+/generate-rules --update-existing
 ```
 
 ---
@@ -92,7 +92,7 @@ Then call **AskQuestion**: "Which rules should I generate?" → All new / Only m
 
 **Total:** [N] rule files. Rules are now active for all AI interactions.
 
-**To customize:** Edit files in `.cursor/rules/` or run `/sdd-generate-rules --update-existing` to refresh
+**To customize:** Edit files in `.cursor/rules/` or run `/generate-rules --update-existing` to refresh
 ```
 
 ---
@@ -128,6 +128,6 @@ alwaysApply: false  # true = apply to every request
 
 ## Related Commands
 
-- `/sdd-brief [task-id]` - Create feature brief
-- `/sdd-research [task-id]` - Research patterns
-- `/sdd-implement [task-id]` - Implementation (rules apply here)
+- `/brief [task-id]` - Create feature brief
+- `/research [task-id]` - Research patterns
+- `/implement [task-id]` - Implementation (rules apply here)

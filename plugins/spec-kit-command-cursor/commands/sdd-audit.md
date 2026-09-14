@@ -1,9 +1,9 @@
 ---
-name: sdd-audit
+name: audit
 description: Spec-driven audit via sdd-reviewer and sdd-audit skill.
 ---
 
-# /sdd-audit Command
+# /audit Command
 
 Perform a spec-driven technical audit, comparing implementation against specifications. Generate actionable review comments with severity levels.
 
@@ -27,14 +27,14 @@ Perform a spec-driven technical audit, comparing implementation against specific
 ## Usage
 
 ```
-/sdd-audit [task-id] [optional: specific-issue]
+/audit [task-id] [optional: specific-issue]
 ```
 
 **Examples:**
 ```
-/sdd-audit user-auth
-/sdd-audit checkout-flow Payment processing failing
-/sdd-audit notification-system Notifications not sending on mobile
+/audit user-auth
+/audit checkout-flow Payment processing failing
+/audit notification-system Notifications not sending on mobile
 ```
 
 ---
@@ -46,10 +46,10 @@ Perform a spec-driven technical audit, comparing implementation against specific
 Read in order:
 1. `specs/active/[task-id]/spec.md` - Requirements
 2. `specs/active/[task-id]/plan.md` - Technical plan
-3. `specs/active/[task-id]/sdd-tasks.md` - Task breakdown
+3. `specs/active/[task-id]/tasks.md` - Task breakdown
 4. `specs/active/[task-id]/todo-list.md` - Implementation checklist
 
-**If no specs found:** Offer general code review or suggest creating specs with `/sdd-brief [task-id]`
+**If no specs found:** Offer general code review or suggest creating specs with `/brief [task-id]`
 
 ### Phase 2: Analyze Implementation
 
@@ -153,7 +153,7 @@ When user requests fixes:
 
 ## Related Commands
 
-- `/sdd-implement [task-id]` - Execute implementation
-- `/sdd-evolve [task-id]` - Update specs with findings
-- `/sdd-specify [task-id]` - Create/update specification
+- `/implement [task-id]` - Execute implementation
+- `/evolve [task-id]` - Update specs with findings
+- `/specify [task-id]` - Create/update specification
 - `/sdd-plan [task-id]` - Update technical plan

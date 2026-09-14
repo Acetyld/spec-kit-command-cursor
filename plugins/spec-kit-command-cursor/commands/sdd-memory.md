@@ -110,5 +110,5 @@ To change later: `/sdd-memory use <provider>`
 ## Related
 
 - `sdd-memory` skill — read/write protocol per provider
-- `/sdd-generate-rules` — the `standard` provider leans on generated rules
+- `/generate-rules` — the `standard` provider leans on generated rules
 - `.sdd/config.json` — `memory` block

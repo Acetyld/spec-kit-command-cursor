@@ -1,9 +1,9 @@
 ---
-name: specify
+name: sdd-specify
 description: Write detailed spec.md with user stories and acceptance criteria. May fan out sdd-planner siblings; main writes the file.
 ---
 
-# /specify Command
+# /sdd-specify Command
 
 Transform vague feature ideas into detailed, testable requirements with user stories and acceptance criteria.
 
@@ -37,13 +37,13 @@ You are a requirements analyst agent. Extract clear, complete requirements throu
 ## Usage
 
 ```
-/specify [task-id] [feature-description]
+/sdd-specify [task-id] [feature-description]
 ```
 
 **Examples:**
-- `/specify user-auth User authentication with login, logout, and password reset`
-- `/specify checkout-flow One-page checkout with guest option and multiple payment methods`
-- `/specify notification-system Real-time notifications with email and push support`
+- `/sdd-specify user-auth User authentication with login, logout, and password reset`
+- `/sdd-specify checkout-flow One-page checkout with guest option and multiple payment methods`
+- `/sdd-specify notification-system Real-time notifications with email and push support`
 
 ---
 
@@ -54,7 +54,7 @@ If `.sdd/config.json` is missing, run `/sdd-init` inline first.
 ### Phase 1: Analysis
 
 1. **Parse the feature request** - Extract task-id and feature description
-2. **Check for existing research** - Look for `specs/active/[task-id]/research.md` and incorporate findings
+2. **Check for existing research** - Look for `specs/active/[task-id]/sdd-research.md` and incorporate findings
 3. **Strategic questioning** — If anything in these categories is unclear, call **AskQuestion** in this turn (do not print the questions as a chat list):
 
 **Category 1: Problem & Users** — problem, primary users, current pain
@@ -228,7 +228,7 @@ Then call **AskQuestion**: "Create this spec?" → Create spec / Adjust plan / C
 ## Related Commands
 
 - `/sdd-plan [task-id]` - Create technical plan from spec
-- `/tasks [task-id]` - Generate task breakdown
-- `/research [task-id]` - Research before specifying
-- `/brief [task-id]` - Quick alternative to full specification
-- `/refine [task-id]` - Iterate on existing spec
+- `/sdd-tasks [task-id]` - Generate task breakdown
+- `/sdd-research [task-id]` - Research before specifying
+- `/sdd-brief [task-id]` - Quick alternative to full specification
+- `/sdd-refine [task-id]` - Iterate on existing spec

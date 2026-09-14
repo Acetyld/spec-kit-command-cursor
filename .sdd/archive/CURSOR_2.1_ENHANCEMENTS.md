@@ -38,7 +38,7 @@ When running any SDD command, if questions are needed, they'll appear in an inte
 
 **Example:**
 ```
-/brief user-notifications Add notifications feature
+/sdd-brief user-notifications Add notifications feature
 
 AI: [Shows interactive question UI]
     "What types of notifications? (Email, Push, In-App)"
@@ -81,7 +81,7 @@ You can now search inside generated plans using ⌘+F (Cmd+F on Mac, Ctrl+F on W
 
 **Example:**
 ```
-/specify blog-platform Full blog with CMS
+/sdd-specify blog-platform Full blog with CMS
 
 [Plan generated - 200+ lines]
 
@@ -98,7 +98,7 @@ You can now search inside generated plans using ⌘+F (Cmd+F on Mac, Ctrl+F on W
 Cursor automatically reviews code changes and shows issues in the sidepanel. You can fix bugs directly in the editor.
 
 **SDD Integration:**
-- Integrated into `/implement` command workflow
+- Integrated into `/sdd-implement` command workflow
 - Automatic review after implementation
 - Issues appear in sidepanel
 - Fix bugs without leaving editor
@@ -111,7 +111,7 @@ Cursor automatically reviews code changes and shows issues in the sidepanel. You
 - 🎯 Pattern consistency checks
 
 **Workflow:**
-1. Run `/implement [task-id]`
+1. Run `/sdd-implement [task-id]`
 2. Code is implemented
 3. Cursor automatically reviews changes
 4. Issues appear in sidepanel
@@ -128,7 +128,7 @@ Cursor automatically reviews code changes and shows issues in the sidepanel. You
 
 **Example:**
 ```
-/implement user-auth-system
+/sdd-implement user-auth-system
 
 [Implementation completes]
 
@@ -156,7 +156,7 @@ AI: ✅ Implementation complete!
 All grep commands executed by the agent are now instant. This also applies to manual codebase searches.
 
 **SDD Integration:**
-- Dramatically faster `/research` command
+- Dramatically faster `/sdd-research` command
 - Real-time pattern discovery
 - Multiple parallel searches possible
 - Better codebase exploration
@@ -168,7 +168,7 @@ All grep commands executed by the agent are now instant. This also applies to ma
 - 🎯 Real-time codebase understanding
 
 **Usage:**
-The `/research` command now leverages instant grep:
+The `/sdd-research` command now leverages instant grep:
 - Search for patterns instantly
 - Run multiple searches in parallel
 - Get immediate feedback
@@ -176,7 +176,7 @@ The `/research` command now leverages instant grep:
 
 **Example:**
 ```
-/research auth-system JWT authentication patterns
+/sdd-research auth-system JWT authentication patterns
 
 AI: [Uses instant grep]
     Searching for: "JWT", "token", "authentication"
@@ -263,9 +263,9 @@ Execute multiple independent tasks from roadmap:
 
 ```bash
 # Execute 3 independent tasks in parallel
-/execute-task task-001  # Agent 1 - Research
-/execute-task task-002  # Agent 2 - Specification
-/execute-task task-003  # Agent 3 - Planning
+/sdd-execute-task task-001  # Agent 1 - Research
+/sdd-execute-task task-002  # Agent 2 - Specification
+/sdd-execute-task task-003  # Agent 3 - Planning
 ```
 
 **When to Use:**
@@ -284,11 +284,11 @@ Execute multiple independent tasks from roadmap:
 ```
 Roadmap has 5 independent tasks ready:
 
-/execute-task task-001  # Agent 1 starts
-/execute-task task-002  # Agent 2 starts
-/execute-task task-003  # Agent 3 starts
-/execute-task task-004  # Agent 4 starts
-/execute-task task-005  # Agent 5 starts
+/sdd-execute-task task-001  # Agent 1 starts
+/sdd-execute-task task-002  # Agent 2 starts
+/sdd-execute-task task-003  # Agent 3 starts
+/sdd-execute-task task-004  # Agent 4 starts
+/sdd-execute-task task-005  # Agent 5 starts
 
 [All 5 tasks execute in parallel]
 [Each in isolated environment]
@@ -322,11 +322,11 @@ You can define custom commands in the Cursor dashboard that are shared across yo
 4. Commands available to all automatically
 
 **SDD Commands Available:**
-- `/brief` - Quick feature planning
+- `/sdd-brief` - Quick feature planning
 - `/sdd-full-plan` - Complete roadmaps
-- `/execute-task` - Task execution
-- `/research`, `/specify`, `/plan`, `/tasks`, `/implement`
-- `/evolve`, `/upgrade`
+- `/sdd-execute-task` - Task execution
+- `/sdd-research`, `/sdd-specify`, `/plan`, `/sdd-tasks`, `/sdd-implement`
+- `/sdd-evolve`, `/sdd-upgrade`
 
 **Benefits for Teams:**
 - Consistent SDD workflow
@@ -373,13 +373,13 @@ You can control Agent with your voice using built-in speech-to-text conversion.
 **Usage:**
 ```
 Voice: "Create a brief for user notifications feature"
-AI: [Runs /brief command]
+AI: [Runs /sdd-brief command]
 
 Voice: "Add email and push notifications with preferences"
 AI: [Continues with brief creation]
 
 Voice: "Execute task epic-001"
-AI: [Runs /execute-task epic-001]
+AI: [Runs /sdd-execute-task epic-001]
 ```
 
 **Best For:**
@@ -403,16 +403,16 @@ All SDD commands now leverage Cursor 2.1 features:
 
 | Command | Interactive UI | Plan Search | Code Review | Instant Grep | Background | Multi-Agent | Team | Voice |
 |---------|---------------|-------------|-------------|--------------|------------|-------------|------|-------|
-| `/brief` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
-| `/evolve` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
-| `/research` | ✅ | ✅ | - | ✅ | - | - | ✅ | ✅ |
-| `/specify` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
+| `/sdd-brief` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
+| `/sdd-evolve` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
+| `/sdd-research` | ✅ | ✅ | - | ✅ | - | - | ✅ | ✅ |
+| `/sdd-specify` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
 | `/plan` | ✅ | ✅ | - | ✅ | ✅ | - | ✅ | ✅ |
-| `/tasks` | ✅ | ✅ | - | - | - | ✅ | ✅ | ✅ |
-| `/implement` | ✅ | ✅ | ✅ | - | - | ✅ | ✅ | ✅ |
-| `/upgrade` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
+| `/sdd-tasks` | ✅ | ✅ | - | - | - | ✅ | ✅ | ✅ |
+| `/sdd-implement` | ✅ | ✅ | ✅ | - | - | ✅ | ✅ | ✅ |
+| `/sdd-upgrade` | ✅ | ✅ | - | - | - | - | ✅ | ✅ |
 | `/sdd-full-plan` | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `/execute-task` | ✅ | ✅ | ✅ | - | - | ✅ | ✅ | ✅ |
+| `/sdd-execute-task` | ✅ | ✅ | ✅ | - | - | ✅ | ✅ | ✅ |
 
 ---
 

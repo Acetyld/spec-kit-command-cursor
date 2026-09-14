@@ -27,7 +27,7 @@ Generate a detailed technical implementation plan from specifications, including
 
 **Boundaries:** Do not write implementation code or create source files. Focus on planning and design only.
 
-**Not Cursor Plan mode.** Stay in Agent mode. Do **not** call SwitchMode / Plan mode. Do **not** create a Cursor Plan (the UI with **Build**). The only deliverable is `specs/active/[task-id]/plan.md`. Next step is `/tasks` or `/implement`, never "press Build".
+**Not Cursor Plan mode.** Stay in Agent mode. Do **not** call SwitchMode / Plan mode. Do **not** create a Cursor Plan (the UI with **Build**). The only deliverable is `specs/active/[task-id]/plan.md`. Next step is `/sdd-tasks` or `/sdd-implement`, never "press Build".
 
 ---
 
@@ -60,9 +60,9 @@ Generate a detailed technical implementation plan from specifications, including
 1. **Read specifications** in order:
    - `specs/active/[task-id]/spec.md` (preferred)
    - `specs/active/[task-id]/feature-brief.md` (alternative)
-   - `specs/active/[task-id]/research.md` (if exists)
+   - `specs/active/[task-id]/sdd-research.md` (if exists)
 
-   **If no spec found:** Prompt user to run `/specify` or `/brief` first.
+   **If no spec found:** Prompt user to run `/sdd-specify` or `/sdd-brief` first.
 
 2. **Extract requirements:**
    - Functional and non-functional requirements
@@ -142,8 +142,8 @@ Wait for the AskQuestion answer before Phase 3.
 
 ## Next Steps
 - Review plan
-- Run `/tasks [task-id]` to generate tasks
-- Run `/implement [task-id]` to start building
+- Run `/sdd-tasks [task-id]` to generate tasks
+- Run `/sdd-implement [task-id]` to start building
 ```
 
 **Verify:** Read the file back to confirm it was created correctly.
@@ -167,15 +167,15 @@ Wait for the AskQuestion answer before Phase 3.
 
 **Next steps:**
 - Review the technical plan
-- Run `/tasks [task-id]` to generate implementation tasks
-- Or run `/implement [task-id]` if tasks are clear
+- Run `/sdd-tasks [task-id]` to generate implementation tasks
+- Or run `/sdd-implement [task-id]` if tasks are clear
 ```
 
 ---
 
 ## Troubleshooting
 
-- **Vague spec:** Ask clarifying questions or suggest `/specify`
+- **Vague spec:** Ask clarifying questions or suggest `/sdd-specify`
 - **Conflicting requirements:** Document conflict and ask for resolution
 - **Unknown tech stack:** Present options with pros/cons, or check research.md
 
@@ -183,8 +183,8 @@ Wait for the AskQuestion answer before Phase 3.
 
 ## Related Commands
 
-- `/tasks [task-id]` - Generate implementation tasks from plan
-- `/implement [task-id]` - Start implementation
-- `/specify [task-id]` - Create detailed requirements (prerequisite)
-- `/research [task-id]` - Research options before planning
-- `/brief [task-id]` - Quick planning alternative
+- `/sdd-tasks [task-id]` - Generate implementation tasks from plan
+- `/sdd-implement [task-id]` - Start implementation
+- `/sdd-specify [task-id]` - Create detailed requirements (prerequisite)
+- `/sdd-research [task-id]` - Research options before planning
+- `/sdd-brief [task-id]` - Quick planning alternative

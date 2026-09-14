@@ -65,6 +65,6 @@ Modify the appropriate files: `spec.md`, `plan.md`, `tasks.md`, `todo-list.md`.
 ## Integration
 
 - Called during `sdd-implementer` subagent work
-- Triggered by `/evolve` command
-- Feeds into future `/audit` runs
+- Triggered by `/sdd-evolve` command
+- Feeds into future `/sdd-audit` runs
 - Use the ask question tool if change requires stakeholder input

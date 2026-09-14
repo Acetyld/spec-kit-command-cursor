@@ -1,13 +1,13 @@
 ---
-name: implement
+name: sdd-implement
 description: Finish the spec — expand every tasks.md item into todo-list.md, keep going until all todos are done or blocked, sibling verifier on the whole list. Not Cursor Build.
 ---
 
-# /implement Command
+# /sdd-implement Command
 
 Execute the planned implementation until the spec is finished.
 
-**`/implement` means finish the spec.** Copy every task from `tasks.md` into `todo-list.md` (one checkbox each). Keep coding after each phase. Do not stop at Phase 1. Do not print “Implementation complete” while unchecked items remain.
+**`/sdd-implement` means finish the spec.** Copy every task from `tasks.md` into `todo-list.md` (one checkbox each). Keep coding after each phase. Do not stop at Phase 1. Do not print “Implementation complete” while unchecked items remain.
 
 **Subagent:** Long or parallel work → `sdd-implementer` siblings (background). After they return, spawn `sdd-verifier` as **siblings** (parent only). Implementer never spawns verifier.
 
@@ -28,7 +28,7 @@ Execute the planned implementation until the spec is finished.
 - Document blockers and deviations
 - Write production-quality code
 
-This is SDD `/implement`, not Cursor **Build**. Require `plan.md` (or send them back to `/sdd-plan` / `/brief`). Do not SwitchMode to Plan mode.
+This is SDD `/sdd-implement`, not Cursor **Build**. Require `plan.md` (or send them back to `/sdd-plan` / `/sdd-brief`). Do not SwitchMode to Plan mode.
 
 ---
 
@@ -40,16 +40,16 @@ This is SDD `/implement`, not Cursor **Build**. Require `plan.md` (or send them 
 ## Usage
 
 ```
-/implement [task-id]
+/sdd-implement [task-id]
 ```
 
 **Examples:**
 ```
-/implement user-auth-system
-/implement checkout-flow
+/sdd-implement user-auth-system
+/sdd-implement checkout-flow
 ```
 
-A later `/implement [task-id]` or the user saying `continue` **resumes** the same todo-list. It does not start a new slice-and-stop.
+A later `/sdd-implement [task-id]` or the user saying `continue` **resumes** the same todo-list. It does not start a new slice-and-stop.
 
 ---
 
@@ -60,11 +60,11 @@ A later `/implement [task-id]` or the user saying `continue` **resumes** the sam
 Read planning documents in order:
 1. `specs/active/[task-id]/plan.md` (REQUIRED)
 2. `specs/active/[task-id]/spec.md` (if exists)
-3. `specs/active/[task-id]/tasks.md` (if exists)
-4. `specs/active/[task-id]/research.md` (if exists)
+3. `specs/active/[task-id]/sdd-tasks.md` (if exists)
+4. `specs/active/[task-id]/sdd-research.md` (if exists)
 5. `specs/active/[task-id]/feature-brief.md` (if exists)
 
-**If plan.md doesn't exist:** Suggest running `/sdd-plan [task-id]` or `/brief [task-id]` first.
+**If plan.md doesn't exist:** Suggest running `/sdd-plan [task-id]` or `/sdd-brief [task-id]` first.
 
 Check for existing `todo-list.md` in the task directory.
 
@@ -115,7 +115,7 @@ If `/goal` / `CreateGoal` exists, set it now (whole spec, not one phase).
 
 **Show progress** after every 3-5 completed items — then keep going. Progress is not permission to stop.
 
-**Forced pause** (context exhausted, hard blocker on every remaining todo): write progress to `todo-list.md`, then use the **Paused** output below. The last line must be the next action: `Reply continue` or `/implement [task-id]`. Listing leftover phase names without that line is not allowed.
+**Forced pause** (context exhausted, hard blocker on every remaining todo): write progress to `todo-list.md`, then use the **Paused** output below. The last line must be the next action: `Reply continue` or `/sdd-implement [task-id]`. Listing leftover phase names without that line is not allowed.
 
 ### Phase 4: Verification
 
@@ -167,7 +167,7 @@ Use **exactly one** of these. Never the complete template while unchecked todos 
 **Next steps:**
 - Run tests: `[test command]`
 - Review changes in IDE
-- Update specs: `/evolve [task-id] [discovery]`
+- Update specs: `/sdd-evolve [task-id] [discovery]`
 - Close spec: `/sdd-complete [task-id]` (moves `specs/active/` → `specs/completed/`)
 
 **Files:**
@@ -186,14 +186,14 @@ Use **exactly one** of these. Never the complete template while unchecked todos 
 - [id]: [title]
 - [id]: [title]
 
-**Next:** reply `continue` or run `/implement [task-id]`
+**Next:** reply `continue` or run `/sdd-implement [task-id]`
 ```
 
 ---
 
 ## Troubleshooting
 
-**No plan.md found:** Run `/sdd-plan [task-id]` or `/brief [task-id]` first
+**No plan.md found:** Run `/sdd-plan [task-id]` or `/sdd-brief [task-id]` first
 
 **Todo item too large:** Break into subtasks (e.g., "Implement authentication" → auth service, login endpoint, logout endpoint, JWT generation, middleware)
 
@@ -208,7 +208,7 @@ Long work: `sdd-implementer` (background). After it returns, **this agent** spaw
 ## Related Commands
 
 - `/sdd-plan [task-id]` - Create implementation plan
-- `/tasks [task-id]` - Generate task breakdown + full `todo-list.md`
-- `/evolve [task-id]` - Update specs with discoveries
+- `/sdd-tasks [task-id]` - Generate task breakdown + full `todo-list.md`
+- `/sdd-evolve [task-id]` - Update specs with discoveries
 - `/sdd-complete [task-id]` - Archive finished spec to `specs/completed/`
-- `/brief [task-id]` - Quick planning alternative
+- `/sdd-brief [task-id]` - Quick planning alternative

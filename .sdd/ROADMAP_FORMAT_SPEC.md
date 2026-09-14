@@ -37,7 +37,7 @@ specs/todo-roadmap/
 
 ### execution-checkpoint.json (Resume Support)
 
-Written after each batch during `/execute-parallel --until-finish`. Enables `/execute-parallel [project-id] --resume`:
+Written after each batch during `/sdd-execute-parallel --until-finish`. Enables `/sdd-execute-parallel [project-id] --resume`:
 
 ```typescript
 interface ExecutionCheckpoint {
@@ -157,9 +157,9 @@ interface Task {
   // SDD Integration
   sdd: {
     phase: SDDPhase;              // SDD phase: "research" | "brief" | "specification" | "planning" | "tasks" | "implementation"
-    commands: string[];           // SDD commands to run: ["/research", "/specify", etc.]
+    commands: string[];           // SDD commands to run: ["/sdd-research", "/sdd-specify", etc.]
     linkedSpec: string | null;    // Path to spec in specs/active/
-    executeCommand: string;       // Command to execute this task: "/execute-task task-id"
+    executeCommand: string;       // Command to execute this task: "/sdd-execute-task task-id"
     touchedFiles?: string[];      // File paths/globs this task modifies (e.g. ["src/auth/**", "package.json"]) — used for conflict detection in parallel execution
     executedAt: ISO8601DateTime | null;     // When task was executed
     completedAt: ISO8601DateTime | null;    // When task was completed
@@ -326,24 +326,24 @@ Cross-statuses:
 
 | SDD Phase | Command | Output Files | Spec Location |
 |-----------|---------|--------------|---------------|
-| research | `/research` | research.md | specs/active/[task-id]/ |
-| brief | `/brief` | feature-brief.md | specs/active/[task-id]/ |
-| specification | `/specify` | spec.md | specs/active/[task-id]/ |
+| research | `/sdd-research` | research.md | specs/active/[task-id]/ |
+| brief | `/sdd-brief` | feature-brief.md | specs/active/[task-id]/ |
+| specification | `/sdd-specify` | spec.md | specs/active/[task-id]/ |
 | planning | `/sdd-plan` | plan.md | specs/active/[task-id]/ |
-| tasks | `/tasks` | tasks.md | specs/active/[task-id]/ |
-| implementation | `/implement` | todo-list.md + code | specs/active/[task-id]/ |
-| evolution | `/evolve` | updated docs | specs/active/[task-id]/ |
-| upgrade | `/upgrade` | full suite | specs/active/[task-id]/ |
+| tasks | `/sdd-tasks` | tasks.md | specs/active/[task-id]/ |
+| implementation | `/sdd-implement` | todo-list.md + code | specs/active/[task-id]/ |
+| evolution | `/sdd-evolve` | updated docs | specs/active/[task-id]/ |
+| upgrade | `/sdd-upgrade` | full suite | specs/active/[task-id]/ |
 
 ### Command Execution Flow
 
 ```
-1. User runs: /execute-task task-001
+1. User runs: /sdd-execute-task task-001
 2. System reads: roadmap.json → tasks.task-001
 3. Determines: task-001.sdd.phase = "research"
-4. Maps to: /research task-001 [description]
+4. Maps to: /sdd-research task-001 [description]
 5. Executes: SDD command with PLAN mode
-6. Creates: specs/active/task-001/research.md
+6. Creates: specs/active/task-001/sdd-research.md
 7. Updates: task-001.sdd.linkedSpec = "specs/active/task-001"
 8. Changes: task-001.status = "review"
 9. Logs: execution-log.md entry
@@ -425,7 +425,7 @@ Future VSCode extensions can:
 2. **Display columns** - Render task columns
 3. **Show task details** - Display full task info
 4. **Drag-and-drop** - Move tasks between columns
-5. **Execute tasks** - Run `/execute-task` via command
+5. **Execute tasks** - Run `/sdd-execute-task` via command
 6. **Update status** - Sync changes back to JSON
 7. **Track progress** - Calculate completion percentage
 
@@ -440,10 +440,10 @@ Future VSCode extensions can:
 **Usage:**
 ```bash
 # Execute independent tasks in parallel via orchestrator
-/execute-parallel --until-finish
+/sdd-execute-parallel --until-finish
 
 # Or execute a single task
-/execute-task task-001
+/sdd-execute-task task-001
 ```
 
 ### Extension Development
@@ -473,7 +473,7 @@ function executeTask(taskId: string): void {
   // Send command to Cursor
   vscode.commands.executeCommand(
     'cursor.runCommand',
-    `/execute-task ${taskId}`
+    `/sdd-execute-task ${taskId}`
   );
 }
 ```

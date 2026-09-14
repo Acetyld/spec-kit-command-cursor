@@ -1,6 +1,6 @@
 > **ARCHIVED** - This document is a historical record.  
-> Execution modes are now handled via `/execute-task` (sequential) and `/execute-parallel` (DAG-based parallel).  
-> See `.cursor/commands/execute-task.md` and `.cursor/commands/execute-parallel.md` for current documentation.
+> Execution modes are now handled via `/sdd-execute-task` (sequential) and `/sdd-execute-parallel` (DAG-based parallel).  
+> See `.cursor/commands/sdd-execute-task.md` and `.cursor/commands/sdd-execute-parallel.md` for current documentation.
 
 # Execution Mode Enhancement
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-Enhanced `/sdd-full-plan` and `/pecut-all-in-one` commands to ask users how they want to proceed with task creation - either step-by-step (one-by-one) for learning, or all-at-once (immediate) for fast setup.
+Enhanced `/sdd-full-plan` and `/sdd-full-plan` commands to ask users how they want to proceed with task creation - either step-by-step (one-by-one) for learning, or all-at-once (immediate) for fast setup.
 
 ## The Enhancement
 
@@ -103,7 +103,7 @@ Ready for Epic 2?
 Total epics: 5
 Total tasks: 20
 All tasks ready for execution!
-Start with: /execute-task epic-001
+Start with: /sdd-execute-task epic-001
 ```
 
 ### Mode Switching
@@ -126,7 +126,7 @@ Would you like to:
    - Updated Notes for AI Assistants
    - Enhanced Phase 4 documentation
 
-2. **`.cursor/commands/pecut-all-in-one.md`**
+2. **`.cursor/commands/sdd-full-plan.md`**
    - Added execution mode explanation
    - Documented both modes
 
@@ -162,7 +162,7 @@ Would you like to:
 
 ### Immediate Mode
 ```bash
-/pecut-all-in-one notifications Add email notifications
+/sdd-full-plan notifications Add email notifications
 
 # AI presents plan → User approves
 # AI asks: "One-by-One or Immediate?"

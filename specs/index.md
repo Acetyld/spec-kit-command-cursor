@@ -27,7 +27,7 @@
 
 ## Quick Actions
 
-- Create new feature: `/brief [task-id] [description]`
+- Create new feature: `/sdd-brief [task-id] [description]`
 - Full project roadmap: `/sdd-full-plan [project-id] [description]`
 - View active specs: `specs/active/`
 - View roadmaps: `specs/todo-roadmap/`
@@ -38,14 +38,14 @@ Each command writes to `specs/active/[task-id]/`:
 
 | Command | Creates |
 |---------|---------|
-| `/brief` | `feature-brief.md` |
-| `/research` | `research.md` |
-| `/specify` | `spec.md` |
+| `/sdd-brief` | `feature-brief.md` |
+| `/sdd-research` | `research.md` |
+| `/sdd-specify` | `spec.md` |
 | `/sdd-plan` | `plan.md` |
-| `/tasks` | `tasks.md` |
-| `/implement` | `todo-list.md` + code |
-| `/evolve` | Updates existing spec files |
-| `/audit` | Audit report (in chat, not saved) |
+| `/sdd-tasks` | `tasks.md` |
+| `/sdd-implement` | `todo-list.md` + code |
+| `/sdd-evolve` | Updates existing spec files |
+| `/sdd-audit` | Audit report (in chat, not saved) |
 
 Project roadmaps go to `specs/todo-roadmap/[project-id]/`.
 

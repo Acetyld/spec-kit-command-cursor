@@ -53,8 +53,8 @@ If your team has SDD commands in a repository:
 For each SDD command:
 
 1. Click **New Command**
-2. Enter command name (e.g., `brief`)
-3. Paste command content from `.cursor/commands/brief.md`
+2. Enter command name (e.g., `sdd-brief`)
+3. Paste command content from `.cursor/commands/sdd-brief.md`
 4. Save command
 
 ### Step 3: Configure Command Access
@@ -87,14 +87,14 @@ For each SDD command:
 
 ### Primary Commands (SDD 6.0)
 
-1. **`brief`** - Quick feature planning
-   - Source: `.cursor/commands/brief.md`
-   - Usage: `/brief [task-id] [description]`
+1. **`sdd-brief`** - Quick feature planning
+   - Source: `.cursor/commands/sdd-brief.md`
+   - Usage: `/sdd-brief [task-id] [description]`
    - Team-wide: ✅ Recommended
 
-2. **`evolve`** - Living documentation
-   - Source: `.cursor/commands/evolve.md`
-   - Usage: `/evolve [task-id] [change]`
+2. **`sdd-evolve`** - Living documentation
+   - Source: `.cursor/commands/sdd-evolve.md`
+   - Usage: `/sdd-evolve [task-id] [change]`
    - Team-wide: ✅ Recommended
 
 ### Full Planning Commands
@@ -104,48 +104,43 @@ For each SDD command:
    - Usage: `/sdd-full-plan [project-id] [description]`
    - Team-wide: ✅ Recommended
 
-4. **`pecut-all-in-one`** - Alias for sdd-full-plan
-   - Source: `.cursor/commands/pecut-all-in-one.md`
-   - Usage: `/pecut-all-in-one [project-id] [description]`
-   - Team-wide: ✅ Optional (personal preference)
-
-5. **`execute-task`** - Task execution
-   - Source: `.cursor/commands/execute-task.md`
-   - Usage: `/execute-task [task-id]`
+4. **`sdd-execute-task`** - Task execution
+   - Source: `.cursor/commands/sdd-execute-task.md`
+   - Usage: `/sdd-execute-task [task-id]`
    - Team-wide: ✅ Recommended
 
 ### Advanced Commands (SDD 6.0 Full Planning)
 
-6. **`research`** - Pattern investigation
-   - Source: `.cursor/commands/research.md`
-   - Usage: `/research [task-id] [topic]`
+5. **`sdd-research`** - Pattern investigation
+   - Source: `.cursor/commands/sdd-research.md`
+   - Usage: `/sdd-research [task-id] [topic]`
    - Team-wide: ✅ Recommended
 
-7. **`specify`** - Requirements specification
-   - Source: `.cursor/commands/specify.md`
-   - Usage: `/specify [feature-name] [description]`
+6. **`sdd-specify`** - Requirements specification
+   - Source: `.cursor/commands/sdd-specify.md`
+   - Usage: `/sdd-specify [feature-name] [description]`
    - Team-wide: ✅ Recommended
 
-8. **`plan`** - Technical planning
+7. **`sdd-plan`** - Technical planning
    - Source: `.cursor/commands/sdd-plan.md`
    - Usage: `/sdd-plan [feature-name]`
    - Team-wide: ✅ Recommended
 
-9. **`tasks`** - Task breakdown
-   - Source: `.cursor/commands/tasks.md`
-   - Usage: `/tasks [feature-name]`
+8. **`sdd-tasks`** - Task breakdown
+   - Source: `.cursor/commands/sdd-tasks.md`
+   - Usage: `/sdd-tasks [feature-name]`
    - Team-wide: ✅ Recommended
 
-10. **`implement`** - Implementation execution
-    - Source: `.cursor/commands/implement.md`
-    - Usage: `/implement [task-id]`
-    - Team-wide: ✅ Recommended
+9. **`sdd-implement`** - Implementation execution
+   - Source: `.cursor/commands/sdd-implement.md`
+   - Usage: `/sdd-implement [task-id]`
+   - Team-wide: ✅ Recommended
 
 ### Escalation Commands
 
-11. **`upgrade`** - Brief to full SDD
-    - Source: `.cursor/commands/upgrade.md`
-    - Usage: `/upgrade [task-id] [reason]`
+10. **`sdd-upgrade`** - Brief to full SDD
+    - Source: `.cursor/commands/sdd-upgrade.md`
+    - Usage: `/sdd-upgrade [task-id] [reason]`
     - Team-wide: ✅ Recommended
 
 ---
@@ -157,7 +152,7 @@ For each SDD command:
 For each command, configure:
 
 **Basic Info:**
-- **Name:** Command identifier (e.g., `brief`)
+- **Name:** Command identifier (e.g., `sdd-brief`)
 - **Description:** What the command does
 - **Category:** SDD Primary, SDD Advanced, SDD Planning
 
@@ -174,11 +169,11 @@ For each command, configure:
 ### Example Configuration
 
 ```yaml
-Command: brief
+Command: sdd-brief
 Name: Brief Feature Planning
 Description: Create 30-minute feature brief for rapid development
 Category: SDD Primary
-Source: .cursor/commands/brief.md
+Source: .cursor/commands/sdd-brief.md
 Visibility: Public
 Permissions: All Team Members
 Version: 2.1
@@ -198,10 +193,10 @@ Version: 2.1
 
 **Command Usage:**
 ```
-Type: /brief
+Type: /sdd-brief
 See: "Brief Feature Planning" in dropdown
 Select: Command appears
-Use: /brief user-notifications Add notifications
+Use: /sdd-brief user-notifications Add notifications
 ```
 
 **No Local Files Needed:**
@@ -265,7 +260,7 @@ Use: /brief user-notifications Add notifications
 ### For Admins
 
 1. **Start with Core Commands**
-   - Add `/brief` and `/sdd-full-plan` first
+   - Add `/sdd-brief` and `/sdd-full-plan` first
    - Let team get familiar
    - Add more commands gradually
 
@@ -381,7 +376,7 @@ Use: /brief user-notifications Add notifications
 ### Example 1: Small Team Setup
 
 **Team:** 5 developers
-**Commands:** `/brief`, `/sdd-full-plan`, `/execute-task`
+**Commands:** `/sdd-brief`, `/sdd-full-plan`, `/sdd-execute-task`
 
 **Setup Time:** 10 minutes
 **Result:** Consistent SDD workflow across team

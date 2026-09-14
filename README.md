@@ -21,10 +21,10 @@ Install the plugin from this repo (Cursor → Plugins → add git marketplace), 
 
 ```
 /sdd-init
-/brief user-auth JWT authentication with login/logout
+/sdd-brief user-auth JWT authentication with login/logout
 ```
 
-`/sdd-init` creates `.sdd/` and `specs/` in the current project. `/brief` does that automatically if they are missing. For bigger work, see [Pick a Workflow](#pick-a-workflow).
+`/sdd-init` creates `.sdd/` and `specs/` in the current project. `/sdd-brief` does that automatically if they are missing. For bigger work, see [Pick a Workflow](#pick-a-workflow).
 
 ---
 
@@ -35,12 +35,12 @@ The ones you'll actually use day to day:
 | Command | What it does |
 |---------|--------------|
 | `/sdd-init` | First-time: create `.sdd/` + `specs/` in this project |
-| `/brief` | Quick 30-min plan for a feature (start here for most things) |
+| `/sdd-brief` | Quick 30-min plan for a feature (start here for most things) |
 | `/sdd-plan` | Technical architecture (`plan.md`). Not Cursor's `/plan` (Plan mode) |
-| `/implement` | Build it, with progress tracking |
+| `/sdd-implement` | Build it, with progress tracking |
 | `/sdd-complete` | Close the spec: move `specs/active/` → `specs/completed/` |
-| `/audit` | Review the code against the spec |
-| `/evolve` | Update the spec when things change mid-build |
+| `/sdd-audit` | Review the code against the spec |
+| `/sdd-evolve` | Update the spec when things change mid-build |
 
 > Full command list, flags, and outputs are in the [technical docs](README-technical.md#commands).
 
@@ -50,19 +50,19 @@ The ones you'll actually use day to day:
 
 **Just building a feature?** (most of the time)
 ```
-/brief my-feature  →  /implement my-feature  →  /sdd-complete my-feature
+/sdd-brief my-feature  →  /sdd-implement my-feature  →  /sdd-complete my-feature
 ```
 
 **Complex or high-risk feature?**
 ```
-/research  →  /specify  →  /sdd-plan  →  /tasks  →  /implement  →  /sdd-complete
+/sdd-research  →  /sdd-specify  →  /sdd-plan  →  /sdd-tasks  →  /sdd-implement  →  /sdd-complete
 ```
 
 Cursor's built-in `/plan` is Plan mode (the **Build** button). SDD technical architecture is **`/sdd-plan`**.
 
 **Whole app or big project?**
 ```
-/sdd-full-plan my-app  →  /execute-parallel my-app --until-finish
+/sdd-full-plan my-app  →  /sdd-execute-parallel my-app --until-finish
 ```
 
 That's the 90% case. Everything else — deep research, parallel/cloud execution, heavy apps — is in the [technical docs](README-technical.md#workflows).
@@ -101,6 +101,6 @@ MIT License — see [LICENSE](LICENSE)
 
 **Made with ❤️ by [Aris](https://github.com/madebyaris)**
 
-Try it: `/brief hello-world Create a simple hello world feature`
+Try it: `/sdd-brief hello-world Create a simple hello world feature`
 
 </div>

@@ -116,4 +116,4 @@
 **Created:** {{CREATED_DATE}}  
 **Researcher:** {{RESEARCHER}}  
 **Research Duration:** {{RESEARCH_DURATION}}  
-**Next Phase:** Specification (`/specify {{TASK_ID}}`)
+**Next Phase:** Specification (`/sdd-specify {{TASK_ID}}`)

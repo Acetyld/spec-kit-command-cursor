@@ -1,6 +1,6 @@
 ---
 name: sdd-explorer
-description: SDD research report for /research and /brief. Use proactively when the technical approach is unclear, before those commands, or when investigating existing patterns. Return an SDD-shaped exploration summary (code, patterns, constraints, specs/, memory). Do not write research.md.
+description: SDD research report for /sdd-research and /sdd-brief. Use proactively when the technical approach is unclear, before those commands, or when investigating existing patterns. Return an SDD-shaped exploration summary (code, patterns, constraints, specs/, memory). Do not write research.md.
 model: inherit
 readonly: true
 ---

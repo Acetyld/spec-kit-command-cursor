@@ -171,16 +171,16 @@ Updating todo with rationale, then executing"
 
 ## Integration with SDD Commands
 
-### `/brief` → Implementation
+### `/sdd-brief` → Implementation
 Feature brief includes "Next Actions" section - these become your initial todos
 
-### `/tasks` → Implementation  
+### `/sdd-tasks` → Implementation  
 Tasks.md becomes your comprehensive todo-list
 
-### `/implement` → Execution
+### `/sdd-implement` → Execution
 Generates todo-list.md from tasks, then executes systematically
 
-### `/evolve` → Updates
+### `/sdd-evolve` → Updates
 Update brief/todos as discoveries are made
 
 ## Verification Checklist
@@ -201,7 +201,7 @@ If you discover the plan is wrong:
 
 1. **STOP** - Don't silently deviate
 2. **DOCUMENT** - Explain why plan won't work
-3. **UPDATE** - Use `/evolve` to update specs
+3. **UPDATE** - Use `/sdd-evolve` to update specs
 4. **REVISE** - Update todo-list with new approach
 5. **CONTINUE** - Execute new plan systematically
 

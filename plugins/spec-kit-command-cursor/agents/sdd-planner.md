@@ -21,7 +21,7 @@ Do **not** switch to Cursor Plan mode, do **not** create a Cursor Plan, and do *
 - Identify functional/non-functional requirements and acceptance criteria
 
 ### 2. Analyze Context
-- Review exploration findings from `sdd-explorer` or `/research`
+- Review exploration findings from `sdd-explorer` or `/sdd-research`
 - Understand existing architecture constraints and integration points
 - **Recall memory** — invoke the `sdd-memory` skill to load prior architecture decisions and conventions before designing (no-op for `standard` provider)
 

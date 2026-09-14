@@ -14,11 +14,11 @@ Consolidated agent protocol for SDD workflows. **Requires Cursor 3.8+.** Aug 202
 4. **Ask when uncertain** — don't guess, clarify
 5. **Delegate appropriately** — use subagents for context isolation
 6. **Ask via AskQuestion** — never dump A/B/C or numbered questions in chat as a substitute for Cursor's question UI
-7. **Never Cursor Plan mode** — SDD `/sdd-plan` writes `specs/active/[task-id]/plan.md`. Do not SwitchMode to `plan`, do not create a Cursor Plan, do not ask the user to press **Build**. Implementation is `/implement`.
+7. **Never Cursor Plan mode** — SDD `/sdd-plan` writes `specs/active/[task-id]/plan.md`. Do not SwitchMode to `plan`, do not create a Cursor Plan, do not ask the user to press **Build**. Implementation is `/sdd-implement`.
 8. **Two-level nest only** — main (or orchestrator at depth 1) spawns siblings. Implementer **never** spawns verifier.
 9. **Fan-out in one message** — multiple Task calls together. Cap: `.sdd/config.json` `settings.maxParallelImplementers` (default 4).
 10. **Children return text** — only the main agent writes `research.md` / `feature-brief.md` / `spec.md` / `plan.md` / `tasks.md` / `todo-list.md`.
-11. **`/implement` finishes the spec** — one checkbox per `tasks.md` task; keep going after each phase; “complete” only when the whole list is closed or blocked.
+11. **`/sdd-implement` finishes the spec** — one checkbox per `tasks.md` task; keep going after each phase; “complete” only when the whole list is closed or blocked.
 
 When you need a decision, clarification, or plan approval, call the **AskQuestion** tool in that same turn. One call can hold several questions; each needs at least two options. Chat may introduce *why* you are asking (1–2 sentences). The choices go in the tool. After it returns, continue — do not re-ask in markdown. AskQuestion runs only on the **main** agent.
 
@@ -60,12 +60,12 @@ specs/
 └── templates/
 
 .cursor/
-├── rules/                     # App conventions from /generate-rules
+├── rules/                     # App conventions from /sdd-generate-rules
 ├── environment.json           # Optional cloud agent setup
 └── worktrees.json             # Optional worktree setup
 ```
 
-If `.sdd/config.json` is missing, run `/sdd-init` (or let `/brief` do it) before writing specs.
+If `.sdd/config.json` is missing, run `/sdd-init` (or let `/sdd-brief` do it) before writing specs.
 
 Plugin hooks live in `hooks/` and load with the plugin. `/sdd-init` does **not** copy them into `.cursor/hooks.json`.
 
@@ -124,9 +124,9 @@ When there are distinct areas (research slices, plan slices, independent todos):
 3. Do not invent fake slices. One area → one explorer/planner.
 4. N parallel subagents ≈ N× tokens.
 
-`/research` and `/brief`: one or more `sdd-explorer` siblings → main writes the file.  
-`/specify` and `/sdd-plan`: one or more `sdd-planner` siblings when the split is obvious → main writes the file.  
-`/implement`: if ≥5 independent todos or the user asks for parallel → implementer siblings, then verifier siblings. Else one implementer (or main), then one sibling verifier.
+`/sdd-research` and `/sdd-brief`: one or more `sdd-explorer` siblings → main writes the file.  
+`/sdd-specify` and `/sdd-plan`: one or more `sdd-planner` siblings when the split is obvious → main writes the file.  
+`/sdd-implement`: if ≥5 independent todos or the user asks for parallel → implementer siblings, then verifier siblings. Else one implementer (or main), then one sibling verifier.
 
 ### Task fields
 
@@ -162,20 +162,20 @@ Built-in Task types (not SDD agents): `bugbot`, `security-review`, `best-of-n-ru
 
 | Name | Kind |
 |------|------|
-| `/sdd-init`, `/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`, `/sdd-complete`, `/audit`, `/evolve`, `/refine`, `/sdd-full-plan`, `/execute-task`, `/execute-parallel`, `/sdd-memory` | **Plugin** |
+| `/sdd-init`, `/sdd-brief`, `/sdd-research`, `/sdd-specify`, `/sdd-plan`, `/sdd-tasks`, `/sdd-implement`, `/sdd-complete`, `/sdd-audit`, `/sdd-evolve`, `/sdd-refine`, `/sdd-full-plan`, `/sdd-execute-task`, `/sdd-execute-parallel`, `/sdd-memory` | **Plugin** |
 | `/multitask`, `/review`, `/review-bugbot`, `/review-security`, `/goal`, `/autopilot`, `/in-cloud`, `/worktree`, `/best-of-n` | **Native Cursor** — do not list as SDD plugin commands |
 
-`/in-cloud` is the user-facing alias. Orchestrator/implement prompts should set Task `environment: "cloud"` when offloading. `/autopilot` (formerly babysit) drives a PR to merge-ready.
+`/in-cloud` is the user-facing alias. Orchestrator/sdd-implement prompts should set Task `environment: "cloud"` when offloading. `/autopilot` (formerly babysit) drives a PR to merge-ready.
 
-### `/goal` on `/implement`
+### `/goal` on `/sdd-implement`
 
-When `/goal` exists, `/implement` sets a long-lived objective:
+When `/goal` exists, `/sdd-implement` sets a long-lived objective:
 
 ```
 Complete spec "<title>" in specs/active/<task-id>/ until every todo is [x] or [BLOCKED] and the sibling sdd-verifier reports the whole list complete. Do not stop after a single phase.
 ```
 
-`/tasks` writes that full `todo-list.md` in the same turn. `/implement` expands any range stubs before coding. A phase-scoped verifier is a **checkpoint** — the parent continues immediately. Pair with Custom Mode `sdd-implementation` (Option+Enter / Alt+Enter). If `/goal` is missing, still finish the list + sibling verifier.
+`/sdd-tasks` writes that full `todo-list.md` in the same turn. `/sdd-implement` expands any range stubs before coding. A phase-scoped verifier is a **checkpoint** — the parent continues immediately. Pair with Custom Mode `sdd-implementation` (Option+Enter / Alt+Enter). If `/goal` is missing, still finish the list + sibling verifier.
 
 ### Custom Modes
 
@@ -185,7 +185,7 @@ Skills `sdd-planning`, `sdd-implementation`, `sdd-audit`, `sdd-research` have `i
 
 | Aspect | `sdd-reviewer` | `sdd-verifier` |
 |--------|----------------|----------------|
-| **When** | Before merging / `/audit` | After every implementation |
+| **When** | Before merging / `/sdd-audit` | After every implementation |
 | **Perspective** | Quality, security, performance | Completeness vs spec |
 | **Spawned by** | Main or user | **Parent** (main or orchestrator), as a sibling of implementer |
 | **Mode** | Readonly | Foreground |
@@ -228,7 +228,7 @@ When `standard`, memory is a no-op. **Never store secrets in memory.**
 Prefer Cursor's first-party reviewers for mechanical checks, then let SDD agents own spec compliance:
 
 - `/review`, `/review-bugbot`, `/review-security` — or Task `bugbot` / `security-review`
-- `sdd-reviewer` and `/audit` add the spec-compliance verdict
+- `sdd-reviewer` and `/sdd-audit` add the spec-compliance verdict
 
 ---
 
@@ -304,17 +304,17 @@ Checkpoint:
 
 | Command | Spawns (when needed) | Skill | Who writes the spec file |
 |---------|----------------------|-------|--------------------------|
-| `/research` | 1–N `sdd-explorer` | sdd-research | **main** (`research.md`) |
-| `/brief` | 1–N `sdd-explorer` | sdd-planning | **main** (`feature-brief.md`) |
-| `/specify` | 0–N `sdd-planner` | sdd-planning | **main** (`spec.md`) |
+| `/sdd-research` | 1–N `sdd-explorer` | sdd-research | **main** (`research.md`) |
+| `/sdd-brief` | 1–N `sdd-explorer` | sdd-planning | **main** (`feature-brief.md`) |
+| `/sdd-specify` | 0–N `sdd-planner` | sdd-planning | **main** (`spec.md`) |
 | `/sdd-plan` | 0–N `sdd-planner` | sdd-planning | **main** (`plan.md`) |
-| `/tasks` | 0–1 `sdd-planner` | — | **main** (`tasks.md` + full `todo-list.md`) |
-| `/implement` | implementer(s); checkpoint then **continue**; sibling verifier on whole list; `/goal` | sdd-implementation | main (`todo-list.md`) |
+| `/sdd-tasks` | 0–1 `sdd-planner` | — | **main** (`tasks.md` + full `todo-list.md`) |
+| `/sdd-implement` | implementer(s); checkpoint then **continue**; sibling verifier on whole list; `/goal` | sdd-implementation | main (`todo-list.md`) |
 | `/sdd-complete` | — | — | — |
-| `/audit` | `sdd-reviewer` | sdd-audit | — |
-| `/evolve` | — | sdd-evolve | main |
-| `/execute-task` | implementer then sibling verifier | varies | — |
-| `/execute-parallel` | `sdd-orchestrator` or main as orchestrator | varies | checkpoint |
+| `/sdd-audit` | `sdd-reviewer` | sdd-audit | — |
+| `/sdd-evolve` | — | sdd-evolve | main |
+| `/sdd-execute-task` | implementer then sibling verifier | varies | — |
+| `/sdd-execute-parallel` | `sdd-orchestrator` or main as orchestrator | varies | checkpoint |
 
 ---
 
@@ -328,4 +328,4 @@ Checkpoint:
 
 ---
 
-*SDD Agent Manual v6.1 — two-level nest, fan-out siblings, `/implement` finishes the spec, `/goal`, Custom Modes, Task cloud APIs*
+*SDD Agent Manual v6.1 — two-level nest, fan-out siblings, `/sdd-implement` finishes the spec, `/goal`, Custom Modes, Task cloud APIs*

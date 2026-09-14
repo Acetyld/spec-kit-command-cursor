@@ -1,9 +1,9 @@
 ---
-name: tasks
+name: sdd-tasks
 description: Break plan.md into tasks.md and a full todo-list.md (one checkbox per task).
 ---
 
-# /tasks Command
+# /sdd-tasks Command
 
 Break down a technical plan into actionable, prioritized development tasks with effort estimates and dependencies.
 
@@ -23,7 +23,7 @@ You are a project planning agent that transforms technical plans into actionable
 - Estimate effort and identify dependencies
 - Organize tasks into logical phases
 - Define clear acceptance criteria
-- Write `todo-list.md` with **one checkbox per task** (no range stubs) so `/implement` can finish the spec
+- Write `todo-list.md` with **one checkbox per task** (no range stubs) so `/sdd-implement` can finish the spec
 
 **Boundaries:** Do not write implementation code or execute tasks. Focus on planning only.
 
@@ -39,14 +39,14 @@ You are a project planning agent that transforms technical plans into actionable
 ## Usage
 
 ```
-/tasks [task-id]
+/sdd-tasks [task-id]
 ```
 
 **Examples:**
 ```
-/tasks user-auth-system
-/tasks checkout-flow
-/tasks notification-system
+/sdd-tasks user-auth-system
+/sdd-tasks checkout-flow
+/sdd-tasks notification-system
 ```
 
 ---
@@ -58,13 +58,13 @@ You are a project planning agent that transforms technical plans into actionable
 Read in order:
 1. `specs/active/[task-id]/plan.md` (REQUIRED)
 2. `specs/active/[task-id]/spec.md` (if exists)
-3. `specs/active/[task-id]/research.md` (if exists)
+3. `specs/active/[task-id]/sdd-research.md` (if exists)
 
 **If plan.md doesn't exist:**
 ```
 I can't find a plan for [task-id]. Would you like me to:
 1. Run `/sdd-plan [task-id]` to create one first
-2. Run `/brief [task-id]` for quick planning
+2. Run `/sdd-brief [task-id]` for quick planning
 ```
 
 ### Step 2: Analyze & Preview
@@ -135,7 +135,7 @@ Then call **AskQuestion**: "Proceed?" → Proceed / Adjust / Cancel. Do not only
 ## Next Steps
 
 1. Review task breakdown
-2. Run `/implement [task-id]` — that command finishes **all** todos, not Phase 1 only
+2. Run `/sdd-implement [task-id]` — that command finishes **all** todos, not Phase 1 only
 
 ---
 
@@ -176,7 +176,7 @@ If `todo-list.md` already exists, rewrite it so the checkbox count matches `task
 ### Verification
 
 Before final output, verify:
-- [ ] File created at `specs/active/[task-id]/tasks.md`
+- [ ] File created at `specs/active/[task-id]/sdd-tasks.md`
 - [ ] File created at `specs/active/[task-id]/todo-list.md`
 - [ ] Checkbox count in todo-list.md equals task count in tasks.md
 - [ ] All tasks have acceptance criteria and effort estimates
@@ -190,7 +190,7 @@ Before final output, verify:
 **Your response MUST end with:**
 
 ```
-✅ Tasks created: `specs/active/[task-id]/tasks.md`
+✅ Tasks created: `specs/active/[task-id]/sdd-tasks.md`
 ✅ Checklist: `specs/active/[task-id]/todo-list.md` ([N] items)
 
 **Summary:**
@@ -199,7 +199,7 @@ Before final output, verify:
 - Estimated effort: [Total]
 
 **Ready to implement:**
-- Run `/implement [task-id]` — implements every todo, not only Phase 1
+- Run `/sdd-implement [task-id]` — implements every todo, not only Phase 1
 ```
 
 ---
@@ -223,7 +223,7 @@ Before final output, verify:
 
 ## Related Commands
 
-- `/implement [task-id]` - Finish every todo in the checklist
+- `/sdd-implement [task-id]` - Finish every todo in the checklist
 - `/sdd-plan [task-id]` - Create technical plan (prerequisite)
-- `/specify [task-id]` - Define requirements
+- `/sdd-specify [task-id]` - Define requirements
 - `/sdd-full-plan [project-id]` - Full project roadmap

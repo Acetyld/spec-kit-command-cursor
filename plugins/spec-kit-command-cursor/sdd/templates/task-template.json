@@ -18,7 +18,7 @@
     "phase": "{{SDD_PHASE}}",
     "commands": ["{{SDD_COMMANDS}}"],
     "linkedSpec": null,
-    "executeCommand": "/execute-task {{TASK_ID}}",
+    "executeCommand": "/sdd-execute-task {{TASK_ID}}",
     "executedAt": null,
     "completedAt": null,
     "executedBy": null

@@ -1,7 +1,7 @@
 # Feature Specification: SDD Commands Implementation
 
 ## Overview
-Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor IDE commands to enable structured software development workflow.
+Implement the three core SDD commands (/sdd-specify, /sdd-plan, /sdd-tasks) as Cursor IDE commands to enable structured software development workflow.
 
 ## Problem Statement
 ### What problem are we solving?
@@ -26,7 +26,7 @@ Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor ID
 
 ### Functional Requirements
 
-- **FR-001**: `/specify` command creates detailed feature specifications
+- **FR-001**: `/sdd-specify` command creates detailed feature specifications
   - **Acceptance Criteria**: 
     - Command accepts feature name and description
     - Generates spec.md with requirements, user stories, acceptance criteria
@@ -40,7 +40,7 @@ Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor ID
     - Includes technology stack recommendations
     - Considers security and performance requirements
 
-- **FR-003**: `/tasks` command breaks down plans into actionable tasks
+- **FR-003**: `/sdd-tasks` command breaks down plans into actionable tasks
   - **Acceptance Criteria**:
     - Reads existing plan and specification files
     - Creates discrete, manageable development tasks
@@ -65,7 +65,7 @@ Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor ID
 
 ### US-001: Create Feature Specification
 **As a** developer  
-**I want** to use `/specify` command with feature description  
+**I want** to use `/sdd-specify` command with feature description  
 **So that** I can create comprehensive requirements before coding
 
 **Acceptance Criteria:**
@@ -93,7 +93,7 @@ Implement the three core SDD commands (/specify, /sdd-plan, /tasks) as Cursor ID
 
 ### US-003: Create Implementation Tasks
 **As a** developer  
-**I want** to use `/tasks` command on existing plan  
+**I want** to use `/sdd-tasks` command on existing plan  
 **So that** I can break down work into manageable development tasks
 
 **Acceptance Criteria:**

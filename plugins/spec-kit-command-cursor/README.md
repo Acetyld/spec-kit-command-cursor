@@ -17,16 +17,16 @@
 
 - **Cursor 3.8 throughout** — Aligned to the latest runtime (was 3.2). New badges, docs, and command guidance.
 - **Pluggable Memory** — Optional long-term memory with three backends: `standard` (rules-only, default), `cursor-native` (Cursor 3.8 Memories), and `mem0` (free self-host). Configure with `/sdd-memory`; agents recall before planning and persist durable facts after. See [Memory](#memory).
-- **Native Review integration** — `sdd-reviewer` and `/audit` now lean on `/review` (Bugbot + Security Review) for mechanical checks and own the spec-compliance verdict.
-- **Cloud Subagents** — `/execute-parallel` and `sdd-orchestrator` can offload long-running, risky, or environment-heavy tasks via `/in-cloud`, and prep PRs with `/autopilot`. Ships `.cursor/environment.json` for fast cloud startup.
+- **Native Review integration** — `sdd-reviewer` and `/sdd-audit` now lean on `/review` (Bugbot + Security Review) for mechanical checks and own the spec-compliance verdict.
+- **Cloud Subagents** — `/sdd-execute-parallel` and `sdd-orchestrator` can offload long-running, risky, or environment-heavy tasks via `/in-cloud`, and prep PRs with `/autopilot`. Ships `.cursor/environment.json` for fast cloud startup.
 - **Optional plugin hooks** — Fail-open `subagentStop` / `stop` in plugin `hooks/` (structured notes only). Not copied to `.cursor/hooks.json`.
-- **Two-level nest + fan-out** — Sibling verifiers; `/research` and `/implement` spawn multiple Tasks in one message. `/implement` uses `/goal` when available.
-- **Custom Modes** — Pin `sdd-implementation` (and planning/audit/research) with Option+Enter / Alt+Enter.
-- **Deep Research** — Multi-pass external investigation with web search, documentation deep-dives, and confidence scoring (`/research --deep`).
+- **Two-level nest + fan-out** — Sibling verifiers; `/sdd-research` and `/sdd-implement` spawn multiple Tasks in one message. `/sdd-implement` uses `/goal` when available.
+- **Custom Modes** — Pin `sdd-implementation` (and planning/sdd-audit/sdd-research) with Option+Enter / Alt+Enter.
+- **Deep Research** — Multi-pass external investigation with web search, documentation deep-dives, and confidence scoring (`/sdd-research --deep`).
 - **File Conflict Detection** — Tasks declare `touchedFiles` so the orchestrator prevents parallel edits to the same files.
 - **Progressive Context Loading** — Heavy roadmaps (40+ tasks) load only the current batch.
-- **Checkpoints & Resume** — `execution-checkpoint.json` enables `/execute-parallel --resume`.
-- **Downstream Propagation** — `/evolve` marks stale downstream docs when a spec changes.
+- **Checkpoints & Resume** — `execution-checkpoint.json` enables `/sdd-execute-parallel --resume`.
+- **Downstream Propagation** — `/sdd-evolve` marks stale downstream docs when a spec changes.
 - **Sandbox Controls** — Granular network access via `.cursor/sandbox.json`.
 - **Plugin Packaging** — Distributable as a Cursor Marketplace plugin (`.cursor-plugin/`).
 
@@ -39,41 +39,41 @@
 | Command | Purpose | Output |
 |---------|---------|--------|
 | `/sdd-init` | Scaffold `.sdd/` + `specs/` in the current project | `.sdd/config.json` |
-| `/brief` | 30-min quick planning | `feature-brief.md` |
-| `/research` | Pattern investigation (supports `--deep`) | `research.md` |
-| `/specify` | Detailed requirements | `spec.md` |
+| `/sdd-brief` | 30-min quick planning | `feature-brief.md` |
+| `/sdd-research` | Pattern investigation (supports `--deep`) | `research.md` |
+| `/sdd-specify` | Detailed requirements | `spec.md` |
 | `/sdd-plan` | Technical architecture | `plan.md` |
-| `/tasks` | Task breakdown + full checklist | `tasks.md` + `todo-list.md` |
-| `/generate-prd` | PRD via Socratic questions | `full-prd.md` |
+| `/sdd-tasks` | Task breakdown + full checklist | `tasks.md` + `todo-list.md` |
+| `/sdd-generate-prd` | PRD via Socratic questions | `full-prd.md` |
 | `/sdd-full-plan` | Complete project roadmap | `roadmap.json` + tasks |
 
 ### Execution
 
 | Command | Purpose |
 |---------|---------|
-| `/implement` | Finish the spec — all todos, not only Phase 1 |
-| `/execute-task` | Run single task from roadmap (`--until-finish` supported) |
-| `/execute-parallel` | Parallel DAG execution via async subagents (`--resume`, `--dry-run`) |
+| `/sdd-implement` | Finish the spec — all todos, not only Phase 1 |
+| `/sdd-execute-task` | Run single task from roadmap (`--until-finish` supported) |
+| `/sdd-execute-parallel` | Parallel DAG execution via async subagents (`--resume`, `--dry-run`) |
 
 ### Maintenance
 
 | Command | Purpose |
 |---------|---------|
-| `/evolve` | Update specs with discoveries + downstream propagation |
-| `/refine` | Iterate on specs through discussion |
-| `/upgrade` | Brief → Full SDD planning |
-| `/audit` | Compare implementation against specs (folds in native `/review`) |
-| `/generate-rules` | Auto-generate coding rules |
+| `/sdd-evolve` | Update specs with discoveries + downstream propagation |
+| `/sdd-refine` | Iterate on specs through discussion |
+| `/sdd-upgrade` | Brief → Full SDD planning |
+| `/sdd-audit` | Compare implementation against specs (folds in native `/review`) |
+| `/sdd-generate-rules` | Auto-generate coding rules |
 | `/sdd-memory` | Configure the memory backend (standard / cursor-native / mem0) |
 
 ### Native Cursor 3.8 tools SDD plugs into
 
 | Tool | How SDD uses it |
 |------|-----------------|
-| `/review`, `/review-bugbot`, `/review-security` | `sdd-reviewer` + `/audit` run these for fast Bugbot/Security checks, then add spec compliance |
+| `/review`, `/review-bugbot`, `/review-security` | `sdd-reviewer` + `/sdd-audit` run these for fast Bugbot/Security checks, then add spec compliance |
 | `/in-cloud` | User alias; orchestrator prefers Task `environment: "cloud"` |
 | `/autopilot` | Hand a finished task's PR to a cloud agent to reach merge-ready |
-| `/goal` | Long-lived `/implement` objective until the whole todo-list is closed |
+| `/goal` | Long-lived `/sdd-implement` objective until the whole todo-list is closed |
 | `/multitask` | Quick ad hoc parallel prompts with no SDD roadmap state |
 | Memories | The `cursor-native` memory provider stores durable facts as Cursor Memories |
 
@@ -162,37 +162,37 @@ sdd-[name]/
 ```mermaid
 flowchart LR
     subgraph quick [Everyday]
-        A["/brief"] --> B["/implement"]
+        A["/sdd-brief"] --> B["/sdd-implement"]
     end
     subgraph full [Full Planning]
-        D["/research"] --> E["/specify"] --> F["/sdd-plan"] --> G["/tasks"] --> H["/implement"]
+        D["/sdd-research"] --> E["/sdd-specify"] --> F["/sdd-plan"] --> G["/sdd-tasks"] --> H["/sdd-implement"]
     end
     subgraph parallel [Parallel Execution]
-        I["/sdd-full-plan"] --> J["/execute-parallel"]
+        I["/sdd-full-plan"] --> J["/sdd-execute-parallel"]
     end
 ```
 
 | Flow | Commands |
 |------|----------|
-| **Everyday** (most features) | `/sdd-init` (once) → `/brief` → `/implement` → `/sdd-complete` |
-| **Full** (complex features) | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` → `/sdd-complete` |
-| **Deep Research** (unfamiliar domain) | `/research --deep` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` |
-| **Parallel** (project roadmap) | `/sdd-full-plan` → `/execute-parallel` |
-| **Heavy App** (20+ tasks) | `/sdd-full-plan` (Option C: Phased for 40+) → `/execute-parallel --until-finish` |
+| **Everyday** (most features) | `/sdd-init` (once) → `/sdd-brief` → `/sdd-implement` → `/sdd-complete` |
+| **Full** (complex features) | `/sdd-research` → `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` → `/sdd-complete` |
+| **Deep Research** (unfamiliar domain) | `/sdd-research --deep` → `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` |
+| **Parallel** (project roadmap) | `/sdd-full-plan` → `/sdd-execute-parallel` |
+| **Heavy App** (20+ tasks) | `/sdd-full-plan` (Option C: Phased for 40+) → `/sdd-execute-parallel --until-finish` |
 
 ### Heavy App Path
 
 For new apps with 20+ tasks or enterprise complexity:
 1. `/sdd-full-plan [project-id] [description]` — create roadmap with DAG
 2. For 40+ tasks: choose **Option C: Phased Creation** to create epics incrementally
-3. `/execute-parallel [project-id] --until-finish` — run all tasks with conflict detection
-4. `/execute-parallel [project-id] --resume` — resume after interruption via checkpoint
+3. `/sdd-execute-parallel [project-id] --until-finish` — run all tasks with conflict detection
+4. `/sdd-execute-parallel [project-id] --resume` — resume after interruption via checkpoint
 
 ### Deep Research
 
 For high-stakes technical decisions (database engines, auth providers, cloud platforms):
 ```bash
-/research auth-provider Compare Auth0 vs Clerk vs Supabase Auth --deep
+/sdd-research auth-provider Compare Auth0 vs Clerk vs Supabase Auth --deep
 ```
 
 Deep research performs 4 passes: landscape scan → documentation deep-dive → real-world validation → integration feasibility. Results include source URLs, reliability ratings, and a confidence assessment.
@@ -200,7 +200,7 @@ Deep research performs 4 passes: landscape scan → documentation deep-dive → 
 ### Automated Execution
 ```bash
 # Execute until complete
-/execute-task epic-001 --until-finish
+/sdd-execute-task epic-001 --until-finish
 
 # Create and execute entire project
 /sdd-full-plan my-project --until-finish

@@ -23,7 +23,7 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
 | Plugin (commands, agents, skills, SDD rule) | `plugins/spec-kit-command-cursor/` | Loaded by Cursor from the marketplace plugin |
 | Project templates + config | `.sdd/` | Created in the app repo by `/sdd-init` |
 | Specs | `specs/` | Feature briefs, plans, roadmaps |
-| Project rules | `.cursor/rules/` | App conventions from `/generate-rules` |
+| Project rules | `.cursor/rules/` | App conventions from `/sdd-generate-rules` |
 | Cloud / worktrees | `.cursor/environment.json`, `.cursor/worktrees.json` | Optional project-level Cursor files |
 | Memory | `.sdd/config.json` `memory` | Pluggable backend: standard / cursor-native / mem0 |
 
@@ -31,9 +31,9 @@ User Request → Main Agent → Subagents (parallel/async) → Skills (auto-invo
 
 | Flow | Commands | Use When |
 |------|----------|----------|
-| **Everyday feature** | `/brief` → `/implement` | Most work |
-| **Complex / high-risk** | `/research` → `/specify` → `/sdd-plan` → `/tasks` → `/implement` | New architecture, auth, payments |
-| **Whole app** | `/sdd-full-plan` → `/execute-parallel --until-finish` | New project or 20+ tasks |
+| **Everyday feature** | `/sdd-brief` → `/sdd-implement` | Most work |
+| **Complex / high-risk** | `/sdd-research` → `/sdd-specify` → `/sdd-plan` → `/sdd-tasks` → `/sdd-implement` | New architecture, auth, payments |
+| **Whole app** | `/sdd-full-plan` → `/sdd-execute-parallel --until-finish` | New project or 20+ tasks |
 
 ## Spec Directory Structure
 
@@ -43,11 +43,11 @@ specs/
 ├── index.md                    # Navigation and status
 ├── active/[task-id]/           # Features in development
 │   ├── feature-brief.md        # Quick Planning output
-│   ├── research.md             # /research output
-│   ├── spec.md                 # /specify output
+│   ├── research.md             # /sdd-research output
+│   ├── spec.md                 # /sdd-specify output
 │   ├── plan.md                 # /sdd-plan output
-│   ├── tasks.md                # /tasks output
-│   ├── todo-list.md            # /implement creates this
+│   ├── tasks.md                # /sdd-tasks output
+│   ├── todo-list.md            # /sdd-implement creates this
 │   └── progress.md             # Development tracking
 ├── todo-roadmap/[project-id]/  # /sdd-full-plan output
 │   ├── roadmap.json            # DAG-based task graph

@@ -7,7 +7,7 @@ color: green
 
 # SDD Implementation Skill
 
-Build what has been planned. `/implement` finishes the spec, not the first phase.
+Build what has been planned. `/sdd-implement` finishes the spec, not the first phase.
 
 ## When to Use
 
@@ -38,7 +38,7 @@ If the list is stubbed or missing later phases, rewrite it from `tasks.md` befor
 5. **Document blockers** — never skip silently, use `[BLOCKED: reason]`
 6. **Do not stop** after a phase, a verifier checkpoint, or “show progress”
 
-Stop only when every todo is `[x]` or `[BLOCKED]`, or the run is forced to pause (context / nothing left unblocked). On a forced pause the last line is: `Reply continue` or `/implement [task-id]`.
+Stop only when every todo is `[x]` or `[BLOCKED]`, or the run is forced to pause (context / nothing left unblocked). On a forced pause the last line is: `Reply continue` or `/sdd-implement [task-id]`.
 
 ### Step 4: Follow Patterns
 Reference `references/patterns.md` for project conventions and implementation patterns.
@@ -66,7 +66,7 @@ Use `scripts/progress.sh` to visualize completion status.
 - [anything that should update specs]
 ```
 
-**Paused** (forced stop): X/Y done, list still-open ids, last line = `Reply continue` or `/implement [task-id]`. Never “Implementation complete” while boxes are open.
+**Paused** (forced stop): X/Y done, list still-open ids, last line = `Reply continue` or `/sdd-implement [task-id]`. Never “Implementation complete” while boxes are open.
 
 ## Anti-Patterns
 

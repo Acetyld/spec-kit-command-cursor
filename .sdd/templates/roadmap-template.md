@@ -78,7 +78,7 @@
 
 2. **Start first task:**
    ```bash
-   /execute-task {{FIRST_TASK_ID}}
+   /sdd-execute-task {{FIRST_TASK_ID}}
    ```
 
 3. **Track progress:**
@@ -134,7 +134,7 @@ specs/todo-roadmap/{{PROJECT_ID}}/
 ## 🛠️ Integration
 
 This roadmap integrates with:
-- ✅ SDD Commands (`/brief`, `/research`, `/specify`, `/sdd-plan`, `/tasks`, `/implement`)
+- ✅ SDD Commands (`/sdd-brief`, `/sdd-research`, `/sdd-specify`, `/sdd-plan`, `/sdd-tasks`, `/sdd-implement`)
 - ✅ VSCode Kanban Extensions (Taskr Kanban compatible)
 - ✅ Specs in `specs/active/` for implementation details
 - ✅ Plan-approve-execute (AskQuestion) for SDD commands — not Cursor Plan mode
